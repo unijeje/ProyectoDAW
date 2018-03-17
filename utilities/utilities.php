@@ -2,9 +2,15 @@
 
 function iniciarSesion()
 {
+  /*Inicia sesión y comprueba las cookies, si existe cookie de "nombre" apunta la sesion y el tipo de cuenta en variables de sesion*/
   session_cache_limiter();
   session_name('login');
   session_start();
+  if(isset($_COOKIE["nombre"]))
+  {
+    $_SESSION["tipo"]=$_COOKIE["tipo"];
+    $_SESSION["nombre"]=$_COOKIE["nombre"];
+  }
 }
 function navBar()
 {

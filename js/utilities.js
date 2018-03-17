@@ -13,6 +13,7 @@ function falloValidacion(sTexto, oInput)
         oInput.parentNode.appendChild(oDiv);
 }
 
+/*
 function comprobarLogin()
 {
     if(getCookie("tipo")!="")
@@ -30,7 +31,7 @@ function comprobarLogin()
         
     }
 }
-
+*/
 function getCookie(cname) { // cookie name
     var name = cname + "=";
     var ca = document.cookie.split(';'); // Splitea los pares key (clave) / value (valor) name1=valor1;name2=valor2
