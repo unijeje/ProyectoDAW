@@ -1,6 +1,6 @@
 ﻿<?php
 
-include_once("bbdd.php");
+include_once("../bbdd.php");
 
 $oDatos=json_decode($_GET['datos']);
 $usuario=$oDatos->nombre;
@@ -23,7 +23,7 @@ if(isset($tipo))
     {
         $exito=true;
         $mensaje=$tipo;
-        include("../utilities/manejadorSesiones.php");
+        include("../../utilities/manejadorSesiones.php");
     }
     else
     {

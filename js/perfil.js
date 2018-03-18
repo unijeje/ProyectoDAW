@@ -1,4 +1,5 @@
 $("#guardar").click(editarPerfil);
+$("#eliminar").click(eliminarPerfil);
 var sNombreUsuario=$("#usuario").val();
 function editarPerfil()
 {
@@ -13,7 +14,7 @@ function editarPerfil()
                         id: user_id,
                         correo: sEmail};
             var sDatos= "datos="+JSON.stringify(oCuenta);
-            $.post("../servidor/editarPerfilSinPass.php",sDatos,function(bExito, sStatus, oAjax){
+            $.post("../servidor/gestionCuenta/editarPerfilSinPass.php",sDatos,function(bExito, sStatus, oAjax){
                 if(bExito==true)
                 {
                     $("#formEditarPerfil").hide();
@@ -40,7 +41,7 @@ function editarPerfil()
                         pass: sPass,
                         correo: sEmail};
             var sDatos= "datos="+JSON.stringify(oCuenta);
-            $.post("../servidor/editarPerfilConPass.php",sDatos,function(bExito, sStatus, oAjax){
+            $.post("../servidor/gestionCuenta/editarPerfilConPass.php",sDatos,function(bExito, sStatus, oAjax){
                 if(bExito==true)
                 {
                     $("#formEditarPerfil").hide();
@@ -67,6 +68,22 @@ function validarEdicionUsuario()
     return res;
 }
 
+function eliminarPerfil()
+{
+    $( "#dialog-eliminar" ).dialog("open");
+}
+
+function eliminarCuenta()
+{
+    var sDatos= "datos="+user_id;
+    $.post("../servidor/gestionCuenta/eliminarCuenta.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito==true)
+        {
+            window.location.replace("logoff.php");
+        }
+    },"json");
+}
+
 $(document).on("click", "#editarPerfil", function(){
     $("#formEditarPerfil").show();
 });
@@ -74,3 +91,23 @@ $(document).on("click", "#editarPerfil", function(){
 $(document).on("click", "#mostrarPerfil", function(){
     //cuando se clickea esto se vuelve a comprobar los datos del perfil por si hay necesidad de actualizarlos
 });
+
+
+$( "#dialog-eliminar" ).dialog({
+    resizable: false,
+    height: "auto",
+    width: 400,
+    modal: true,
+    closeOnEscape: false,
+    autoOpen: false,
+    buttons: {
+        Mantener: function() {
+            $( this ).dialog( "close" );
+        },
+        Eliminar: function() {
+            eliminarCuenta();
+        }
+
+    }
+});
+

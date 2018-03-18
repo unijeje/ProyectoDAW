@@ -13,7 +13,7 @@ function conectarse()
                     pass: sPass};
     
     var sDatos= "datos="+JSON.stringify(oCuenta);
-    $.get("../servidor/conectarse.php",sDatos,function(oRespuesta, sStatus, oAjax){
+    $.get("../servidor/gestionCuenta/conectarse.php",sDatos,function(oRespuesta, sStatus, oAjax){
         if(oRespuesta[0]==true)
         {
             //$("#registrado").show();

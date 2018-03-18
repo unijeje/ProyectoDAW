@@ -1,6 +1,6 @@
 <?php
 
-include_once("bbdd.php");
+include_once("../bbdd.php");
 
 $oDatos=json_decode($_POST['datos']);
 $usuario=$oDatos->nombre;

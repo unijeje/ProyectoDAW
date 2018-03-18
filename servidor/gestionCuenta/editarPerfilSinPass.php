@@ -1,15 +1,13 @@
 ﻿<?php
 
-include_once("bbdd.php");
+include_once("../bbdd.php");
 
 $oDatos=json_decode($_POST['datos']);
 $usuario=$oDatos->nombre;
 $email=$oDatos->correo;
 $id=$oDatos->id;
-$pass=$oDatos->pass;
-$claveEncriptada=crypt($pass);
 
-$sql="UPDATE cuentas set email='$email', password='$claveEncriptada' where id='$id'";
+$sql="UPDATE cuentas set email='$email' where id='$id'";
 
 $n=ejecutaConsultaAccion($sql);
 

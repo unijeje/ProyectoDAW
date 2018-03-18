@@ -5,7 +5,12 @@ cabecera("VideoJuegos BBDD");
 navBar();
 $usuario=$_SESSION["nombre"];
 $id= $_SESSION["id"];
-include("../servidor/editarPerfil.php");
+//include("../servidor/gestionCuenta/editarPerfil.php");
+
+include("../servidor/bbdd.php");
+$sql="SELECT email, registro from cuentas where NOMBRE='$usuario'";
+$fila=consultaUnica($sql);
+$fila['registro']=fechaFormato($fila['registro']);
 ?>
 <div class="row">
 
@@ -14,11 +19,12 @@ include("../servidor/editarPerfil.php");
       <a class="nav-link active" id="mostrarPerfil" data-toggle="pill" href="#perfil"><?php echo $_SESSION["nombre"];?></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="editarPerfil" data-toggle="pill" href="#editar">Editar</a>
+      <a class="nav-link" id="editarPerfil" data-toggle="pill" href="#editar">Configuración</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="pill" href="#menu2">Menu 2</a>
     </li>
+
   </ul>
 
   <!-- Tab panes -->
@@ -95,6 +101,11 @@ include("../servidor/editarPerfil.php");
         
         <input type="button" id="guardar" class="btn btn-primary col-8" value="Guardar" />
       </form>
+      <br/>
+      <br/>
+      <form name="formEliminarPerfil" id="formEliminarPerfil">
+        <input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar cuenta" />
+      </form>
     </div>
 
     <div id="menu2" class="container tab-pane fade"><br>
@@ -102,6 +113,11 @@ include("../servidor/editarPerfil.php");
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
   </div>    
+</div>
+
+
+<div id="dialog-eliminar" title="Eliminar Cuenta">
+    <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar la cuenta? Esta acción es irreversible</p>
 </div>
 <script type="text/javascript">var user_id = <?php echo $id ?>;</script>
 <script type="text/javascript" src="../js/perfil.js"></script>
