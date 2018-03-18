@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 function iniciarSesion()
 {
@@ -16,6 +16,7 @@ function iniciarSesion()
 function navBar()
 {
   $cabecera='
+  <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <a class="navbar-brand" href="../index.php">Inicio</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -30,8 +31,22 @@ function navBar()
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>    
+        <a class="nav-link" href="listadoStaff.php">Staff</a>
+      </li>';
+      if(isset($_SESSION["tipo"]))
+      {
+      $cabecera.='
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Añadir</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="addJuego.php">Juego</a>
+            <a class="dropdown-item" href="addStaff.php">Staff</a>
+            <a class="dropdown-item" href="addCompany.php">Compañía</a>
+            <a class="dropdown-item" href="addPlataforma.php">Plataforma</a>
+        </div>
+      </li>';
+      }
+      $cabecera.='      
     </ul>';
     if(!isset($_SESSION["tipo"]))
     {
@@ -79,16 +94,17 @@ function cabecera($titulo)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="../css/css01.css">
+<link rel="stylesheet" href="../css/css02.css">
 <script type="text/javascript" src="../js/utilities.js"></script>
 <title>'.$titulo.'</title>
-</head>
-<body>';
+</head>';
     echo $cabecera;
 }
 
 function navBarIndex()
 {
   $cabecera='
+  <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <a class="navbar-brand" href="index.php">Inicio</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -103,8 +119,22 @@ function navBarIndex()
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>    
+        <a class="nav-link" href="pages/listadoStaff.php">Staff</a>
+      </li>';   
+      if(isset($_SESSION["tipo"]))
+      {
+      $cabecera.='
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Añadir</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="pages/addJuego.php">Juego</a>
+            <a class="dropdown-item" href="pages/addStaff.php">Staff</a>
+            <a class="dropdown-item" href="pages/addCompany.php">Compañía</a>
+            <a class="dropdown-item" href="pages/addPlataforma.php">Plataforma</a>
+        </div>
+      </li>';
+      }
+      $cabecera.='      
     </ul>';
     if(!isset($_SESSION["tipo"]))
     {
@@ -142,18 +172,20 @@ function navBarIndex()
 function cabeceraIndex($titulo)
 {
 
- $cabecera='<!DOCTYPE html>
+  $cabecera='<!DOCTYPE html>
 <head>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="css/css01.css">
+<link rel="stylesheet" href="css/css02.css">
 <script type="text/javascript" src="js/utilities.js"></script>
 <title>'.$titulo.'</title>
-</head>
-<body>';
+</head>';
     echo $cabecera;
 }
 
