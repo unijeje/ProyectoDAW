@@ -6,15 +6,15 @@ $oDatos=json_decode($_GET['datos']);
 $usuario=$oDatos->nombre;
 $pass=$oDatos->pass;
 
-$sql="SELECT nombre, password, tipo from cuentas where NOMBRE='$usuario'";
+$sql="SELECT id, nombre, password, tipo from cuentas where NOMBRE='$usuario'";
 
-$resultset=ejecutaConsulta($sql);
+$fila=consultaUnica($sql);
 
-$fila=$resultset->fetch(PDO::FETCH_ASSOC);
 
 $tipo=$fila["tipo"];
 $claveEncriptada=$fila["password"];
 $nombre=$fila["nombre"];
+$id=$fila["id"];
 
 if(isset($tipo))
 {
@@ -38,7 +38,8 @@ else
     $mensaje="No se ha encontrado el usuario";
 }
 
-$respuesta=array($exito, $mensaje, $nombre);
+
+$respuesta=array($exito, $mensaje, $nombre, $id);
 
 echo json_encode($respuesta); 
 

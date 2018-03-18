@@ -24,6 +24,7 @@ function conectarse()
                 //console.log(oRespuesta);
                 setCookie("tipo", oRespuesta[1], 100);
                 setCookie("nombre", oRespuesta[2], 100);
+                setCookie("id", oRespuesta[3], 100);
             }
 
            

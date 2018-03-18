@@ -3,6 +3,7 @@ include("../utilities/utilities.php");
 iniciarSesion();
 cabecera("Registrarse");
 navBar();
+
 ?>
 
 <div id="registrado">

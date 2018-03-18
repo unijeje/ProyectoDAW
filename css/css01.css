@@ -14,3 +14,8 @@ a{
 a:hover {
     text-decoration: none;
 }
+
+.labelDoble
+{
+    top:-15px;
+}

@@ -23,7 +23,22 @@ function ejecutaConsulta($sql)
 		//recibe una cadena conteniendo una instruccion SELECT y devuelve un resultset
 		
 		$miconexion=connectDB();
-		return $miconexion->query($sql);
+		$resultset=$miconexion->query($sql);
+		$miconexion=null;
+		return $resultset;
+		
+}
+
+function consultaUnica($sql)
+{
+		//recibe una cadena conteniendo una instruccion SELECT y devuelve un resultset
+		
+		$miconexion=connectDB();
+		$resultset=$miconexion->query($sql);
+		$fila=$resultset->fetch(PDO::FETCH_ASSOC);
+		$resultset=null;
+		$miconexion=null;
+		return $fila;
 		
 }
 
@@ -33,7 +48,8 @@ function ejecutaConsulta2($sql)
 		
 		$miconexion=connectDB();
 		$resultset= $miconexion->query($sql);
-		return $resultset->fetchColumn();
+		$res=$resultset->fetchColumn();
+		return $res;
 		
 }
 function ejecutaConsultaArray($sql)
@@ -46,6 +62,7 @@ function ejecutaConsultaArray($sql)
 		{
 			$datos[]=$fila;
 		}
+		$resultset=null;
 		return $datos;
 		
 
@@ -57,7 +74,10 @@ function ejecutaConsultaAccion($sql)
 		$miconexion=connectDB();
 		$accion = $miconexion->prepare($sql);
 		$accion->execute();
-		return $accion->rowCount();
+		$res=$accion->rowCount();
+		$accion=null;
+		$miconexion=null;
+		return $res;
 		//return "1";
 }
 function devuelveUltimaId($tabla){
@@ -65,7 +85,8 @@ function devuelveUltimaId($tabla){
 		$consulta="SELECT MAX(id) as lastId from $tabla";
 		$resultset=ejecutaConsulta($consulta);
 		$id=$resultset->fetch(PDO::FETCH_ASSOC);
-		
+		$resultset=null;
+		$miconexion=null;
 		return $id['lastId'];
 }
 ?>
