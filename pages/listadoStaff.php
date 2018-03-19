@@ -15,17 +15,22 @@ $resPorTabla=$limit/3;
 $sql="SELECT id, nombre from personas where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
 $resultset=ejecutaConsulta($sql);
 ?>
+<div id="registroError">
+    <h2 class="text-danger">Ha habido un error en la busqueda </h2>
+</div>
 <div id="busqueda">
     <h1>Buscar Staff</h1>
     
     <div class="form-group row">
-            <input type="text" class="form-control col-10" id="busqueda" placeholder="" name="busqueda">
-            <input type="button" id="btnADD" class="btn btn-primary col-1 ml-2" value="Busqueda" />
-        
+        <input type="text" class="form-control col-10" id="txtBusqueda" placeholder="" name="txtBusqueda">
+        <input type="button" id="btnBusqueda" class="btn btn-primary col-1 ml-2" value="Busqueda" />
+    </div>
+    <div class="form-group row">
+        <input type="button" id="btnFiltro" class="btn btn-primary col-2 offset-5 text-center my-3" value="Filtros" />
     </div>
 </div>
 
-<div id="listado" class="col-12">
+<div id="listado" class="col-12 mt-5">
     <?php
         $i=0;
         echo '<div class="list-inline text-center col-12">';
@@ -49,8 +54,8 @@ $resultset=ejecutaConsulta($sql);
     
     
     ?>
-    
-    <br>
+</div>
+<div id="paginacion" class="mt-5 ml-5">
     <?php
     $resultset=null;
     $sqlCount="Select count(id) as num from personas";
@@ -65,6 +70,7 @@ $resultset=ejecutaConsulta($sql);
 
     ?>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function(){
     $('.pagination').pagination({
@@ -76,6 +82,7 @@ $resultset=ejecutaConsulta($sql);
         });
         });
 </script>
+<script type="text/javascript" src="../js/ListadoStaff.js"></script>
 <script type="text/javascript" src="../utilities/jquery.simplePagination.js"></script>
 <?php
 pie();

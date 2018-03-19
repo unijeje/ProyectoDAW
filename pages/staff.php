@@ -114,6 +114,7 @@ navBar();
 </div>
 <script type="text/javascript">var staff_id = <?php echo $id_staff ?>;</script>
 <script type="text/javascript" src="../js/staff.js"></script>
+<script type="text/javascript" src="../js/ListadoStaff.js"></script>
 <?php
 pie();
 ?>
