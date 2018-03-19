@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2018 a las 17:45:25
+-- Tiempo de generación: 19-03-2018 a las 17:16:07
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -77,11 +77,21 @@ CREATE TABLE IF NOT EXISTS `cuentas` (
   `NOMBRE` varchar(40) CHARACTER SET latin1 NOT NULL,
   `PASSWORD` varchar(40) CHARACTER SET latin1 NOT NULL,
   `EMAIL` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `registro` date NOT NULL,
   `tipo` int(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`),
   KEY `tipo` (`tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+--
+-- Volcado de datos para la tabla `cuentas`
+--
+
+INSERT INTO `cuentas` (`ID`, `NOMBRE`, `PASSWORD`, `EMAIL`, `registro`, `tipo`) VALUES
+(1, '12', '123123', '123', '0000-00-00', 2),
+(16, 'hola', '$1$ab1.bg4.$/M8Coeo8zL5McL2Vylu8Q0', 'hola', '2018-03-17', 2),
+(18, 'pepe', '$1$Ok/.9B/.$OKQ2tteBAm0fm9F29.rfg1', 'pepe@gmail.com', '2018-03-18', 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +103,15 @@ CREATE TABLE IF NOT EXISTS `cuentas_tipo` (
   `ID` int(1) NOT NULL AUTO_INCREMENT,
   `TIPO` varchar(40) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `cuentas_tipo`
+--
+
+INSERT INTO `cuentas_tipo` (`ID`, `TIPO`) VALUES
+(1, 'admin'),
+(2, 'usuario');
 
 -- --------------------------------------------------------
 
@@ -187,13 +205,33 @@ CREATE TABLE IF NOT EXISTS `juego` (
 
 CREATE TABLE IF NOT EXISTS `personas` (
   `ID` int(6) NOT NULL AUTO_INCREMENT,
-  `NOMBRE` int(100) NOT NULL,
+  `NOMBRE` varchar(100) NOT NULL,
   `NACIONALIDAD` varchar(40) CHARACTER SET latin1 DEFAULT NULL,
   `GENERO` varchar(10) DEFAULT NULL,
   `DESCRIPCION` text,
   `ENLACE` varchar(100) DEFAULT NULL,
+  `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+--
+-- Volcado de datos para la tabla `personas`
+--
+
+INSERT INTO `personas` (`ID`, `NOMBRE`, `NACIONALIDAD`, `GENERO`, `DESCRIPCION`, `ENLACE`, `ACTIVO`) VALUES
+(3, 'test01', 'España', 'Masculino', 'Entrada de prueba EDIT', 'prueba', 0),
+(4, 'test02', 'España', 'Masculino', 'Otro test', '', 1),
+(5, 'test03', 'Dinamarca', 'Masculino', 'Prueba 3', '', 0),
+(6, 'test 04', 'Inglaterra', 'Masculino', 'Prueba nº 5', '', 1),
+(7, 'test 05', 'esp', 'Masculino', 'esp', '', 1),
+(8, 'test 06', 'esp', 'Masculino', 'esp', '', 1),
+(9, 'test 07', 'esp', 'Masculino', 'esp', '', 1),
+(10, 'test 08', 'esp', 'Masculino', 'esp', '', 1),
+(11, 'test 10', 'esp', 'Masculino', 'esp', '', 1),
+(12, 'test 09', 'esp', 'Masculino', 'esp', '', 0),
+(13, 'test 11', 'esp', 'Masculino', 'esp', '', 1),
+(14, 'test 12', 'esp', 'Masculino', 'esp', '', 1),
+(15, 'test 13', 'esp', 'Masculino', 'esp', '', 1);
 
 -- --------------------------------------------------------
 
@@ -318,8 +356,8 @@ ALTER TABLE `compañia`
 -- Filtros para la tabla `compañia_juegos`
 --
 ALTER TABLE `compañia_juegos`
-  ADD CONSTRAINT `compa@0xia_juegos_ibfk_2` FOREIGN KEY (`ID_COMPAÑIA`) REFERENCES `compañia` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `compa@0xia_juegos_ibfk_1` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `compa@0xia_juegos_ibfk_1` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compa@0xia_juegos_ibfk_2` FOREIGN KEY (`ID_COMPAÑIA`) REFERENCES `compañia` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cuentas`
@@ -331,8 +369,8 @@ ALTER TABLE `cuentas`
 -- Filtros para la tabla `generos_juego`
 --
 ALTER TABLE `generos_juego`
-  ADD CONSTRAINT `generos_juego_ibfk_3` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `generos_juego_ibfk_2` FOREIGN KEY (`ID_GENERO`) REFERENCES `generos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `generos_juego_ibfk_2` FOREIGN KEY (`ID_GENERO`) REFERENCES `generos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `generos_juego_ibfk_3` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `juego`
@@ -344,9 +382,9 @@ ALTER TABLE `juego`
 -- Filtros para la tabla `personas_roles_juegos`
 --
 ALTER TABLE `personas_roles_juegos`
-  ADD CONSTRAINT `personas_roles_juegos_ibfk_3` FOREIGN KEY (`ROL`) REFERENCES `roles` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `personas_roles_juegos_ibfk_1` FOREIGN KEY (`PERSONA`) REFERENCES `personas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `personas_roles_juegos_ibfk_2` FOREIGN KEY (`JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `personas_roles_juegos_ibfk_2` FOREIGN KEY (`JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `personas_roles_juegos_ibfk_3` FOREIGN KEY (`ROL`) REFERENCES `roles` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `plataforma`
@@ -358,8 +396,8 @@ ALTER TABLE `plataforma`
 -- Filtros para la tabla `plataforma_juego`
 --
 ALTER TABLE `plataforma_juego`
-  ADD CONSTRAINT `plataforma_juego_ibfk_3` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `plataforma_juego_ibfk_2` FOREIGN KEY (`ID_PLATAFORMA`) REFERENCES `plataforma` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `plataforma_juego_ibfk_2` FOREIGN KEY (`ID_PLATAFORMA`) REFERENCES `plataforma` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `plataforma_juego_ibfk_3` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `votos`

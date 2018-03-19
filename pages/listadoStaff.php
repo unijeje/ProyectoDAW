@@ -12,7 +12,7 @@ $start_from = ($page-1) * $limit;
 /*3 Filas dividir limit entre 3 y hacer 3 tablas */
 $resPorTabla=$limit/3;
 
-$sql="SELECT id, nombre from personas order by nombre LIMIT $start_from, $limit";
+$sql="SELECT id, nombre from personas where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
 $resultset=ejecutaConsulta($sql);
 ?>
 <div id="busqueda">

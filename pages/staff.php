@@ -36,7 +36,7 @@ navBar();
         <br>
     </div>
     <div id="registroError">
-        <h2 class="text-danger">Error al añadir</h2>
+        <h2 class="text-danger">Error al editar</h2>
         <br>
     </div>
 
@@ -90,6 +90,16 @@ navBar();
             <br>
             <input type="button" id="btnEditar" class="btn btn-primary col-8" value="Guardar" />
             </form>
+            <br><br>
+            <?php
+            if($_SESSION["tipo"]=="1") //si es administrador
+            {
+                echo "<form id='borrarStaff' name='borrarStaff'>";
+                echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Persona" />';
+                echo "</form>";
+            }
+
+            ?>
         </div>   
     </div>
 </div>
@@ -99,7 +109,9 @@ navBar();
 </div>
 
 </div>
-
+<div id="dialog-eliminar" title="Eliminar <?php echo $fila["nombre"];?>">
+    <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar a esta persona?</p>
+</div>
 <script type="text/javascript">var staff_id = <?php echo $id_staff ?>;</script>
 <script type="text/javascript" src="../js/staff.js"></script>
 <?php

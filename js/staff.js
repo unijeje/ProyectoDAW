@@ -2,42 +2,17 @@ $( document ).ready(function() {
     $( "#tabs" ).tabs();
     cargarRevisionesStaff();
 });
-/*
-function crearCuenta()
-{
-    $("#registrado").hide();
-    $("#registroError").hide();
 
-    if(validarCrearCuenta())
-    {
-        var sNombre=altaCuenta.usuario.value.trim();
-        var sCorreo=altaCuenta.email.value.trim();
-        var sPass=altaCuenta.pass.value.trim();
-        
-        var oCuenta={nombre: sNombre,
-                        correo: sCorreo,
-                        pass: sPass};
-        
-        var sDatos= "datos="+JSON.stringify(oCuenta);
-        $.post("../servidor/gestionCuenta/altaCuenta.php",sDatos,function(bExito, sStatus, oAjax){
-            if(bExito==true)
-            {
-                $("#formCrearCuenta").hide();
-                $("#registrado").show();
-            }
-            else
-            {
-                $("#registroError").show();
-            }
-        },"json");
-    }
-}
 
-*/
+
 $("#btnEditar").click(editarPersona);
 $("#editarStaffBtn").click(function()
 {
     $("#formEditarStaff").show();
+});
+$("#eliminar").click(function()
+{
+    $( "#dialog-eliminar" ).dialog("open");
 });
 function editarPersona()
 {
@@ -84,6 +59,27 @@ function editarPersona()
         $("#guidelines").show();
     }
 }
+function eliminarPersona()
+{
+    
+    var sDatos= "datos="+staff_id;
+    $.post("../servidor/gestionPersona/eliminarPersona.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito==true)
+        {
+            $("#formEditarStaff").hide();
+            $("#borrarStaff").hide();
+            $("#guidelines").hide();
+            $("#registrado").show();
+            
+        }
+        else
+        {
+            $("#registroError").show();
+        }
+        
+    },"json");
+
+}
 function cargarRevisionesStaff()
 {
 
@@ -95,3 +91,23 @@ function validarEdicionStaff()
 
     return res;
 }
+
+
+$( "#dialog-eliminar" ).dialog({
+    resizable: false,
+    height: "auto",
+    width: 400,
+    modal: true,
+    closeOnEscape: false,
+    autoOpen: false,
+    buttons: {
+        Mantener: function() {
+            $( this ).dialog( "close" );
+        },
+        Eliminar: function() {
+            eliminarPersona();
+            $( this ).dialog( "close" );
+        }
+
+    }
+});
