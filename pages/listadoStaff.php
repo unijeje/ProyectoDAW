@@ -4,7 +4,7 @@ iniciarSesion();
 cabecera("Añadir Staff");
 navBar();
 include_once("../servidor/bbdd.php");
-$limit=6;
+$limit=9;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 $start_from = ($page-1) * $limit; 
@@ -28,11 +28,13 @@ $resultset=ejecutaConsulta($sql);
 <div id="listado" class="col-12">
     <?php
         $i=0;
-        echo '<div class="list-inline text-center">';
+        echo '<div class="list-inline text-center col-12">';
         while($fila=$resultset->fetch(PDO::FETCH_ASSOC))
         {
             if($i==$resPorTabla)
             {
+                echo '</div>';
+                echo '<div class="list-inline text-center col-12">';
                 echo "<br>";
                 $i=0;
             }
