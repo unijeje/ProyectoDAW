@@ -37,18 +37,28 @@ a:visited {
     border: 1px solid green;
 }
 
-#datosPersona
+#datosPersona, #datosCompany
 {
     background-color: rgb(88, 185, 250);
     border: 1px solid rgb(0, 86, 118);
     padding: 1rem;
 }
 
-#creditosPersona
+#creditosPersona, #creditosCompany
 {
     background-color: rgb(88, 185, 250);
     border: 1px solid rgb(0, 86, 118);
     padding: 1rem;
+}
+
+.elementoListado
+{
+    width: 20%;
+}
+.elementoListado a:hover
+{
+    background-color: #007bff;
+    font-weight: bold;
 }
 /*
 .ui-tabs .ui-tabs-nav

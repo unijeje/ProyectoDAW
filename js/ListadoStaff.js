@@ -31,7 +31,7 @@ function buscarPersona()
             }
             var sId=res[i].id;
             var sNombre=res[i].nombre;
-            sHtml+='<li class="list-inline-item"><a href="staff.php?id='+sId+'" class="list-group-item list-group-item-action">'+sNombre+'</a></li>';
+            sHtml+='<li class="list-inline-item elementoListado"><a href="staff.php?id='+sId+'" class="list-group-item list-group-item-action">'+sNombre+'</a></li>';
             j++;
         }
         sHtml+="</div>"
@@ -45,6 +45,7 @@ function buscarPersona()
     
 
 }
+/*
 function eliminarPersona()
 {
     
@@ -70,6 +71,7 @@ function cargarRevisionesStaff()
 {
 
 }
+*/
 function validarEdicionStaff()
 {
     var res=true;

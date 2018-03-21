@@ -3,13 +3,15 @@
 include_once("../bbdd.php");
 
 $oDatos=json_decode($_POST['datos']);
+$id=$oDatos->id;
 $nombre=$oDatos->nombre;
-$nacionalidad=$oDatos->nacionalidad;
+$pais=$oDatos->pais;
 $desc=$oDatos->desc;
-$genero=$oDatos->genero;
+$fecha=$oDatos->fecha;
 $enlace=$oDatos->enlace;
 
-$sql="insert into personas(NOMBRE, NACIONALIDAD, GENERO, DESCRIPCION, ENLACE, ACTIVO) values('$nombre', '$nacionalidad', '$genero', '$desc', '$enlace', 1)";
+$sql="update company set NOMBRE='$nombre', PAIS='$pais', Fecha='$fecha', DESCRIPCION='$desc', ENLACE='$enlace' where id='$id'";
+
 
 $n=ejecutaConsultaAccion($sql);
 

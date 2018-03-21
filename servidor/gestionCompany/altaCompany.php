@@ -1,15 +1,15 @@
-<?php
+﻿<?php
 
 include_once("../bbdd.php");
 
 $oDatos=json_decode($_POST['datos']);
 $nombre=$oDatos->nombre;
-$nacionalidad=$oDatos->nacionalidad;
+$pais=$oDatos->pais;
 $desc=$oDatos->desc;
-$genero=$oDatos->genero;
+$fecha=$oDatos->fecha;
 $enlace=$oDatos->enlace;
 
-$sql="insert into personas(NOMBRE, NACIONALIDAD, GENERO, DESCRIPCION, ENLACE, ACTIVO) values('$nombre', '$nacionalidad', '$genero', '$desc', '$enlace', 1)";
+$sql="insert into company(NOMBRE, DESCRIPCION, FECHA, PAIS, ENLACE, ACTIVO) values('$nombre', '$desc', '$fecha', '$pais', '$enlace', 1)";
 
 $n=ejecutaConsultaAccion($sql);
 
@@ -19,5 +19,7 @@ else
     $exito = false;
 
 echo json_encode($exito); 
+
+//echo json_encode($sql); 
 
 ?>
