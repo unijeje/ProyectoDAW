@@ -1,7 +1,7 @@
 <?php
 include("../utilities/utilities.php");
 iniciarSesion();
-cabecera("Añadir Staff");
+cabecera("Compañías");
 navBar();
 include_once("../servidor/bbdd.php");
 $limit=9;

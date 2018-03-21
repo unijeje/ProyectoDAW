@@ -28,7 +28,7 @@ function navBar()
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="listadoPlat.php">Plataformas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="listadoStaff.php">Staff</a>
@@ -119,7 +119,7 @@ function navBarIndex()
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="pages/listadoPlat.php">Plataformas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="pages/listadoStaff.php">Staff</a>

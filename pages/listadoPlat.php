@@ -1,7 +1,7 @@
 <?php
 include("../utilities/utilities.php");
 iniciarSesion();
-cabecera("Personas");
+cabecera("Plataformas");
 navBar();
 include_once("../servidor/bbdd.php");
 $limit=9;
@@ -12,14 +12,14 @@ $start_from = ($page-1) * $limit;
 /*3 Filas dividir limit entre 3 y hacer 3 tablas */
 $resPorTabla=$limit/3;
 
-$sql="SELECT id, nombre from personas where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
+$sql="SELECT id, nombre from plataforma where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
 $resultset=ejecutaConsulta($sql);
 ?>
 <div id="registroError">
     <h2 class="text-danger">Ha habido un error en la busqueda </h2>
 </div>
 <div id="busqueda">
-    <h1>Buscar Staff</h1>
+    <h1>Buscar Plataforma</h1>
     
     <div class="form-group row">
         <input type="text" class="form-control col-10" id="txtBusqueda" placeholder="" name="txtBusqueda">
@@ -44,7 +44,7 @@ $resultset=ejecutaConsulta($sql);
                 $i=0;
             }
             $idActual=$fila["id"];
-            echo '<li class="list-inline-item elementoListado"><a href="staff.php?id='.$idActual.'" class="list-group-item list-group-item-action">'.$fila["nombre"].'</a></li>';
+            echo '<li class="list-inline-item elementoListado"><a href="plataforma.php?id='.$idActual.'" class="list-group-item list-group-item-action">'.$fila["nombre"].'</a></li>';
             $i++;
             
         }
@@ -58,13 +58,13 @@ $resultset=ejecutaConsulta($sql);
 <div id="paginacion" class="mt-5 ml-5">
     <?php
     $resultset=null;
-    $sqlCount="Select count(id) as num from personas";
+    $sqlCount="Select count(id) as num from plataforma";
     $fila=consultaUnica($sqlCount);
     $numRes=$fila["num"];
     $numPag=ceil($numRes / $limit);
     $pagLink = "<nav><ul class='pagination'>";  
     for ($i=1; $i<=$numPag; $i++) {  
-                    $pagLink .= "<li class='page-item'><a  class='page-link' href='listadoStaff.php?page=".$i."'>".$i."</a></li>";  
+                    $pagLink .= "<li class='page-item'><a  class='page-link' href='listadoPlat.php?page=".$i."'>".$i."</a></li>";  
     };  
     echo $pagLink . "</ul></nav>";
 
@@ -78,11 +78,11 @@ $resultset=ejecutaConsulta($sql);
             itemsOnPage: <?php echo $limit;?>,
             cssStyle: 'compact-theme',
             currentPage : <?php echo $page;?>,
-            hrefTextPrefix : 'listadoStaff.php?page='
+            hrefTextPrefix : 'listadoPlat.php?page='
         });
         });
 </script>
-<script type="text/javascript" src="../js/ListadoStaff.js"></script>
+<script type="text/javascript" src="../js/ListadoPlat.js"></script>
 <script type="text/javascript" src="../utilities/jquery.simplePagination.js"></script>
 <?php
 pie();
