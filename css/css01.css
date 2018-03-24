@@ -73,6 +73,10 @@ a:visited {
   * html .ui-autocomplete {
     height: 200px;
   }
+  #listadoJuegos th:hover
+  {
+      cursor:pointer;
+  }
 /*
 .ui-tabs .ui-tabs-nav
 {
