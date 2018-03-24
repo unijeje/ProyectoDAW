@@ -4,7 +4,7 @@ function connectDB()
 {
     try 
     {
-        $opc=array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
+        $opc=array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
         $dsn="mysql:host=localhost;dbname=videojuegos";
         $usuario="root";
         $contrasena="";
@@ -81,12 +81,11 @@ function ejecutaConsultaAccion($sql)
 		//return "1";
 }
 function devuelveUltimaId($tabla){
-		$miconexion=connectDB();
+		//$miconexion=connectDB();
 		$consulta="SELECT MAX(id) as lastId from $tabla";
-		$resultset=ejecutaConsulta($consulta);
-		$id=$resultset->fetch(PDO::FETCH_ASSOC);
+		$fila=consultaUnica($consulta);
 		$resultset=null;
 		$miconexion=null;
-		return $id['lastId'];
+		return $fila['lastId'];
 }
 ?>
