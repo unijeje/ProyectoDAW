@@ -2,6 +2,11 @@ body {
     background-color: #dce2df;
 }
 
+p, li:not(.nav-item)
+{
+    font-size:1.2em;
+}
+
 #registrado, #registroError, #registrarOtro
 {
     display: none;
@@ -73,9 +78,14 @@ a:visited {
   * html .ui-autocomplete {
     height: 200px;
   }
-  #listadoJuegos th:hover
+  #tablaListadoJuego a:hover
   {
-      cursor:pointer;
+    text-decoration: underline dotted gray;
+    
+  }
+  #tablaListadoJuego a
+  {
+    color: #7bd;
   }
 /*
 .ui-tabs .ui-tabs-nav
