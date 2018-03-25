@@ -47,7 +47,7 @@ function addCompany()
 
 function ocultarCompany(event)
 {
-    $( event.target ).parent().parent().hide('slow', function(){ $target.remove(); });
+    $( event.target ).parent().parent().hide('slow', function(){ this.remove(); });
 
 }
 

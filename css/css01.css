@@ -75,18 +75,41 @@ a:visited {
   /* IE 6 doesn't support max-height
    * we use height instead, but this forces the menu to always be this tall
    */
-  * html .ui-autocomplete {
+* html .ui-autocomplete {
     height: 200px;
-  }
-  #tablaListadoJuego a:hover
-  {
+}
+#tablaListadoJuego a:hover
+{
     text-decoration: underline dotted gray;
     
-  }
-  #tablaListadoJuego a
-  {
+}
+#tablaListadoJuego a
+{
     color: #7bd;
-  }
+}
+
+
+#coverJuego
+{
+    background-color: rgb(88, 185, 250);
+    border: 1px solid rgb(0, 86, 118);
+    /*height:300px;*/
+}
+#informacionJuego
+{
+    background-color: rgb(88, 185, 250);
+    border: 1px solid rgb(0, 86, 118);
+    /*height:300px;*/
+}
+
+  .table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
 /*
 .ui-tabs .ui-tabs-nav
 {
