@@ -11,12 +11,18 @@ $sql="select titulo, sinopsis, fecha, enlace, duracion from juego where id=?";
 $rsJuego=$miconexion->prepare($sql);
 $rsJuego->execute(array($id_juego));
 $filaJuego=$rsJuego->fetch(PDO::FETCH_ASSOC);
-
+if($filaJuego["duracion"]!=null)
+{
+    $duracionJuego=$filaJuego["duracion"];
+}
+else
+    $duracionJuego=-1;
 
 $sql="select c.nombre, c.id from company c inner join company_juegos j on c.id=j.id_company and j.id_juego=?";
 $rsCompany=$miconexion->prepare($sql);
 $rsCompany->execute(array($id_juego));
 $filaCompany=$rsCompany->fetchAll();
+
 /*
 echo "<pre>";
 print_r($filaCompany);
@@ -26,6 +32,19 @@ echo "</pre>";
 //fetch comentarios
 
 //fetch generos
+$sql="SELECT g.id, g.genero from generos g inner join generos_juego j on g.id=j.id_genero and j.id_juego=?";
+$rsGenero=$miconexion->prepare($sql);
+$rsGenero->execute(array($id_juego));
+$filaGeneros=$rsGenero->fetchAll();
+if($filaGeneros!=null)
+{
+    foreach($filaGeneros as $value)
+        $idsGenero[]=$value["id"];
+    
+    $idsGenero=json_encode($idsGenero);
+}
+else
+    $idsGenero=json_encode(array(-1));
 
 //fetch plataformas
 $sql="SELECT id_plataforma, p.nombre from plataforma_juego j inner join plataforma p on j.id_plataforma=p.id and id_juego=?";
@@ -44,8 +63,6 @@ else
 
 //fetch staff
 
-//fetch duracion
-
 if($filaJuego["duracion"]!=null)
 {
     $sql="select duracion from duracion where id=?";
@@ -55,6 +72,15 @@ if($filaJuego["duracion"]!=null)
     $rsDuracion=null;
 }
 
+//fetch votos
+$sql="select nota from votos where JUEGO=? and CUENTA=? ";
+$rsVoto=$miconexion->prepare($sql);
+$rsVoto->execute(array($id_juego, $_SESSION["id"]));
+$filaVoto=$rsVoto->fetch();
+if($filaVoto["nota"]!=null)
+{
+    $votoJuego=$filaVoto["nota"];
+}
 
 
 cabecera($filaJuego["titulo"]);
@@ -66,7 +92,11 @@ if($filaJuego!=null)
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
         <li><a href="#mainJuego"><?php echo $filaJuego["titulo"];?></a></li>
-        <li><a id="editarJuegoBtn" href="#editingJuego">Editar</a></li>
+        <?php
+        if(isset($_SESSION["tipo"]))
+        { 
+        echo '<li><a id="editarJuegoBtn" href="#editingJuego">Editar</a></li>';
+        }?>
         <li><a href="#comentariosJuego">Comentarios</a></li>
         <li><a href="#revisionesJuego">Revisiones</a></li>
     </ul>
@@ -77,7 +107,7 @@ if($filaJuego!=null)
             <p>Cover img </p>
         </div>
         <div id="informacionJuego" class="row col-6 offset-1">
-            <table class ="table table-dark table-responsive borderless">
+            <table class ="table table-responsive borderless">
             <tr><td>Fecha</td><td><?php echo $filaJuego["fecha"];?></td></tr>
 
             
@@ -108,9 +138,22 @@ if($filaJuego!=null)
                     
                 echo "</tr>";
             }
-            ?>
-            <tr><td>Enlace</td><td><?php echo $filaJuego["enlace"];?></td></tr>
-            <?php
+            if($filaGeneros!=null)
+            {
+                echo "<tr>";
+                echo "<td>Generos</td>";
+                echo "<td>";
+                $generosHtml="";
+                foreach($filaGeneros as $value)
+                {
+                    $generosHtml.=$value['genero'].", ";
+                }
+                $generosHtml=substr($generosHtml, 0, -2);
+                echo $generosHtml;
+                echo "</td>";
+                echo "</tr>";
+            }
+
             if($filaPlataforma!=null)
             {
                 
@@ -122,21 +165,46 @@ if($filaJuego!=null)
                         if($i!=0)
                         {
                             echo "<tr>";
-                            echo "<td><a class='text-primary' href='company.php?id=".$value['id_plataforma']."'>".$value['nombre']."</a></td>";
+                            echo "<td><a class='text-primary' href='plataforma.php?id=".$value['id_plataforma']."'>".$value['nombre']."</a></td>";
                             echo "</tr>";
                         }
                         else
-                        echo "<td><a class='text-primary' href='company.php?id=".$value['id_plataforma']."'>".$value['nombre']."</a></td>";
+                        echo "<td><a class='text-primary' href='plataforma.php?id=".$value['id_plataforma']."'>".$value['nombre']."</a></td>";
                         $i++;
                     }
                     
                 echo "</tr>";
             }
+            if(isset($_SESSION["tipo"]))
+            {
+                echo '<div class="form-group">';
+                echo "<tr>";
+                echo "<td>Su Voto</td>";
+                echo "<td>";
+                echo '<select class="form-control col-12" size="1" id="nota" name="nota">';
+                    if($filaVoto["nota"]==null)
+                        echo "<option value='nada'>No ha votado</option>";
+                    else
+                        echo "<option value='revoke'>Eliminar Nota</option>";
+                    for($i=1;$i<=10;$i++)
+                    {
+                        if($filaVoto["nota"]!=null && $i==$filaVoto["nota"])
+                            echo "<option selected value='".$i."'>".$i."</option>";
+                        else
+                            echo "<option value='".$i."'>".$i."</option>";
+                    }
+                echo "</select>";
+                echo "</td>";
+                echo "</tr>";
+                echo "</div>";
+            }
             ?>
+            <tr><td>Enlace</td><td><?php echo $filaJuego["enlace"];?></td></tr>
+
             </table>
             
         </div>
-        <p class="col-6 offset-2 mt-3"><?php echo $filaJuego["sinopsis"];?></p>
+        <p class="col-10 offset-1 mt-3"><?php echo $filaJuego["sinopsis"];?></p>
         <p  class="col-10 offset-1 mt-5">Fotos</p>
     </div>
 
@@ -146,6 +214,9 @@ if($filaJuego!=null)
 
     </div>
 </div>
+<?php
+if(isset($_SESSION["tipo"]))
+{?>
 <div id="editingJuego">
     <div id="registrado">
         <h2>Editado correctamente</h2>
@@ -172,7 +243,7 @@ if($filaJuego!=null)
             <a class="nav-link" data-toggle="pill" href="#staff">Staff</a>
         </li>
         <?php
-            if($_SESSION["tipo"]=="1") //si es administrador
+            if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1")//si es administrador
             {
                 echo '<li class="nav-item">';
                     echo '<a class="nav-link" data-toggle="pill" href="#del">Eliminar</a>';
@@ -190,8 +261,42 @@ if($filaJuego!=null)
      <!-- Tab panes -->
      <div class="tab-content">
         <div class="tab-pane active container" id="info">
-            <p>Información</p>
+            <form name="formEditInfo" id="formEditInfo" method="get" action"#"> 
+                <div class="form-group mt-3">
+                    <label for="nombre">Título: *</label>
+                    <input type="text" class="form-control col-6" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $filaJuego['titulo'];?>" />          
+                </div>
+                <div class="form-group">
+                    <label for="sinopsis">Sinopsis:</label>
+                    <textarea class="form-control col-6" id="sinopsis" rows="5" placeholder="" name="sinopsis"> <?php echo $filaJuego['sinopsis'];?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="enlace">Enlace de interés(Página oficial, wikipedia, etc):</label>
+                    <input type="text" class="form-control col-6" id="enlace" placeholder="https://www.crashbandicoot.com/es" name="enlace" value="<?php echo $filaJuego['enlace'];?>" />
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="text" class="form-control col-6" id="fecha" placeholder="yy-mm-dd" name="fecha" value="<?php echo $filaJuego['fecha'];?>" />
+                </div>
+                <div class="form-group">
+                    <label for="generos">Seleccione los generos:</label>
+                    <select multiple class="form-control col-6" size="3" id="generos" name="generos">
+                    
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="duracion">Horas para pasarse el juego:</label>
+                    <select class="form-control col-6"  id="duracion" name="duracion">
+                    
+                    </select>
+                </div>
+                <br>
+                <input type="button" id="btnEditInfo" class="btn btn-primary col-6 mb-5" value="Guardar Cambios" />
+        </form>
         </div>
+
+
         <div class="tab-pane container" id="comp">
             <form name="formEditCompany" id="formEditCompany" method="get" action"#" class="mt-4">
             <div class="text-center col-8">
@@ -213,7 +318,7 @@ if($filaJuego!=null)
             <p>Staff</p>
         </div>
         <?php
-            if($_SESSION["tipo"]=="1") //si es administrador
+            if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador
             {
                 echo '<div class="tab-pane container" id="del">';
                     echo "<form id='borrarJuego' name='borrarJuego'>";
@@ -225,7 +330,9 @@ if($filaJuego!=null)
     </div>
 
 </div>
-
+<?php
+}
+?>
 <div id="revisionesJuego">
 <p>Revisiones</p>
 </div>
@@ -236,7 +343,10 @@ if($filaJuego!=null)
 <div id="dialog-eliminar" title="Eliminar <?php echo $filaJuego["titulo"];?>">
     <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar este juego?</p>
 </div>
-<script type="text/javascript">var juego_id = <?php echo $id_juego ;?>; var plats_id= <?php echo $idsPlataforma ;?>;</script>
+<script type="text/javascript">var juego_id = <?php echo $id_juego ;?>; var plats_id= <?php echo $idsPlataforma ;?>; var generos_id= <?php echo $idsGenero ;?>; 
+var duracion_id= <?php echo $duracionJuego ;?>;
+var user_id= <?php echo $_SESSION["id"] ;?>;
+</script>
 <script type="text/javascript" src="../js/juego.js"></script>
 <script type="text/javascript" src="../js/ListadoStaff.js"></script>
 <?php

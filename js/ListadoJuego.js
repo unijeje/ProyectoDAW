@@ -2,11 +2,11 @@ $(document).ready(function() {
     $.get("../servidor/gestionJuego/cargarJuegos.php", function(oRespuesta, sStatus, oAjax)
     {
         //'sDom': 'lptip' ,
-        var users=$('#tablaListadoJuego').DataTable( {
+        var juegos=$('#tablaListadoJuego').DataTable( {
         data: oRespuesta,
-        'sDom': "<'row'<'col-sm-6'l><'col-sm-6'p>>" +
-        "<'row'<'col-sm-12't>>" +
-        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        'sDom': "<'row'<'col-8'l><'col-4'p>>" +
+                "<'row'<'col-12't>>" +
+                "<'row'<'col-8'i><'col-4'p>>",
         "language": {
             "url": "../utilities/datatable_ESP.lang"
         },
@@ -14,14 +14,14 @@ $(document).ready(function() {
                 { data: 'TITULO',
                 fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                 $(nTd).html("<a href='juego.php?id="+oData.ID+"'>"+oData.TITULO+"</a>");
-    }
+                }
             },
                 { data: 'FECHA' }
-        ]
+                ]
     } );
 
     $('#txtBusqueda').keyup(function() {
-    users.search($(this).val()).draw();
+        juegos.search($(this).val()).draw();
     });
     
     }, "json");

@@ -2,7 +2,20 @@ var ids=[];
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
     //cargarRevisionesStaff();
-    
+
+    //datepicker
+    $( function() {
+        var today = new Date();
+        var maxYear=today.getFullYear()+3;
+        $("#fecha").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yy-mm-dd',
+            yearRange: "1950:"+maxYear
+            });
+    } );
+
     var sDatos= "datos="+juego_id;
     $.get("../servidor/gestionCompany/autoCompleteCompany.php", respuestaAutoCompleteCompany, "json");
     $.get("../servidor/gestionJuego/getCompanyOfGame.php", sDatos, rellenarCompanies, "json" );
@@ -14,7 +27,147 @@ $( document ).ready(function() {
     $("#btnPlat").click(addPlataforma);
     $("#btnEditarPlat").click(guardarPlataformas);
     //console.log(plats_id);
+
+    $("#btnEditInfo").click(guardarInformacion);
+    $.get("../servidor/gestionJuego/getListaGeneros.php", getListadoGenero, "json");
+    //console.log(generos_id);
+    $.get("../servidor/gestionJuego/getListaDuracion.php", getListadoDuracion, "json");
+    //console.log(duracion_id);
+
+    $("#eliminar").click(function()
+    {
+        $( "#dialog-eliminar" ).dialog("open");
+    });
+
+    $("#nota").change(guardarNota);
 });
+
+function guardarNota()
+{
+    var sNota=($("#nota").val());
+
+    var oNota={id_juego: juego_id,
+                id_usuario: user_id,
+                nota: sNota};
+    var sDatos= "datos="+JSON.stringify(oNota);
+    $.post("../servidor/gestionJuego/addNotaJuego.php",sDatos,function(bExito, sStatus, oAjax){
+        //console.log(sNota);
+        if(sNota=="revoke")
+        {
+            $("option[value=revoke]").text("No ha votado");
+            $("option[value=revoke]").attr("value", "nada");
+        }
+        else if($("option[value=nada]").text()=="No ha votado")
+        {
+            $("option[value=nada]").text("Eliminar Nota");
+            $("option[value=nada]").attr("value", "revoke");
+        }
+    },"json");
+}
+
+function darJuegoBaja()
+{
+    $("#registroError").hide();
+    var sDatos= "datos="+juego_id;
+    $.post("../servidor/gestionJuego/eliminarJuego.php",sDatos,function(bExito, sStatus, oAjax){
+    if(bExito==true)
+    {
+        $("#borrarJuego").hide();
+        $("#guidelines").hide();
+        $("#registrado").show();
+        
+    }
+    else
+    {
+        $("#registroError").show();
+    }
+        
+    },"json");
+}
+
+function getListadoDuracion(oDuracion, sStatus, oAjax)
+{
+    var sHtml="";
+    for(var i=0;i<oDuracion.length;i++)
+    {
+        sHtml+="<option value='"+oDuracion[i].id+"'>"+oDuracion[i].duracion+"</option>";
+    }
+
+    $("#duracion").append(sHtml);
+    
+    //select el pertinente
+    var oOption=$("#duracion option[value="+duracion_id+"]");
+    $(oOption).prop('selected', true);
+}
+function getListadoGenero(oGeneros, sStatus, oAjax)
+{
+    var sHtml="";
+    for(var i=0;i<oGeneros.length;i++)
+    {
+        sHtml+="<option value='"+oGeneros[i].id+"'>"+oGeneros[i].genero+"</option>";
+    }
+
+    $("#generos").append(sHtml);
+
+    //checkear los que pertenezcan a este id de juego
+    for(var i=0;i<generos_id.length;i++)
+    {
+        var oOption=$("#generos option[value="+generos_id[i]+"]");
+        $(oOption).prop('selected', true);
+    }
+
+}
+
+function guardarInformacion()
+{
+    if(validarGuardarInformacion)
+    {
+        $("#registroError").hide(); 
+
+        var sNombre=$("#formEditInfo #nombre").val().trim();
+        var sSinopsis=$("#formEditInfo #sinopsis").val().trim();
+        var sEnlace=$("#formEditInfo #enlace").val().trim();
+        var sFecha=$('#formEditInfo #fecha').val().trim();
+        var sDuracion=$("#formEditInfo #duracion").val();
+        var selectedGeneros = $('#formEditInfo #generos').val();
+        
+        var oJuego=  {  id: juego_id,
+                        nombre: sNombre,
+                        sinopsis: sSinopsis,
+                        enlace: sEnlace,
+                        fecha: sFecha,
+                        duracion: sDuracion,
+                        generos: selectedGeneros};
+
+        var sDatos= "datos="+JSON.stringify(oJuego);
+
+        $.post("../servidor/gestionJuego/editarJuego.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito==true)
+        {
+            $("#registrado").show();
+            $("#formEditInfo").hide();
+            $("#guidelines").hide();
+            window.location.reload();
+
+            
+        }
+        else
+        {
+            $("#registroError").show();
+            $("#guidelines").show();
+            $("#formEditInfo").show();
+        }
+        },"json");
+
+    }
+}
+
+function validarGuardarInformacion()
+{
+    var res=true;
+
+    return res;
+}
 
 function guardarPlataformas()
 {
@@ -332,7 +485,7 @@ $( "#dialog-eliminar" ).dialog({
             $( this ).dialog( "close" );
         },
         Eliminar: function() {
-            eliminarPersona();
+            darJuegoBaja();
             $( this ).dialog( "close" );
         }
 

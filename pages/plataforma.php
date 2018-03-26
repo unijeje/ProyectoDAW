@@ -78,7 +78,7 @@ navBar();
         </form>
         <br><br>
         <?php
-        if($_SESSION["tipo"]=="1") //si es administrador
+        if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador
         {
             echo "<form id='borrarPlat' name='borrarPlat'>";
             echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Plataforma" />';

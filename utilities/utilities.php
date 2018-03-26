@@ -12,6 +12,7 @@ function iniciarSesion()
     $_SESSION["nombre"]=$_COOKIE["nombre"];
     $_SESSION["id"]=$_COOKIE["id"];
   }
+
 }
 function navBar()
 {
