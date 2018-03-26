@@ -6,7 +6,7 @@ include_once("../servidor/bbdd.php");
 $id_juego=$_GET["id"];
 
 $miconexion=connectDB();
-$sql="select titulo, sinopsis, fecha, enlace, duracion from juego where id=?";
+$sql="select titulo, sinopsis, fecha, enlace, cover, duracion from juego where id=?";
 
 $rsJuego=$miconexion->prepare($sql);
 $rsJuego->execute(array($id_juego));
@@ -73,15 +73,17 @@ if($filaJuego["duracion"]!=null)
 }
 
 //fetch votos
-$sql="select nota from votos where JUEGO=? and CUENTA=? ";
-$rsVoto=$miconexion->prepare($sql);
-$rsVoto->execute(array($id_juego, $_SESSION["id"]));
-$filaVoto=$rsVoto->fetch();
-if($filaVoto["nota"]!=null)
+if(isset($_SESSION["tipo"]))
 {
-    $votoJuego=$filaVoto["nota"];
+    $sql="select nota from votos where JUEGO=? and CUENTA=? ";
+    $rsVoto=$miconexion->prepare($sql);
+    $rsVoto->execute(array($id_juego, $_SESSION["id"]));
+    $filaVoto=$rsVoto->fetch();
+    if($filaVoto["nota"]!=null)
+    {
+        $votoJuego=$filaVoto["nota"];
+    }
 }
-
 
 cabecera($filaJuego["titulo"]);
 navBar();
@@ -102,9 +104,13 @@ if($filaJuego!=null)
     </ul>
 <div id="mainJuego">
     <div class="row">
-        <div id="coverJuego" class="col-3">
-        <!-- fetch img name from table and call in gameCover folder with that name -->
-            <p>Cover img </p>
+        <div id="coverJuego" class="offset-1 col-2">
+            <?php
+            if($filaJuego["cover"]!=null)
+            {
+                echo "<img id='imgCover' class='mt-4' src='../img/covers/".$id_juego.".png'>";
+            }
+            ?>
         </div>
         <div id="informacionJuego" class="row col-6 offset-1">
             <table class ="table table-responsive borderless">
@@ -199,7 +205,7 @@ if($filaJuego!=null)
                 echo "</div>";
             }
             ?>
-            <tr><td>Enlace</td><td><?php echo $filaJuego["enlace"];?></td></tr>
+            <tr><td>Enlace</td><td><a class='text-primary' target="_blank" href="<?php echo $filaJuego["enlace"];?>"><?php echo $filaJuego["enlace"];?></a></td></tr>
 
             </table>
             
@@ -218,14 +224,7 @@ if($filaJuego!=null)
 if(isset($_SESSION["tipo"]))
 {?>
 <div id="editingJuego">
-    <div id="registrado">
-        <h2>Editado correctamente</h2>
-        <br>
-    </div>
-    <div id="registroError">
-        <h2 class="text-danger">Error al editar</h2>
-        <br>
-    </div>
+    
 
     <h1>Editar <?php echo $filaJuego["titulo"];?> </h1>
     <!-- Nav tabs -->
@@ -242,6 +241,9 @@ if(isset($_SESSION["tipo"]))
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#staff">Staff</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#images">Imágenes</a>
+        </li>
         <?php
             if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1")//si es administrador
             {
@@ -254,6 +256,14 @@ if(isset($_SESSION["tipo"]))
 
    
     <br>
+    <div id="registrado">
+        <h2>Editado correctamente</h2>
+    </div>
+    <div id="registroError" class="col-8">
+        <h2>Error al editar</h2>
+        <p></p>  
+    </div>
+    <br>
     <div id="guidelines" class="col-8">
         <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
         <p> Antes de añadir consulte si ya existe en la base de datos </p>
@@ -264,35 +274,36 @@ if(isset($_SESSION["tipo"]))
             <form name="formEditInfo" id="formEditInfo" method="get" action"#"> 
                 <div class="form-group mt-3">
                     <label for="nombre">Título: *</label>
-                    <input type="text" class="form-control col-6" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $filaJuego['titulo'];?>" />          
+                    <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $filaJuego['titulo'];?>" />          
                 </div>
                 <div class="form-group">
                     <label for="sinopsis">Sinopsis:</label>
-                    <textarea class="form-control col-6" id="sinopsis" rows="5" placeholder="" name="sinopsis"> <?php echo $filaJuego['sinopsis'];?></textarea>
+                    <textarea class="form-control col-8" id="sinopsis" rows="5" placeholder="" name="sinopsis"> <?php echo $filaJuego['sinopsis'];?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="enlace">Enlace de interés(Página oficial, wikipedia, etc):</label>
-                    <input type="text" class="form-control col-6" id="enlace" placeholder="https://www.crashbandicoot.com/es" name="enlace" value="<?php echo $filaJuego['enlace'];?>" />
+                    <input type="text" class="form-control col-8" id="enlace" placeholder="https://www.crashbandicoot.com/es" name="enlace" value="<?php echo $filaJuego['enlace'];?>" />
                 </div>
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
-                    <input type="text" class="form-control col-6" id="fecha" placeholder="yy-mm-dd" name="fecha" value="<?php echo $filaJuego['fecha'];?>" />
+                    <input type="text" class="form-control col-8" id="fecha" placeholder="yy-mm-dd" name="fecha" value="<?php echo $filaJuego['fecha'];?>" />
                 </div>
                 <div class="form-group">
                     <label for="generos">Seleccione los generos:</label>
-                    <select multiple class="form-control col-6" size="3" id="generos" name="generos">
+                    <select multiple class="form-control col-8" size="3" id="generos" name="generos">
                     
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="duracion">Horas para pasarse el juego:</label>
-                    <select class="form-control col-6"  id="duracion" name="duracion">
+                    <select class="form-control col-8"  id="duracion" name="duracion">
                     
                     </select>
                 </div>
+                
                 <br>
-                <input type="button" id="btnEditInfo" class="btn btn-primary col-6 mb-5" value="Guardar Cambios" />
+                <input type="button" id="btnEditInfo" class="btn btn-primary col-8 mb-5" value="Guardar Cambios" />
         </form>
         </div>
 
@@ -307,15 +318,30 @@ if(isset($_SESSION["tipo"]))
         </div>
         <div class="tab-pane container" id="plat">
         <form name="formEditPlat" id="formEditPlat" method="get" action"#" class="mt-4">
+            <div class="form-group" id="checkboxPlataformas">
 
+            </div>
             <input type="button" id="btnEditarPlat" class="btn btn-primary col-8 mt-5" value="Guardar Cambios" />  
+        </form>
+        </div>
+        <div class="tab-pane container" id="staff">
+            <p>Staff</p>
+        </div>
+        <div class="tab-pane container" id="images">
+            <form name="formEditarImg" id="formEditarImg">
+            <div class="form-group mt-3">
+                <label for="imgJuegoCover">Imagen Cover:</label>
+                <div class="custom-file" id="customFile" lang="es">
+                    <input type="file" class="custom-file-input col-8" id="imgJuegoCover" aria-describedby="fileHelp">
+                    <label class="custom-file-label col-8" for="imgJuegoCover">
+                    Select file...
+                    </label>
+                </div>
+                <input type="button" id="btnEditarCover" class="btn btn-primary col-8 mt-2" value="Guardar Nueva Cover" />
+                <input type="button" id="btnEliminarCover" class="btn btn-danger col-8 mt-2" value="Eliminar Cover" />    
+            </div>
+            
             </form>
-        </div>
-        <div class="tab-pane container" id="staff">
-            <p>Staff</p>
-        </div>
-        <div class="tab-pane container" id="staff">
-            <p>Staff</p>
         </div>
         <?php
             if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador

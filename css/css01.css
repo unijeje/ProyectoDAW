@@ -12,6 +12,14 @@ p, li:not(.nav-item)
     display: none;
 }
 
+#registroError
+{
+    height:100px;
+    background-color: rgb(252, 137, 137);
+    border: 1px solid rgb(152, 7, 7);
+    padding: 1rem;
+}
+
 a{
     text-decoration: none;
 }
@@ -88,6 +96,12 @@ a:visited {
     color: #7bd;
 }
 
+#imgCover
+{
+    height: 300px;
+    width: 200px;
+}
+
 /*
 #coverJuego
 {
@@ -106,7 +120,7 @@ a:visited {
 */
 
 
-  .table > tbody > tr > td {
+.table > tbody > tr > td {
     vertical-align: middle;
 }
 
@@ -126,3 +140,12 @@ a:visited {
     border: 1px solid #dce2df;
 }
 */
+
+
+.custom-file-control.selected:lang(en)::after {
+    content: "" !important;
+  }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Buscar";
+}

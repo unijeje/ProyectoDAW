@@ -40,7 +40,83 @@ $( document ).ready(function() {
     });
 
     $("#nota").change(guardarNota);
+
+    $('.custom-file-input').on('change',function(){ //cambia el nombre en el input al nombre del fichero seleccionado
+        var fileName = $(this).val();
+        var fileName = fileName.split('\\').pop().split('/').pop();
+
+        $(this).next().text(fileName);
+        //console.log($(this));
+        //console.log(fileName);
+    });
+    
+    $("#btnEditarCover").click(guardarCoverImg);
+    $("#btnEliminarCover").click(eliminarCover);
 });
+
+function eliminarCover()
+{
+    var sDatos= "datos="+juego_id;
+    $.post("../servidor/gestionJuego/eliminarCover.php",sDatos,function(bExito, sStatus, oAjax){
+        //console.log(sNota);
+        if(bExito==true)
+        {
+            $("#registrado").show();
+            $("#formEditarImg").hide();
+            $("#guidelines").hide();
+            window.location.reload();
+        }
+        else
+        {
+            $("#registroError").show();
+        }
+    },"json");
+}
+
+function guardarCoverImg()
+{
+    $("#registroError").hide();
+    var fileInput = document.getElementById('imgJuegoCover');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append('image', file);
+    formData.append('id_juego', juego_id);
+
+    //ajax
+    $.ajax({
+        url: "../servidor/gestionJuego/editarCover.php",
+        type : "POST",
+        data : formData,
+        dataType: "json",
+        success: function(bExito, sStatus, oAjax){
+            if(bExito==true)
+            {
+                $("#registrado").show();
+                $("#formEditarImg").hide();
+                $("#guidelines").hide();
+                window.location.reload();
+            }
+            else
+            {
+                $("#registroError p").text(bExito);
+                $("#registroError").show();
+            }
+        },
+        processData : false,
+        contentType : false
+    });
+
+
+    /*
+    console.log(fileInput);
+    console.log(file);
+    console.log(formData);
+    // Display the key/value pairs
+    for (var pair of formData.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]); 
+    }
+    */
+}
 
 function guardarNota()
 {
@@ -211,7 +287,7 @@ function rellenarPlataformas(oPlat, sStatus, oAjax)
         {
             var sHtml='<div class="form-check form-check-inline"><label class="form-check-label">';
             sHtml+='<input class="form-check-input" type="checkbox" id="checkboxPlat" name="checkboxPlat" value="'+oPlat[i].id+'"> '+oPlat[i].nombre+' </label></div>';
-            $("#formEditPlat").prepend(sHtml);
+            $("#checkboxPlataformas").prepend(sHtml);
         }
         //get para checkear
         for(var i=0;i<plats_id.length;i++)
