@@ -5,12 +5,12 @@ cabecera("Conectarse");
 navBar();
 ?>
 
-<div id="registrado">
+<div id="registrado" class="col-6">
     <h2>Conectado correctamente</h2>
 </div>
 
-<div id="registroError">
-    <h2 class="text-danger"></h2>
+<div id="registroError" class="col-6">
+    <h2 class=""></h2>
 </div>
 <br>
 <div id="conectarse" class="row">

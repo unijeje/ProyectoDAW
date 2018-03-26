@@ -16,7 +16,7 @@ function crearCuenta()
                         pass: sPass};
         
         var sDatos= "datos="+JSON.stringify(oCuenta);
-        $.post("../servidor/gestionCuenta/altaCuenta.php",sDatos,function(bExito, sStatus, oAjax){
+        $.post("../servidor/gestionCuenta/altaCuenta2.php",sDatos,function(bExito, sStatus, oAjax){
             if(bExito==true)
             {
                 $("#formCrearCuenta").hide();

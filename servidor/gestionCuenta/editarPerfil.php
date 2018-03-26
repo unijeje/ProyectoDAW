@@ -1,6 +1,7 @@
 <?php
 
-include_once("../bbdd.php");
-$sql="SELECT email, registro from cuentas where NOMBRE='$usuario'";
-$fila=consultaUnica($sql);
+include_once("../bbdd2.php");
+//$sql="SELECT email, registro from cuentas where NOMBRE=?";
+$fila = DB::run("SELECT email, registro from cuentas where NOMBRE=?", [$id])->fetch();
+
 ?>

@@ -6,9 +6,14 @@ $oDatos=json_decode($_GET['datos']);
 $usuario=$oDatos->nombre;
 $pass=$oDatos->pass;
 
-$sql="SELECT id, nombre, password, tipo from cuentas where NOMBRE='$usuario'";
+$miconexion=connectDB();
 
-$fila=consultaUnica($sql);
+$sql="SELECT id, nombre, password, tipo from cuentas where NOMBRE=? ";
+$select=$miconexion->prepare($sql);
+$select->execute(array($usuario));
+$fila=$select->fetch(PDO::FETCH_ASSOC);
+
+//$fila=consultaUnica($sql);
 
 
 $tipo=$fila["tipo"];
@@ -38,7 +43,8 @@ else
     $mensaje="No se ha encontrado el usuario";
 }
 
-
+$select=null;
+$miconexion=null;
 $respuesta=array($exito, $mensaje, $nombre, $id);
 
 echo json_encode($respuesta); 

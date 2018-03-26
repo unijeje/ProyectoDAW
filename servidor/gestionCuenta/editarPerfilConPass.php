@@ -1,6 +1,6 @@
 ﻿<?php
 
-include_once("../bbdd.php");
+include_once("../bbdd2.php");
 
 $oDatos=json_decode($_POST['datos']);
 $usuario=$oDatos->nombre;
@@ -9,10 +9,10 @@ $id=$oDatos->id;
 $pass=$oDatos->pass;
 $claveEncriptada=crypt($pass);
 
-$sql="UPDATE cuentas set email='$email', password='$claveEncriptada' where id='$id'";
+$sql="UPDATE cuentas set email=?, password=? where id=?";
 
-$n=ejecutaConsultaAccion($sql);
-
+$stmt = DB::run($sql, [$email, $claveEncriptada, $id]);
+$n=$stmt->rowCount();
 if($n>0)
 {
     $exito=true;
