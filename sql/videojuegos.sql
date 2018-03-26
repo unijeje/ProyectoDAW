@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2018 a las 17:16:07
+-- Tiempo de generación: 27-03-2018 a las 00:20:35
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -39,32 +39,67 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `compañia`
+-- Estructura de tabla para la tabla `company`
 --
 
-CREATE TABLE IF NOT EXISTS `compañia` (
+CREATE TABLE IF NOT EXISTS `company` (
   `ID` int(6) NOT NULL AUTO_INCREMENT,
   `NOMBRE` varchar(40) CHARACTER SET latin1 NOT NULL,
   `DESCRIPCION` text CHARACTER SET latin1,
-  `DIRECTOR` int(6) DEFAULT NULL,
-  `FECHA` date DEFAULT NULL,
+  `FECHA` varchar(4) DEFAULT NULL,
+  `PAIS` varchar(40) DEFAULT NULL,
+  `ENLACE` varchar(100) DEFAULT NULL,
+  `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `NOMBRE` (`NOMBRE`),
-  KEY `DIRECTOR` (`DIRECTOR`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `NOMBRE` (`NOMBRE`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `company`
+--
+
+INSERT INTO `company` (`ID`, `NOMBRE`, `DESCRIPCION`, `FECHA`, `PAIS`, `ENLACE`, `ACTIVO`) VALUES
+(4, 'Naughty Dog', 'Empresa desarrolladora de videojuegos estadounidense fundada por Andy Gavin y Jason Rubin en 1984, conocida principalmente por ser la creadora de exitosas sagas, como Crash Bandicoot, para PlayStation, Jak and Daxter, para PlayStation 2 y Uncharted, para PlayStation 3, así como el juego The Last of Us. Con sede en Santa Mónica, California, la empresa fue comprada por Sony Computer Entertainment en 2001.', '1984', 'Estados Unidos', 'https://www.naughtydog.com/', 1),
+(5, 'test02', 'Entrada de prueba', '2018', 'Estados Unidos', '', 0),
+(6, 'Sony Corporation', 'Japanese multinational conglomerate corporation headquartered in K?nan, Minato, Tokyo. Its diversified business includes consumer and professional electronics, gaming, entertainment and financial services. The company is one of the leading manufacturers of electronic products for the consumer and professional markets. Sony was ranked 105th on the 2017 list of Fortune Global 500.', '1946', 'Japón', 'https://www.sony.net/', 1),
+(7, 'Ubisoft', 'es una compañía francesa desarrolladora y distribuidora de videojuegos, fundada en 1986 en Carentoir, en Bretaña. Yves Guillemot, uno de los fundadores, es el actual director ejecutivo y Presidente de la compañía.2 Las oficinas centrales se ubican en Montreuil-Sous-Bois, Francia.', '1986', 'Francia', 'https://www.ubisoft.com/es-es/', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `compañia_juegos`
+-- Estructura de tabla para la tabla `company_juegos`
 --
 
-CREATE TABLE IF NOT EXISTS `compañia_juegos` (
+CREATE TABLE IF NOT EXISTS `company_juegos` (
   `ID_JUEGO` int(9) NOT NULL,
-  `ID_COMPAÑIA` int(6) NOT NULL,
-  PRIMARY KEY (`ID_JUEGO`,`ID_COMPAÑIA`),
-  KEY `ID_COMPAÑIA` (`ID_COMPAÑIA`)
+  `ID_COMPANY` int(6) NOT NULL,
+  PRIMARY KEY (`ID_JUEGO`,`ID_COMPANY`),
+  KEY `ID_COMPANY` (`ID_COMPANY`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `company_juegos`
+--
+
+INSERT INTO `company_juegos` (`ID_JUEGO`, `ID_COMPANY`) VALUES
+(6, 4),
+(12, 4),
+(14, 4),
+(19, 4),
+(20, 4),
+(21, 4),
+(22, 4),
+(23, 4),
+(24, 4),
+(6, 6),
+(14, 6),
+(19, 6),
+(20, 6),
+(21, 6),
+(22, 6),
+(29, 6),
+(30, 6),
+(1, 7);
 
 -- --------------------------------------------------------
 
@@ -156,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `generos` (
 --
 
 INSERT INTO `generos` (`ID`, `GENERO`) VALUES
-(1, 'Accion'),
+(1, 'Acción'),
 (2, 'Aventura'),
 (3, 'Horror'),
 (4, 'Suspense'),
@@ -179,6 +214,15 @@ CREATE TABLE IF NOT EXISTS `generos_juego` (
   KEY `ID_GENERO` (`ID_GENERO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `generos_juego`
+--
+
+INSERT INTO `generos_juego` (`ID_JUEGO`, `ID_GENERO`) VALUES
+(1, 7),
+(1, 8),
+(1, 9);
+
 -- --------------------------------------------------------
 
 --
@@ -192,10 +236,33 @@ CREATE TABLE IF NOT EXISTS `juego` (
   `FECHA` date DEFAULT NULL,
   `ENLACE` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   `DURACION` int(1) DEFAULT NULL,
+  `COVER` tinyint(1) DEFAULT NULL,
+  `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `TITULO` (`TITULO`),
   KEY `DURACION` (`DURACION`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+
+--
+-- Volcado de datos para la tabla `juego`
+--
+
+INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, `COVER`, `ACTIVO`) VALUES
+(1, 'test editado', 'test123\n\neditado', '2018-12-19', '987', 2, NULL, 0),
+(2, 'test2', 'test123333', '2018-03-31', '1234', NULL, NULL, 1),
+(6, 'Crash 2', '123', '2018-03-27', '123', NULL, NULL, 1),
+(12, 'Crash Bandicoot 1', 'El juego se centra alrededor de Crash Bandicoot, un marsupial mutado por el doctor psicópata Neo Cortex y su mano derecha Nitrus Brio, pero Crash intenta parar los planes de su creador (la dominación del mundo), cruzando sobre cualquier contaminación que haya causado para salvar a su novia Tawna, un bandicoot femenino también mutado por el doctor Cortex y Nitrus Brio.', '1996-09-09', 'https://es.wikipedia.org/wiki/Crash_Bandicoot_(videojuego)', 2, NULL, 1),
+(13, 'Crash3', 'test', '2018-03-04', 'test', NULL, NULL, 1),
+(14, 'Crash4', 'test', '2018-03-04', 'test', NULL, NULL, 1),
+(19, 'Crash5', 'test', '2018-03-04', 'test', NULL, NULL, 1),
+(20, 'Crash6', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(21, 'Crash7', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(22, 'Crash9', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(23, 'Crash10', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(24, 'Crash11', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(25, 'Crash12', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(29, 'Crash13', 'test', '2014-03-19', 'test', NULL, NULL, 1),
+(30, 'bandicoot', 'test', '2016-02-01', 'test', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -212,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `personas` (
   `ENLACE` varchar(100) DEFAULT NULL,
   `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Volcado de datos para la tabla `personas`
@@ -231,7 +298,8 @@ INSERT INTO `personas` (`ID`, `NOMBRE`, `NACIONALIDAD`, `GENERO`, `DESCRIPCION`,
 (12, 'test 09', 'esp', 'Masculino', 'esp', '', 0),
 (13, 'test 11', 'esp', 'Masculino', 'esp', '', 1),
 (14, 'test 12', 'esp', 'Masculino', 'esp', '', 1),
-(15, 'test 13', 'esp', 'Masculino', 'esp', '', 1);
+(15, 'test 13', 'esp', 'Masculino', 'esp', '', 1),
+(16, 'Jason Rubin', 'Estadounidense', 'Masculino', 'Fundador de Naughty Dog', 'https://en.wikipedia.org/wiki/Jason_Rubin', 1);
 
 -- --------------------------------------------------------
 
@@ -257,14 +325,25 @@ CREATE TABLE IF NOT EXISTS `personas_roles_juegos` (
 CREATE TABLE IF NOT EXISTS `plataforma` (
   `ID` int(3) NOT NULL AUTO_INCREMENT,
   `NOMBRE` varchar(40) CHARACTER SET latin1 NOT NULL,
-  `COMPAÑIA` int(6) DEFAULT NULL,
-  `FECHA` date DEFAULT NULL,
+  `COMPANY` int(6) DEFAULT NULL,
+  `FECHA` varchar(4) DEFAULT NULL,
   `DESCRIPCION` text CHARACTER SET latin1,
   `ESPECIFICACIONES` text,
+  `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`),
-  KEY `COMPAÑIA` (`COMPAÑIA`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `COMPANY` (`COMPANY`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `plataforma`
+--
+
+INSERT INTO `plataforma` (`ID`, `NOMBRE`, `COMPANY`, `FECHA`, `DESCRIPCION`, `ESPECIFICACIONES`, `ACTIVO`) VALUES
+(1, 'Playstation 1', 6, '1994', 'Test ED', 'Test ED', 1),
+(2, 'Playstation 2', 6, '2000', 'Es la segunda videoconsola de sobremesa producida por Sony Computer Entertainment y la sucesora de PlayStation. Fue lanzada por primera vez el 4 de marzo del año 2000 en Japón, y unos meses después en el resto del mundo. Esta consola es también la que más títulos posee, aproximadamente 10 900 títulos seguida por su predecesora la PlayStation con unos 8000 títulos.', 'CPU: Chip Emotion Engine (128 bits con capacidades SIMD) corriendo a 294.912 MHz (lanzamiento), 299 MHz (nuevos modelos).\nGPU: Chip GraphicsSynthesizer corriendo a 147.456 MHz', 1),
+(3, 'Playstation 3', 6, '2006', 'Es la tercera videoconsola del modelo PlayStation de Sony Computer Entertainment. Forma parte de las videoconsolas de séptima generación y sus competidores son la Xbox 360 de Microsoft y la Wii de Nintendo.', 'CPU:	 Cell Broadband Engine 3,2 GHz con 1PPE y 8 SPEs\nGPU: NVIDIA/SCEI RSX 550 MHz.\nRAM: 256 MB de RAM de tipo GDDR3 VRAM a 700 Mhz con ancho de banda de 128 bits y 256 MB Rambus XDR DRAM a 3.2 GHz con un ancho de banda de 64 bits.', 1),
+(4, 'test01', 4, '2018', 'test', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -278,6 +357,16 @@ CREATE TABLE IF NOT EXISTS `plataforma_juego` (
   PRIMARY KEY (`ID_JUEGO`,`ID_PLATAFORMA`),
   KEY `ID_PLATAFORMA` (`ID_PLATAFORMA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `plataforma_juego`
+--
+
+INSERT INTO `plataforma_juego` (`ID_JUEGO`, `ID_PLATAFORMA`) VALUES
+(1, 1),
+(12, 1),
+(1, 2),
+(12, 3);
 
 -- --------------------------------------------------------
 
@@ -336,6 +425,14 @@ CREATE TABLE IF NOT EXISTS `votos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Volcado de datos para la tabla `votos`
+--
+
+INSERT INTO `votos` (`JUEGO`, `CUENTA`, `NOTA`, `FECHA`) VALUES
+(12, 18, 5, '2018-03-26'),
+(30, 18, 9, '2018-03-26');
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -347,17 +444,11 @@ ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`USUARIO`) REFERENCES `cuentas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `compañia`
+-- Filtros para la tabla `company_juegos`
 --
-ALTER TABLE `compañia`
-  ADD CONSTRAINT `compa@0xia_ibfk_2` FOREIGN KEY (`DIRECTOR`) REFERENCES `personas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `compañia_juegos`
---
-ALTER TABLE `compañia_juegos`
-  ADD CONSTRAINT `compa@0xia_juegos_ibfk_1` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `compa@0xia_juegos_ibfk_2` FOREIGN KEY (`ID_COMPAÑIA`) REFERENCES `compañia` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `company_juegos`
+  ADD CONSTRAINT `company_juegos_ibfk_2` FOREIGN KEY (`ID_COMPANY`) REFERENCES `company` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `company_juegos_ibfk_1` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cuentas`
@@ -390,7 +481,7 @@ ALTER TABLE `personas_roles_juegos`
 -- Filtros para la tabla `plataforma`
 --
 ALTER TABLE `plataforma`
-  ADD CONSTRAINT `plataforma_ibfk_2` FOREIGN KEY (`COMPAÑIA`) REFERENCES `compañia` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `plataforma_ibfk_1` FOREIGN KEY (`COMPANY`) REFERENCES `company` (`ID`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Filtros para la tabla `plataforma_juego`
