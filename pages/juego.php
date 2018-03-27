@@ -436,13 +436,17 @@ if(isset($_SESSION["tipo"]))
 ?>
 <div id="comentariosJuego"> <!-- COMENTARIOS -->
     <h3 class="text-center">Comentarios</h3>
+    <div id="comentariosMostrar">
+    </div>
     <?php
     if(isset($_SESSION["tipo"]))
     {
     ?>
     <div class="form-group shadow-textarea offset-2 col-8 mt-4" id="textAreaComment">
-        <label for="txtComentario">Escriba un comentario:</label>
-        <textarea class="form-control z-depth-1" id="txtComentario" rows="3" placeholder=""></textarea>
+        <div class="form-group">
+            <label for="txtComentario">Escriba un comentario:</label>
+            <textarea class="form-control z-depth-1" id="txtComentario" rows="3" placeholder=""></textarea>
+        </div>
         <input type="button" id="enviarComment" class="btn btn-primary col-4 offset-4 mt-4" value="Enviar Comentario" />
     </div>
     <?php
@@ -470,6 +474,7 @@ if(isset($_SESSION["tipo"]))
 <script type="text/javascript">var juego_id = <?php echo $id_juego ;?>; var plats_id= <?php echo $idsPlataforma ;?>; var generos_id= <?php echo $idsGenero ;?>; 
 var duracion_id= <?php echo $duracionJuego ;?>;
 var user_id= <?php echo $_SESSION["id"] ;?>;
+var user_name= <?php echo json_encode($_SESSION["nombre"]) ;?>;
 var filaStaff = <?php echo json_encode($filaStaff) ;?>;
 </script>
 <script type="text/javascript" src="../js/juego.js"></script>

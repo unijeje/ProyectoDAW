@@ -1,4 +1,4 @@
-var ids=[];
+﻿var ids=[];
 var listaPersonas=[];
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
@@ -73,11 +73,54 @@ $( document ).ready(function() {
 
     $("#enviarComment").click(guardarComentario);
 
+    //cargar comentarios con ajax al cargar la página
+    var sEnviarJuego= "datos="+juego_id;
+    $.get("../servidor/gestionJuego/getComentarios.php", sEnviarJuego, procesarComentarios, "json");
+
+    //variables para validacion
+    var mensajeCommentBox;
+
 });
+
+function procesarComentarios(oRespuesta, sStatus, oAjax)
+{
+    if(oAjax.status==200)
+    {
+        for(var i=0;i<oRespuesta.length;i++)
+        {
+            var iRandom=Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+            sHtml='<div class="row mt-3">';
+            sHtml+='    <div class="col-8 offset-2">';
+            sHtml+='        <div class="card bg-white post panel-shadow">';
+            sHtml+='            <div class="post-heading row">';
+            sHtml+='                <div class="pull-left image col-2">';
+            sHtml+='                    <img src="../img/avatars/noavatar'+iRandom+'.png" class="img-circle avatar" alt="user profile image">';
+            sHtml+='                </div>';
+            sHtml+='                <div class="pull-left meta col-7 mt-2">';
+            sHtml+='                    <div class="title h5">';
+            sHtml+='                        <a href="#"><b>'+oRespuesta[i].nombre+'</b></a>';
+            sHtml+='                    </div>';
+            sHtml+='                </div>';
+            sHtml+='                <div class="fechaPub col-3 mt-2">';
+            sHtml+='                    <h6 class="text-muted time">'+oRespuesta[i].fecha+'</h6>';
+            sHtml+='                </div>';
+            sHtml+='            </div> ';
+            sHtml+='            <div class="post-description"> ';
+            sHtml+='                <p>'+oRespuesta[i].texto+'</p>';
+            sHtml+='            </div>';
+            sHtml+='        </div>';
+            sHtml+='    </div>';
+            sHtml+='</div>  ';
+            $("#comentariosMostrar").append(sHtml);
+        }
+    }
+}
 
 function guardarComentario()
 {
     $("#registroError").hide();
+    if(validarComentario())
+    {
     var sComment=$("#txtComentario").val().trim();
 
     var oComment={  usuario: user_id,
@@ -91,6 +134,31 @@ function guardarComentario()
         if(oAjax.status==200 && oRespuesta==true)
         {
             $("#txtComentario").val("");
+            var iRandom=Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+            sHtml='<div class="row mt-3">';
+            sHtml+='    <div class="col-8 offset-2">';
+            sHtml+='        <div class="card bg-white post panel-shadow">';
+            sHtml+='            <div class="post-heading row">';
+            sHtml+='                <div class="pull-left image col-2">';
+            sHtml+='                    <img src="../img/avatars/noavatar'+iRandom+'.png" class="img-circle avatar" alt="user profile image">';
+            sHtml+='                </div>';
+            sHtml+='                <div class="pull-left meta col-7 mt-2">';
+            sHtml+='                    <div class="title h5">';
+            sHtml+='                        <a href="#"><b>'+user_name+'</b></a>';
+            sHtml+='                    </div>';
+            sHtml+='                </div>';
+            sHtml+='                <div class="fechaPub col-3 mt-2">';
+            sHtml+='                    <h6 class="text-muted time">Ahora</h6>';
+            sHtml+='                </div>';
+            sHtml+='            </div> ';
+            sHtml+='            <div class="post-description"> ';
+            sHtml+='                <p>'+sComment+'</p>';
+            sHtml+='            </div>';
+            sHtml+='        </div>';
+            sHtml+='    </div>';
+            sHtml+='</div>  ';
+
+            $("#comentariosMostrar").append(sHtml);
 
         }
         else
@@ -99,8 +167,35 @@ function guardarComentario()
             $("#registroError").show();
         }
     }, "json");
+    }
 }
 
+function validarComentario()
+{
+    var sComment=$("#txtComentario").val().trim();
+    var res=true;
+    mensajeCommentBox="";
+    if(sComment.length<1 )
+    {
+        res=false;
+        mensajeCommentBox+="Debe escribir algo antes de enviar";
+        $("#txtComentario").addClass("is-invalid");
+        $("#txtComentario").parent().append('<div class="invalid-feedback">'+mensajeCommentBox+'</div>');
+    }
+    else if(sComment.length>=690 )
+    {
+        res=false;
+        mensajeCommentBox+="Límite máximo de carácteres alcanzado";
+        $("#txtComentario").addClass("is-invalid");
+        $("#txtComentario").parent().append('<div class="invalid-feedback">'+mensajeCommentBox+'</div>');
+    }
+    else
+    {
+        $("#txtComentario").removeClass("is-invalid");
+        $("#txtComentario").parent().find('div').remove();
+    }
+    return res;
+}
 
 function guardarStaff()
 {

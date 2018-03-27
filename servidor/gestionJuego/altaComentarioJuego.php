@@ -20,8 +20,8 @@ try
     $ultima_id=$fila["ultima"]+1;
     
     /*Insert comment*/
-    $time = date("Y-m-d H:i:s");  
-    $sql="insert into comentarios (ID, JUEGO, USUARIO, TEXTO, FECHA) values (?,?,?,?,'$time') ";
+    $unixTimeStamp=time();
+    $sql="insert into comentarios (ID, JUEGO, USUARIO, TEXTO, FECHA) values (?,?,?,?,'$unixTimeStamp') ";
     $insert = $miconexion->prepare($sql);
     $insert->execute(array($ultima_id, $id_juego, $id_usuario, $comment));
 

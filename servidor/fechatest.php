@@ -1,8 +1,11 @@
 <?php
-echo $today = date("Y-m-d H:i:s");    
-
+//$time = date("Y-m-d H:i:s");
+//$time=UNIX_TIMESTAMP($time);  
+echo $unixTimestamp=time();
+echo "<br>";
+echo date("Y-m-d H:i:s", $unixTimestamp);
 ?>
-
+<!--
 <div class="row">
 	<div class="col-8 offset-2">
 		<div class="card bg-white post panel-shadow">
@@ -24,4 +27,4 @@ echo $today = date("Y-m-d H:i:s");
 			</div>
 		</div>
 	</div>
-</div>   
+</div>   -->
