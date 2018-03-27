@@ -111,3 +111,107 @@ $( "#dialog-eliminar" ).dialog({
     }
 });
 
+$(document).ready(function() {
+    var sDatos= "datos="+user_id;
+    $.get("../servidor/gestionCuenta/getJuegos.php", sDatos, function(oRespuesta, sStatus, oAjax)
+    {
+        
+
+        //'sDom': 'lptip' ,
+        var juegos=$('#tablaPerfilJuego').DataTable( {
+        data: oRespuesta,
+        'sDom': "<'row'<'col-7'l><'col-5'f>>" +
+                "<'row'<'col-12't>>" +
+                "<'row'<'col-7'i><'col-5'p>>",
+        "language": {
+            "url": "../utilities/datatable_ESP.lang"
+        },
+        columns: [
+                { data: 'cover',
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                    if(sData!=null)
+                        $(nTd).html("<img class='imgCoverMin' src='../img/covers/"+oData.id+".png'>" );
+                    else
+                        $(nTd).html("<div class='autoAlturaTd'> </div>" );
+                    }
+                    
+            },
+                { data: 'titulo',
+                fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                $(nTd).html("<a href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
+                }
+            },
+                { data: 'nota', 
+                fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                    var sSelect='<select data-nota="'+oData.id+'" class="nota" name="nota">';
+                    sSelect+="<option value='revoke'>Eliminar Nota</option>";
+                    for(var i=1;i<=10;i++)
+                    {
+                        if(i==oData.nota)
+                            sSelect+="<option selected value='"+i+"'>"+i+"</option>";
+                        else
+                            sSelect+="<option value='"+i+"'>"+i+"</option>";
+                    }
+                    sSelect+="</select>";
+                    $(nTd).html("<div class='text-center'>"+ sSelect+"</div>");
+                    
+                }
+            },
+                { data: 'fecha'}
+                ]
+    } );
+
+    setTimeout(function()
+    {
+        var iLength=$(".nota").length;
+        for(var i=0;i<iLength;i++)
+        {
+            $($(".nota")[i]).change(actualizarNota);
+        }
+    
+    }, 250);
+    
+
+    }, "json");
+
+    
+
+
+} );
+
+function actualizarNota(event)
+{
+    
+    var target=event.target;
+    var sNota=$(target).val();
+    var id_juego=target.dataset.nota;
+    //user_id
+    //console.log("value: "+sNota);
+    //console.log("id_juego: "+id_juego);
+
+    var oNota={id_juego: id_juego,
+        id_usuario: user_id,
+        nota: sNota};
+
+    var sDatos= "datos="+JSON.stringify(oNota);
+
+    //console.log(oNota);
+    
+    $.post("../servidor/gestionJuego/addNotaJuego.php",sDatos,function(bExito, sStatus, oAjax){
+    //console.log(sNota);
+    if(sNota=="revoke")
+    {
+        $("option[value=revoke]").text("No ha votado");
+        $("option[value=revoke]").attr("value", "nada");
+    }
+    else if($(target.children[0]).text()=="No ha votado")
+    {
+        $(target.children[0]).text("Eliminar Nota");
+        $(target.children[0]).attr("value", "revoke");
+    }
+    },"json");
+    
+    
+}
+
+

@@ -22,7 +22,10 @@ $fila['registro']=fechaFormato($fila['registro']);
       <a class="nav-link" id="editarPerfil" data-toggle="pill" href="#editar">Configuración</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#menu2">Menu 2</a>
+      <a class="nav-link" data-toggle="pill" href="#votos">Mis votos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#comentarios">Mis comentarios</a>
     </li>
 
   </ul>
@@ -108,10 +111,23 @@ $fila['registro']=fechaFormato($fila['registro']);
       </form>
     </div>
 
-    <div id="menu2" class="container tab-pane fade"><br>
+    <div id="votos" class="container tab-pane fade"><br>
+        <h3>Todos sus Juegos</h3>
+        <div class="mt-4" style="max-width: 100%;">
+        <table id="tablaPerfilJuego" class="table table-bordered table-dark" style="width:100%;">
+            <thead>
+            <tr><th>Cover</th><th class="w-50">Título</th><th>Voto</th><th>Registro</th></tr>
+            </thead>
+
+        </table>
+        </div>
+    </div>
+    <div id="comentarios" class="container tab-pane fade"><br>
       <h3>Menu 2</h3>
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
+
+
   </div>    
 </div>
 
@@ -119,6 +135,7 @@ $fila['registro']=fechaFormato($fila['registro']);
 <div id="dialog-eliminar" title="Eliminar Cuenta">
     <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar la cuenta? Esta acción es irreversible</p>
 </div>
+<script type="text/javascript" src="../utilities/datatables2.min.js"></script>
 <script type="text/javascript">var user_id = <?php echo $id ?>;</script>
 <script type="text/javascript" src="../js/perfil.js"></script>
 

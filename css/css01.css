@@ -101,6 +101,25 @@ a:visited {
     height: 300px;
     width: 200px;
 }
+.imgCoverMin
+{
+    
+    max-height: 100px;
+    max-width: 100px;
+    min-height:60px;
+    min-width:60px;
+    
+    display:block; 
+    width:100%; 
+    height:auto;
+}
+.autoAlturaTd
+{
+    height:60px;
+    width:60px;
+    display: block;
+}
+
 
 /*
 #coverJuego

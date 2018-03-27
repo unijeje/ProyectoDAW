@@ -36,9 +36,9 @@ else if($nota=="revoke") //eliminar nota
 }
 else //update
 {
-    $sql="update votos set nota=? ";
+    $sql="update votos set nota=? where JUEGO=? and CUENTA=?";
     $update=$miconexion->prepare($sql);
-    $update->execute(array($nota));
+    $update->execute(array($nota, $id_juego, $id_usuario));
     $res=true;
 }
 
