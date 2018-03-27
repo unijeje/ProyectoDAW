@@ -120,6 +120,11 @@ a:visited {
     display: block;
 }
 
+#creditosJuego ul
+{
+    list-style-type: none;
+}
+
 
 /*
 #coverJuego

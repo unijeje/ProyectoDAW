@@ -62,10 +62,20 @@ else
     $idsPlataforma=json_encode(array(-1));
 
 //fetch staff
-$sql="SELECT p.nombre, r.rol, j.rol as id_rol, j.comentario from personas_roles_juegos j, personas p, roles r where j.juego=? and p.id=j.persona and r.id=j.rol order by j.rol";
+$sql="SELECT p.id as id_persona, p.nombre, r.rol, j.rol as id_rol, j.comentario from personas_roles_juegos j, personas p, roles r where j.juego=? and p.id=j.persona and r.id=j.rol order by j.rol";
 $rsStaff=$miconexion->prepare($sql);
 $rsStaff->execute(array($id_juego));
 $filaStaff=$rsStaff->fetchAll(PDO::FETCH_ASSOC);
+
+if($filaStaff!=null)
+{
+    $difRoles=[];
+    foreach($filaStaff as $value)
+    {
+        if(!in_array($value["rol"], $difRoles))
+        $difRoles[]=$value["rol"];
+    }
+}
 
 /*
 echo "<pre>";
@@ -225,9 +235,37 @@ if($filaJuego!=null)
         <p  class="col-10 offset-1 mt-5">Fotos</p>
     </div>
 
-    <h2 class="mt-5">Staff</h2>
-    <div id="creditosJuego" class="my-2">
-        <p>Creditos</p>
+    <h2 class="mt-5">Listado de Staff</h2>
+    <div id="creditosJuego" class="my-2 row">
+            <?php
+            if(isset($difRoles))
+            {
+                $num_cols=0;
+
+                //$sql="select id from"
+
+                foreach($difRoles as $value)
+                {   
+                    if($num_cols==0 || $num_cols%4==0) 
+                        echo "<div class='col-2 mt-2'>";
+                    else
+                        echo "<div class='col-2 mt-2 offset-1'>";
+                    echo "<h4>".$value."</h4>";
+                    echo "<ul class='list-group'>";                    
+
+                    foreach($filaStaff as $fila)
+                    {
+                        if($fila["rol"]==$value)
+                        {
+                            echo "<li class class='list-group-item'><a class='text-primary' href='staff.php?id=".$fila['id_persona']."'>".$fila["nombre"]."</a></li>";
+                        }
+                    }
+                    echo "</ul>";
+                    echo "</div>";
+                    $num_cols++;
+                }
+            }
+            ?>
 
     </div>
 </div>
@@ -402,9 +440,15 @@ if(isset($_SESSION["tipo"]))
 <div id="comentariosJuego">
 <p>Comentarios</p>
 </div>
+
+<div class="mt-3">
+</div>
+
 </div>
 <div id="dialog-eliminar" title="Eliminar <?php echo $filaJuego["titulo"];?>">
     <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar este juego?</p>
+</div>
+<div class="mt-5">
 </div>
 <script type="text/javascript">var juego_id = <?php echo $id_juego ;?>; var plats_id= <?php echo $idsPlataforma ;?>; var generos_id= <?php echo $idsGenero ;?>; 
 var duracion_id= <?php echo $duracionJuego ;?>;

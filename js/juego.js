@@ -68,7 +68,7 @@ $( document ).ready(function() {
         
     }
 
-    console.log(filaStaff);
+    //console.log(filaStaff);
 
 });
 
@@ -164,13 +164,13 @@ function getListadoRoles(oRoles, sStatus, oAjax)
 
         sOptionsStaff=res;
  
-            for(var i=0;i<$(".selectStaff").length;i++)
-            {
-                
-                $($(".selectStaff")[i]).append(sOptionsStaff);
-                //console.log(filaStaff[i].id_rol);
-                $($(".selectStaff")[i]).val(filaStaff[i].id_rol).change();
-            }
+        for(var i=0;i<$(".selectStaff").length;i++)
+        {
+            
+            $($(".selectStaff")[i]).append(sOptionsStaff);
+            //console.log(filaStaff[i].id_rol);
+            $($(".selectStaff")[i]).val(filaStaff[i].id_rol).change();
+        }
      
 
     }
@@ -185,6 +185,14 @@ function autoCompletePersonas(oRespuesta, sStatus, oAjax)
         {
             listaPersonas.push(oRespuesta[i].nombre);
         }
+        for(var i=0;i<$(".txtStaffNombre").length;i++)
+        {
+            $($(".txtStaffNombre")[i]).autocomplete({
+                source: listaPersonas,
+                minLength: 0
+            });
+        }
+
     }
 }
 
