@@ -62,6 +62,17 @@ else
     $idsPlataforma=json_encode(array(-1));
 
 //fetch staff
+$sql="SELECT p.nombre, r.rol, j.rol as id_rol, j.comentario from personas_roles_juegos j, personas p, roles r where j.juego=? and p.id=j.persona and r.id=j.rol order by j.rol";
+$rsStaff=$miconexion->prepare($sql);
+$rsStaff->execute(array($id_juego));
+$filaStaff=$rsStaff->fetchAll(PDO::FETCH_ASSOC);
+
+/*
+echo "<pre>";
+print_r($filaStaff);
+echo "</pre>";
+*/
+//fetch duracion
 
 if($filaJuego["duracion"]!=null)
 {
@@ -253,9 +264,6 @@ if(isset($_SESSION["tipo"]))
             }
         ?>
     </ul>
-
-   
-    <br>
     <div id="registrado">
         <h2>Editado correctamente</h2>
     </div>
@@ -324,8 +332,31 @@ if(isset($_SESSION["tipo"]))
             <input type="button" id="btnEditarPlat" class="btn btn-primary col-8 mt-5" value="Guardar Cambios" />  
         </form>
         </div>
-        <div class="tab-pane container" id="staff">
-            <p>Staff</p>
+        <div class="tab-pane container" id="staff"> <!--Staff-->
+            <form name="formStaff" id="formStaff" method="get" action="#" class="mt-4">
+                <?php
+                if($filaStaff!=null)
+                {
+                    foreach($filaStaff as $value)
+                    {
+                        $sHtml='<div class="form-group row divStaff">';
+                        $sHtml.=' <input type="text" class="form-control col-3 txtStaffNombre ml-2" placeholder="Jason Rubin" name="" value="'.$value["nombre"].'" />';
+                        $sHtml.='<select class="selectStaff form-control col-3 ml-2">';
+
+                        $sHtml.="</select>";
+                        $sHtml.=' <input type="text" class="form-control col-3 txtStaffComentario ml-2" placeholder="comentario" name="" value="'.$value["comentario"].'"/>';
+                        $sHtml.='<input type="button" class="btn btn-danger col-1 ml-1 btnEliminarStaff" value="X" />';
+                        $sHtml.="</div>";
+                        echo $sHtml;
+                    }
+                }
+                ?>
+                <div class="form-group">
+                <input type="button" id="btnAddStaff" class="form-control btn btn-primary col-2  mt-2" value="Añadir Staff" />
+                </div>
+                <br>
+                <input type="button" id="btnGuardarStaff" class="form-control btn btn-primary col-8 mt-3" value="Guardar Cambios" /> 
+            </form>  
         </div>
         <div class="tab-pane container" id="images">
             <form name="formEditarImg" id="formEditarImg">
@@ -338,7 +369,13 @@ if(isset($_SESSION["tipo"]))
                     </label>
                 </div>
                 <input type="button" id="btnEditarCover" class="btn btn-primary col-8 mt-2" value="Guardar Nueva Cover" />
-                <input type="button" id="btnEliminarCover" class="btn btn-danger col-8 mt-2" value="Eliminar Cover" />    
+                <?php
+                if($filaJuego["cover"]!=null)
+                echo '<input type="button" id="btnEliminarCover" class="btn btn-danger col-8 mt-2" value="Eliminar Cover" /> ';
+                else
+                echo '<input type="button" disabled id="btnEliminarCover" class="btn btn-danger col-8 mt-2" value="Eliminar Cover" /> ';
+                ?>
+                   
             </div>
             
             </form>
@@ -372,6 +409,7 @@ if(isset($_SESSION["tipo"]))
 <script type="text/javascript">var juego_id = <?php echo $id_juego ;?>; var plats_id= <?php echo $idsPlataforma ;?>; var generos_id= <?php echo $idsGenero ;?>; 
 var duracion_id= <?php echo $duracionJuego ;?>;
 var user_id= <?php echo $_SESSION["id"] ;?>;
+var filaStaff = <?php echo json_encode($filaStaff) ;?>;
 </script>
 <script type="text/javascript" src="../js/juego.js"></script>
 <script type="text/javascript" src="../js/ListadoStaff.js"></script>

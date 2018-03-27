@@ -1,4 +1,5 @@
 var ids=[];
+var listaPersonas=[];
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
     //cargarRevisionesStaff();
@@ -52,7 +53,140 @@ $( document ).ready(function() {
     
     $("#btnEditarCover").click(guardarCoverImg);
     $("#btnEliminarCover").click(eliminarCover);
+
+    $("#btnAddStaff").click(addStaffInput);
+    var sOptionsStaff;
+    $.get("../servidor/gestionJuego/getListaRoles.php", getListadoRoles, "json");
+
+    $.get("../servidor/gestionPersona/listadoPersonas.php", autoCompletePersonas, "json");
+
+    $("#btnGuardarStaff").click(guardarStaff);
+
+    for(var i=0;i<$(".btnEliminarStaff").length;i++)
+    {
+        $($(".btnEliminarStaff")[i]).click(eliminarStaffInput);
+        
+    }
+
+    console.log(filaStaff);
+
 });
+
+
+function guardarStaff()
+{
+    /* coger los datos de todos el staff al momento de pulsar el boton, eliminar los pertinentes a este juego en la DB y escribir estos */
+    var oCamposNombre=$(".txtStaffNombre");
+    var oSelectsRol=$(".selectStaff");
+    var oCamposComentario=$(".txtStaffComentario");
+
+    var oNombreValues=[];
+    var oRolesValues=[];
+    var oComentsValues=[];
+
+    for (var i=0;i<oCamposNombre.length;i++)
+    {
+        oNombreValues.push(oCamposNombre[i].value.trim());
+        oRolesValues.push(oSelectsRol[i].value);
+        oComentsValues.push(oCamposComentario[i].value.trim());
+    }
+
+    var oDatos={id: juego_id,
+                nombres: oNombreValues,
+                roles: oRolesValues,
+                coment: oComentsValues};
+
+    var sDatos= "datos="+JSON.stringify(oDatos);
+
+    $("#registroError").hide();
+
+    $.post("../servidor/gestionJuego/editarStaff.php", sDatos, function(oRespuesta, sStatus, oAjax)
+    {
+        if(oAjax.status==200 && oRespuesta==true)
+        {
+            $("#registrado").show();
+            $("#formStaff").hide();
+            $("#guidelines").hide();
+            window.location.reload();
+        }
+        else
+        {
+            $("#registroError p").text("Error al procesar");
+            $("#registroError").show();
+        }
+    }, "json");
+
+}
+
+function addStaffInput()
+{
+    var sHtml='<div style="display:none;" class="form-group row divStaff">';
+    sHtml+=' <input type="text" class="form-control col-3 txtStaffNombre ml-2" placeholder="Jason Rubin" name="" />';
+    sHtml+='<select class="selectStaff form-control col-3 ml-2">';
+    sHtml+=sOptionsStaff;
+    sHtml+='</select>';
+    sHtml+=' <input type="text" class="form-control col-3 txtStaffComentario ml-2" placeholder="comentario" name="" />';
+    sHtml+='<input type="button" class="btn btn-danger col-1 ml-1 btnEliminarStaff" value="X" />';
+    sHtml+="</div>";
+
+    //console.log(sHtml);
+
+    $("#btnAddStaff").before(sHtml);
+    $(".divStaff:last").show("slow");
+
+    $(".btnEliminarStaff:last").click(eliminarStaffInput);
+
+
+
+    $(".txtStaffNombre:last").autocomplete({
+        source: listaPersonas,
+        minLength: 0
+    });
+
+}
+
+function eliminarStaffInput(evento)
+{
+    var target=evento.target;
+    //console.log(target);
+    $(target).parent().hide('slow', function(){ this.remove(); });
+}
+
+function getListadoRoles(oRoles, sStatus, oAjax)
+{
+    if(oAjax.status==200)
+    {
+        var res="";
+        for(var i=0;i<oRoles.length;i++)
+        {
+            res+="<option value='"+oRoles[i].id+"'>"+oRoles[i].rol+"</option>";
+        }
+
+        sOptionsStaff=res;
+ 
+            for(var i=0;i<$(".selectStaff").length;i++)
+            {
+                
+                $($(".selectStaff")[i]).append(sOptionsStaff);
+                //console.log(filaStaff[i].id_rol);
+                $($(".selectStaff")[i]).val(filaStaff[i].id_rol).change();
+            }
+     
+
+    }
+    
+}
+
+function autoCompletePersonas(oRespuesta, sStatus, oAjax)
+{
+    if(oAjax.status==200)
+    {
+        for(var i=0;i<oRespuesta.length;i++)
+        {
+            listaPersonas.push(oRespuesta[i].nombre);
+        }
+    }
+}
 
 function eliminarCover()
 {
