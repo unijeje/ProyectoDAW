@@ -118,59 +118,97 @@ $(document).ready(function() {
         
 
         //'sDom': 'lptip' ,
-        var juegos=$('#tablaPerfilJuego').DataTable( {
-        data: oRespuesta,
-        'sDom': "<'row'<'col-7'l><'col-5'f>>" +
-                "<'row'<'col-12't>>" +
-                "<'row'<'col-7'i><'col-5'p>>",
-        "language": {
-            "url": "../utilities/datatable_ESP.lang"
-        },
-        columns: [
-                { data: 'cover',
-                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                    if(sData!=null)
-                        $(nTd).html("<img class='imgCoverMin' src='../img/covers/"+oData.id+".png'>" );
-                    else
-                        $(nTd).html("<div class='autoAlturaTd'> </div>" );
-                    }
-                    
-            },
-                { data: 'titulo',
-                fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                $(nTd).html("<a href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
-                }
-            },
-                { data: 'nota', 
-                fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                    var sSelect='<select data-nota="'+oData.id+'" class="nota" name="nota">';
-                    sSelect+="<option value='revoke'>Eliminar Nota</option>";
-                    for(var i=1;i<=10;i++)
-                    {
-                        if(i==oData.nota)
-                            sSelect+="<option selected value='"+i+"'>"+i+"</option>";
-                        else
-                            sSelect+="<option value='"+i+"'>"+i+"</option>";
-                    }
-                    sSelect+="</select>";
-                    $(nTd).html("<div class='text-center'>"+ sSelect+"</div>");
-                    
-                }
-            },
-                { data: 'fecha'}
-                ]
-    } );
-
-    setTimeout(function()
-    {
-        var iLength=$(".nota").length;
-        for(var i=0;i<iLength;i++)
+        if($('#tablaPerfilJuego').length>0)
         {
-            $($(".nota")[i]).change(actualizarNota);
-        }
-    
-    }, 250);
-    
+            var juegos=$('#tablaPerfilJuego').DataTable( {
+            data: oRespuesta,
+            'sDom': "<'row'<'col-7'l><'col-5'f>>" +
+                    "<'row'<'col-12't>>" +
+                    "<'row'<'col-7'i><'col-5'p>>",
+            "language": {
+                "url": "../utilities/datatable_ESP.lang"
+            },
+            columns: [
+                    { data: 'cover',
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                        if(sData!=null)
+                            $(nTd).html("<img class='imgCoverMin' src='../img/covers/"+oData.id+".png'>" );
+                        else
+                            $(nTd).html("<div class='autoAlturaTd'> </div>" );
+                        }
+                        
+                },
+                    { data: 'titulo',
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
+                    }
+                },
+                    { data: 'nota', 
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                        var sSelect='<select data-nota="'+oData.id+'" class="nota" name="nota">';
+                        sSelect+="<option value='revoke'>Eliminar Nota</option>";
+                        for(var i=1;i<=10;i++)
+                        {
+                            if(i==oData.nota)
+                                sSelect+="<option selected value='"+i+"'>"+i+"</option>";
+                            else
+                                sSelect+="<option value='"+i+"'>"+i+"</option>";
+                        }
+                        sSelect+="</select>";
+                        $(nTd).html("<div class='text-center'>"+ sSelect+"</div>");
+                        
+                    }
+                },
+                    { data: 'fecha'}
+                    ]
+        } );
+
+        setTimeout(function()
+        {
+            var iLength=$(".nota").length;
+            for(var i=0;i<iLength;i++)
+            {
+                $($(".nota")[i]).change(actualizarNota);
+            }
+        
+        }, 250);
+    }
+    else 
+    {
+        var juegos=$('#tablaPerfilJuegoOtro').DataTable( {
+            data: oRespuesta,
+            'sDom': "<'row'<'col-7'l><'col-5'f>>" +
+                    "<'row'<'col-12't>>" +
+                    "<'row'<'col-7'i><'col-5'p>>",
+            "language": {
+                "url": "../utilities/datatable_ESP.lang"
+            },
+            columns: [
+                    { data: 'cover',
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                        if(sData!=null)
+                            $(nTd).html("<img class='imgCoverMin' src='../img/covers/"+oData.id+".png'>" );
+                        else
+                            $(nTd).html("<div class='autoAlturaTd'> </div>" );
+                        }
+                        
+                },
+                    { data: 'titulo',
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
+                    }
+                },
+                    { data: 'nota', 
+                    fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("<div class='text-center'>"+ oData.nota+"</div>");
+                        
+                    }
+                },
+                    { data: 'fecha'}
+                    ]
+        } );
+        
+    }
 
     }, "json");
 

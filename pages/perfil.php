@@ -1,26 +1,58 @@
 ﻿<?php
 include("../utilities/utilities.php");
+include("../servidor/bbdd.php");
 iniciarSesion();
 cabecera("VideoJuegos BBDD");
-navBar();
-$usuario=$_SESSION["nombre"];
-$id= $_SESSION["id"];
-//include("../servidor/gestionCuenta/editarPerfil.php");
 
-include("../servidor/bbdd.php");
-$sql="SELECT email, registro from cuentas where NOMBRE='$usuario'";
-$fila=consultaUnica($sql);
+$miconexion=connectDB();
+
+if(isset($_GET["id"]))
+{
+    $id=$_GET["id"];
+    $sql="SELECT nombre, email, registro from cuentas where id=? ";
+    $select=$miconexion->prepare($sql);
+    $select->execute(array($id));
+    $fila=$select->fetch();
+    $usuario=$fila["nombre"];
+
+}
+else
+{
+    $usuario=$_SESSION["nombre"];
+    $id= $_SESSION["id"];
+
+    $sql="SELECT email, registro from cuentas where NOMBRE=?";
+    $select=$miconexion->prepare($sql);
+    $select->execute(array($usuario));
+    $fila=$select->fetch();
+    
+}
 $fila['registro']=fechaFormato($fila['registro']);
+
+
+$sql="select count(nota) as total from votos where cuenta=?";
+$select=$miconexion->prepare($sql);
+$select->execute(array($id));
+$filaNumVotos=$select->fetch();
+
+navBar();
 ?>
 <div class="row">
 
  <ul class="nav nav-pills flex-column col-2 mt-4" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="mostrarPerfil" data-toggle="pill" href="#perfil"><?php echo $_SESSION["nombre"];?></a>
+      <a class="nav-link active" id="mostrarPerfil" data-toggle="pill" href="#perfil"><?php echo $usuario;?></a>
     </li>
+    <?php
+    if(!isset($_GET["id"]))
+    {
+    ?>   
     <li class="nav-item">
       <a class="nav-link" id="editarPerfil" data-toggle="pill" href="#editar">Configuración</a>
     </li>
+    <?php
+    }
+    ?> 
     <li class="nav-item">
       <a class="nav-link" data-toggle="pill" href="#votos">Mis votos</a>
     </li>
@@ -35,19 +67,26 @@ $fila['registro']=fechaFormato($fila['registro']);
     <div id="perfil" class="container tab-pane active"><br>
       <table class="table table-striped ">
         <tr>
-            <td class="w-25">ID usuario</td> <td><?php echo $_SESSION["id"];?> </td>
+            <td class="w-25">ID usuario</td> <td><?php echo $id;?> </td>
         </tr>
         <tr>
-            <td class="w-25">Usuario</td> <td><?php echo $_SESSION["nombre"];?> </td>
+            <td class="w-25">Usuario</td> <td><?php echo $usuario;?> </td>
         </tr>
         <tr>
             <td>Registro</td> <td id="tablaCorreo"><?php echo $fila['registro'];?></td>
         </tr>
+        <?php
+        if(!isset($_GET["id"]))
+        {
+        ?> 
         <tr>
             <td>Correo</td> <td><?php echo $fila['email'];?></td>
         </tr>
+        <?php
+        }
+        ?> 
         <tr>
-            <td>Juegos</td> <td>nº de juegos</td>
+            <td>Juegos</td> <td><?php echo $filaNumVotos["total"]; ?></td>
         </tr>
         <tr>
             <td>Comentarios</td> <td>nº de comentarios</td>
@@ -114,11 +153,19 @@ $fila['registro']=fechaFormato($fila['registro']);
     <div id="votos" class="container tab-pane fade"><br>
         <h3>Todos sus Juegos</h3>
         <div class="mt-4" style="max-width: 100%;">
-        <table id="tablaPerfilJuego" class="table table-bordered table-dark" style="width:100%;">
+        <?php
+        if(!isset($_GET["id"]))
+        {      
+        echo '<table id="tablaPerfilJuego" class="table table-bordered table-dark" style="width:100%;">';
+        }
+        else
+        {
+        echo '<table id="tablaPerfilJuegoOtro" class="table table-bordered table-dark" style="width:100%;">';
+        }
+        ?>
             <thead>
             <tr><th>Cover</th><th class="w-50">Título</th><th>Voto</th><th>Registro</th></tr>
             </thead>
-
         </table>
         </div>
     </div>
@@ -140,5 +187,7 @@ $fila['registro']=fechaFormato($fila['registro']);
 <script type="text/javascript" src="../js/perfil.js"></script>
 
 <?php
+$select=null;
+$miconexion=null;
 pie();
 ?>
