@@ -9,6 +9,9 @@ $res = $miconexion->prepare($sql);
 $res->execute();
 $lista=$res->fetchAll(PDO::FETCH_ASSOC);
 
+
+$res=null;
+$miconexion=null;
 echo json_encode($lista);
 
 ?>

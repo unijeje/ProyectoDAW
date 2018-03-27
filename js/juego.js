@@ -70,7 +70,36 @@ $( document ).ready(function() {
 
     //console.log(filaStaff);
 
+
+    $("#enviarComment").click(guardarComentario);
+
 });
+
+function guardarComentario()
+{
+    $("#registroError").hide();
+    var sComment=$("#txtComentario").val().trim();
+
+    var oComment={  usuario: user_id,
+                    comment: sComment,
+                    juego: juego_id};
+    //console.log(oComment);
+    var sDatos= "datos="+JSON.stringify(oComment);
+
+    $.post("../servidor/gestionJuego/altaComentarioJuego.php", sDatos, function(oRespuesta, sStatus, oAjax)
+    {
+        if(oAjax.status==200 && oRespuesta==true)
+        {
+            $("#txtComentario").val("");
+
+        }
+        else
+        {
+            $("#registroError p").text("Error al procesar");
+            $("#registroError").show();
+        }
+    }, "json");
+}
 
 
 function guardarStaff()

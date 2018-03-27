@@ -135,7 +135,7 @@ if($filaJuego!=null)
         </div>
         <div id="informacionJuego" class="row col-6 offset-1">
             <table class ="table table-responsive borderless">
-            <tr><td>Fecha</td><td><?php echo $filaJuego["fecha"];?></td></tr>
+            <tr><td>Lanzamiento</td><td><?php echo $filaJuego["fecha"];?></td></tr>
 
             
             <?php
@@ -434,12 +434,29 @@ if(isset($_SESSION["tipo"]))
 <?php
 }
 ?>
+<div id="comentariosJuego"> <!-- COMENTARIOS -->
+    <h3 class="text-center">Comentarios</h3>
+    <?php
+    if(isset($_SESSION["tipo"]))
+    {
+    ?>
+    <div class="form-group shadow-textarea offset-2 col-8 mt-4" id="textAreaComment">
+        <label for="txtComentario">Escriba un comentario:</label>
+        <textarea class="form-control z-depth-1" id="txtComentario" rows="3" placeholder=""></textarea>
+        <input type="button" id="enviarComment" class="btn btn-primary col-4 offset-4 mt-4" value="Enviar Comentario" />
+    </div>
+    <?php
+    }
+    ?>
+        
+        
+</div>
+
+
 <div id="revisionesJuego">
 <p>Revisiones</p>
 </div>
-<div id="comentariosJuego">
-<p>Comentarios</p>
-</div>
+
 
 <div class="mt-3">
 </div>
