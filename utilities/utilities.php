@@ -36,6 +36,9 @@ function navBar()
       </li>
       <li class="nav-item">
         <a class="nav-link" href="listadoCompany.php">Compañías</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="listadoUsuarios.php">Usuarios</a>
       </li>';
       if(isset($_SESSION["tipo"]))
       {
@@ -130,6 +133,9 @@ function navBarIndex()
       </li>
       <li class="nav-item">
         <a class="nav-link" href="pages/listadoCompany.php">Compañías</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="pages/listadoUsuarios.php">Usuarios</a>
       </li>';   
       if(isset($_SESSION["tipo"]))
       {

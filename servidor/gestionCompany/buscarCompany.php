@@ -5,10 +5,12 @@ include_once("../bbdd.php");
 $nombre=$_GET['datos'];
 
 
-$sql="select id, nombre from company  where nombre like '%".$nombre."%' and ACTIVO=1 order by nombre";
+$sql="select id, nombre from company  where nombre like CONCAT(?,'%') and ACTIVO=1 order by nombre";
 
-$datos=ejecutaConsultaArray($sql);
+$miconexion=connectDB();
+$select = $miconexion->prepare($sql);
+$select->execute(array($nombre));
+$fila=$select->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode($datos); 
-
+echo json_encode($fila); 
 ?>

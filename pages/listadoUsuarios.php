@@ -1,7 +1,7 @@
 <?php
 include("../utilities/utilities.php");
 iniciarSesion();
-cabecera("Personas");
+cabecera("Usuarios");
 navBar();
 include_once("../servidor/bbdd.php");
 $miconexion=connectDB();
@@ -13,10 +13,10 @@ $start_from = ($page-1) * $limit;
 /*3 Filas dividir limit entre 3 y hacer 3 tablas */
 $resPorTabla=$limit/3;
 
-$sql="SELECT id, nombre from personas where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
+$sql="SELECT id, nombre from cuentas order by nombre LIMIT $start_from, $limit";
 $select=$miconexion->prepare($sql);
 $select->execute();
-$filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
+$filaCuentas=$select->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div id="registroError">
     <h2 class="text-danger">Ha habido un error en la busqueda </h2>
@@ -37,7 +37,7 @@ $filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
     <?php
         $i=0;
         echo '<div class="list-inline text-center col-12">';
-        foreach($filaStaff as $fila)
+        foreach($filaCuentas as $fila)
         {
             if($i==$resPorTabla)
             {
@@ -47,7 +47,7 @@ $filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
                 $i=0;
             }
             $idActual=$fila["id"];
-            echo '<li class="list-inline-item elementoListado"><a href="staff.php?id='.$idActual.'" class="list-group-item list-group-item-action">'.$fila["nombre"].'</a></li>';
+            echo '<li class="list-inline-item elementoListado"><a href="perfil.php?id='.$idActual.'" class="list-group-item list-group-item-action">'.$fila["nombre"].'</a></li>';
             $i++;
             
         }
@@ -61,7 +61,7 @@ $filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
 <div id="paginacion" class="mt-5 ml-5">
     <?php
     $resultset=null;
-    $sqlCount="Select count(id) as num from personas";
+    $sqlCount="Select count(id) as num from cuentas";
     $select = $miconexion->prepare($sqlCount);
     $select->execute();
     $fila=$select->fetch(PDO::FETCH_ASSOC);
@@ -69,7 +69,7 @@ $filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
     $numPag=ceil($numRes / $limit);
     $pagLink = "<nav><ul class='pagination'>";  
     for ($i=1; $i<=$numPag; $i++) {  
-                    $pagLink .= "<li class='page-item'><a  class='page-link' href='listadoStaff.php?page=".$i."'>".$i."</a></li>";  
+                    $pagLink .= "<li class='page-item'><a  class='page-link' href='listadoUsuarios.php?page=".$i."'>".$i."</a></li>";  
     };  
     echo $pagLink . "</ul></nav>";
 
@@ -83,11 +83,11 @@ $filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
             itemsOnPage: <?php echo $limit;?>,
             cssStyle: 'compact-theme',
             currentPage : <?php echo $page;?>,
-            hrefTextPrefix : 'listadoStaff.php?page='
+            hrefTextPrefix : 'listadoUsuarios.php?page='
         });
         });
 </script>
-<script type="text/javascript" src="../js/ListadoStaff.js"></script>
+<script type="text/javascript" src="../js/listadoUsuarios.js"></script>
 <script type="text/javascript" src="../utilities/jquery.simplePagination.js"></script>
 <?php
 pie();

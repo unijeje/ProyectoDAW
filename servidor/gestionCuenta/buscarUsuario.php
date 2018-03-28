@@ -2,11 +2,11 @@
 
 include_once("../bbdd.php");
 
+
 $nombre=$_GET['datos'];
 
 
-$sql="select id, nombre from company  where nombre like CONCAT(?,'%') and ACTIVO=1 order by nombre";
-
+$sql="select id, nombre from cuentas where nombre like CONCAT(?,'%') order by nombre";
 $miconexion=connectDB();
 $select = $miconexion->prepare($sql);
 $select->execute(array($nombre));

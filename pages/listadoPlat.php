@@ -61,7 +61,9 @@ $filaPlat=$select->fetchAll(PDO::FETCH_ASSOC);
     <?php
     $resultset=null;
     $sqlCount="Select count(id) as num from plataforma";
-    $fila=consultaUnica($sqlCount);
+    $select = $miconexion->prepare($sqlCount);
+    $select->execute();
+    $fila=$select->fetch(PDO::FETCH_ASSOC);
     $numRes=$fila["num"];
     $numPag=ceil($numRes / $limit);
     $pagLink = "<nav><ul class='pagination'>";  
