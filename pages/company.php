@@ -3,9 +3,34 @@ include("../utilities/utilities.php");
 iniciarSesion();
 
 include_once("../servidor/bbdd.php");
+$miconexion=connectDB();
 $id_company=$_GET["id"];
-$sql="select nombre, fecha, pais, descripcion, enlace from company where id=".$id_company;
-$fila=consultaUnica($sql);
+$sql="select nombre, fecha, pais, descripcion, enlace from company where id=? ";
+$select=$miconexion->prepare($sql);
+$select->execute(array($id_company));
+$fila=$select->fetch();
+
+
+//creditos compañía
+$sql="SELECT j.id, j.titulo,j.fecha
+from company c, company_juegos cj, juego j
+where j.id=cj.id_juego
+and c.id=cj.id_company
+and c.id=? 
+order by j.fecha asc";
+$selectCreditos=$miconexion->prepare($sql);
+$selectCreditos->execute(array($id_company));
+$filaCreditos=$selectCreditos->fetchAll(PDO::FETCH_ASSOC);
+
+//creditos consola
+$sql="SELECT p.id, p.nombre, p.fecha
+from company c, plataforma p
+where p.company=c.id
+and c.id=? order by p.fecha";
+$selectCreditos=$miconexion->prepare($sql);
+$selectCreditos->execute(array($id_company));
+$filaPlataformas=$selectCreditos->fetchAll(PDO::FETCH_ASSOC);
+
 cabecera($fila["nombre"]);
 navBar();
 ?>
@@ -16,7 +41,7 @@ navBar();
         <li><a href="#revisionesCompany">Revisiones</a></li>
     </ul>
 <div id="mainCompany">
-    <div id="datosCompany" class="w-75 offset-1">
+    <div id="datosCompany" class="col-10 offset-1">
         <h2 class="text-center"><?php echo $fila["nombre"];?></h2>
         <p class="text-center">Nacionalidad: <?php echo $fila["pais"];?></p>
         <p class="text-center">Fecha: <?php echo $fila["fecha"];?></p>
@@ -27,7 +52,40 @@ navBar();
     </div>
     <h2 class="mt-5">Creditos</h2>
     <div id="creditosCompany" class="my-2">
-
+        <h3>Juegos</h3>
+        <table class="table borderless table-striped">
+            <tr>
+            <th class="w-75">Título</th><th>Lanzamiento</th>
+            </tr>
+            <?php
+            foreach($filaCreditos as $value)
+            {
+                echo "<tr>";
+                    echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td>";
+                echo "</tr>";
+            }
+            
+            echo '</table>';
+        if($filaPlataformas!=null)
+        {
+            ?>
+        <h3>Consolas</h3>
+        <table class="table borderless table-striped">
+            <tr>
+            <th class="w-75">Título</th><th>Lanzamiento</th>
+            </tr>
+            <?php
+            foreach($filaPlataformas as $value)
+            {
+                echo "<tr>";
+                    echo "<td><a href='plataforma.php?id=".$value['id']."'>".$value["nombre"]."</a></td><td>".$value["fecha"]."</td>";
+                echo "</tr>";
+            }
+            ?>
+            </table>
+        <?php
+        }
+        ?>
     </div>
 </div>
 <div id="editingCompany">

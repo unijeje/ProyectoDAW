@@ -4,6 +4,7 @@ iniciarSesion();
 cabecera("Personas");
 navBar();
 include_once("../servidor/bbdd.php");
+$miconexion=connectDB();
 $limit=9;
 
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
@@ -13,7 +14,9 @@ $start_from = ($page-1) * $limit;
 $resPorTabla=$limit/3;
 
 $sql="SELECT id, nombre from personas where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
-$resultset=ejecutaConsulta($sql);
+$select=$miconexion->prepare($sql);
+$select->execute();
+$filaStaff=$select->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div id="registroError">
     <h2 class="text-danger">Ha habido un error en la busqueda </h2>
@@ -34,7 +37,7 @@ $resultset=ejecutaConsulta($sql);
     <?php
         $i=0;
         echo '<div class="list-inline text-center col-12">';
-        while($fila=$resultset->fetch(PDO::FETCH_ASSOC))
+        foreach($filaStaff as $fila)
         {
             if($i==$resPorTabla)
             {

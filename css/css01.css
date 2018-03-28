@@ -20,8 +20,17 @@ p, li:not(.nav-item)
     padding: 1rem;
 }
 
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
 a{
     text-decoration: none;
+    
 }
 
 a:hover {
@@ -61,7 +70,11 @@ a:visited {
 {
     background-color: rgb(88, 185, 250);
     border: 1px solid rgb(0, 86, 118);
-    padding: 1rem;
+    padding: 1rem;    
+}
+#creditosPersona a, #creditosCompany a
+{
+    color: rgb(2, 10, 232);;
 }
 
 .elementoListado
@@ -86,7 +99,8 @@ a:visited {
 * html .ui-autocomplete {
     height: 200px;
 }
-#tablaListadoJuego a:hover
+
+#tablaListadoJuego a:hover, #creditosPersona a:hover, #creditosCompany a:hover
 {
     text-decoration: underline dotted gray;
     
@@ -252,13 +266,7 @@ margin-left: 50px;
 */
 
 
-.table > tbody > tr > td {
-    vertical-align: middle;
-}
 
-.borderless td, .borderless th {
-    border: none;
-}
 
 /*
 .ui-tabs .ui-tabs-nav

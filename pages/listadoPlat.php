@@ -11,9 +11,11 @@ $start_from = ($page-1) * $limit;
 
 /*3 Filas dividir limit entre 3 y hacer 3 tablas */
 $resPorTabla=$limit/3;
-
+$miconexion=connectDB();
 $sql="SELECT id, nombre from plataforma where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
-$resultset=ejecutaConsulta($sql);
+$select=$miconexion->prepare($sql);
+$select->execute();
+$filaPlat=$select->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div id="registroError">
     <h2 class="text-danger">Ha habido un error en la busqueda </h2>
@@ -34,7 +36,7 @@ $resultset=ejecutaConsulta($sql);
     <?php
         $i=0;
         echo '<div class="list-inline text-center col-12">';
-        while($fila=$resultset->fetch(PDO::FETCH_ASSOC))
+        foreach($filaPlat as $fila)
         {
             if($i==$resPorTabla)
             {
@@ -85,5 +87,6 @@ $resultset=ejecutaConsulta($sql);
 <script type="text/javascript" src="../js/ListadoPlat.js"></script>
 <script type="text/javascript" src="../utilities/jquery.simplePagination.js"></script>
 <?php
+$miconexion=null;
 pie();
 ?>

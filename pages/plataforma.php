@@ -4,8 +4,22 @@ iniciarSesion();
 
 include_once("../servidor/bbdd.php");
 $id_plat=$_GET["id"];
-$sql="select p.nombre, p.fecha, c.nombre as company, p.descripcion, p.especificaciones from company c, plataforma p where p.company=c.id and p.id=".$id_plat;
-$fila=consultaUnica($sql);
+$miconexion=connectDB();
+$sql="select p.nombre, p.fecha, c.nombre as company, p.descripcion, p.especificaciones from company c, plataforma p where p.company=c.id and p.id=? ";
+$select=$miconexion->prepare($sql);
+$select->execute(array($id_plat));
+$fila=$select->fetch();
+
+//listado juegos por plataforma
+$sql="SELECT j.id, j.titulo, j.fecha
+from plataforma p, plataforma_juego pj, juego j
+where pj.id_juego=j.id
+and pj.id_plataforma=p.id
+and pj.id_plataforma=? order by j.titulo";
+$selectJuegos=$miconexion->prepare($sql);
+$selectJuegos->execute(array($id_plat));
+$filaJuegos=$selectJuegos->fetchAll(PDO::FETCH_ASSOC);
+
 cabecera($fila["nombre"]);
 navBar();
 ?>
@@ -16,17 +30,29 @@ navBar();
         <li><a href="#revisionesPlataforma">Revisiones</a></li>
     </ul>
 <div id="mainPlat">
-    <div id="datosCompany" class="w-75 offset-1">
+    <div id="datosCompany" class="col-10 offset-1">
         <h2 class="text-center"><?php echo $fila["nombre"];?></h2>
         <p class="text-center">Compañía: <?php echo $fila["company"];?></p>
-        <p class="text-center">Fecha: <?php echo $fila["fecha"];?></p>
+        <p class="text-center">Lanzamiento: <?php echo $fila["fecha"];?></p>
         <p> <?php echo $fila["descripcion"];?> </p>
         <h3>Especificaciones</h3>
         <p> <?php echo $fila["especificaciones"];?> </p>
     </div>
     <h2 class="mt-5">Lista de juegos</h2>
     <div id="creditosCompany" class="my-2">
-
+        <table class="table borderless table-striped">
+        <tr>
+        <th class="w-75">Título</th><th>Lanzamiento</th>
+        </tr>
+        <?php
+        foreach($filaJuegos as $value)
+        {
+            echo "<tr>";
+                echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td>";
+            echo "</tr>";
+        }
+        ?>
+        </table>
     </div>
 </div>
 <div id="editingPlat">
@@ -101,5 +127,6 @@ navBar();
 <script type="text/javascript">var plat_id = <?php echo $id_plat ?>;</script>
 <script type="text/javascript" src="../js/plataforma.js"></script>
 <?php
+$miconexion=null;
 pie();
 ?>

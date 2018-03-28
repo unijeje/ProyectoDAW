@@ -4,8 +4,26 @@ iniciarSesion();
 
 include_once("../servidor/bbdd.php");
 $id_staff=$_GET["id"];
-$sql="select nombre, nacionalidad, genero, descripcion, enlace from personas where id=".$id_staff;
-$fila=consultaUnica($sql);
+$miconexion=connectDB();
+$sql="select nombre, nacionalidad, genero, descripcion, enlace from personas where id=?";
+$select=$miconexion->prepare($sql);
+$select->execute(array($id_staff));
+$fila=$select->fetch();
+
+$sql="SELECT j.id, j.titulo, j.fecha, r.rol, p.comentario 
+from juego j, personas_roles_juegos p, roles r 
+where p.rol=r.id
+and p.juego=j.id
+and p.persona=? 
+order by j.fecha";
+$selectCreditos=$miconexion->prepare($sql);
+$selectCreditos->execute(array($id_staff));
+$filaCreditos=$selectCreditos->fetchAll(PDO::FETCH_ASSOC);
+/*
+echo "<pre>";
+print_r($filaCreditos);
+echo "</pre>";
+*/
 cabecera($fila["nombre"]);
 navBar();
 ?>
@@ -16,7 +34,7 @@ navBar();
         <li><a href="#revisionesStaff">Revisiones</a></li>
     </ul>
 <div id="mainStaff">
-    <div id="datosPersona" class="w-75 offset-1">
+    <div id="datosPersona" class="col-10 offset-1">
         <h2 class="text-center"><?php echo $fila["nombre"];?></h2>
         <p class="text-center">Nacionalidad: <?php echo $fila["nacionalidad"];?></p>
         <p class="text-center">Género: <?php echo $fila["genero"];?></p>
@@ -25,9 +43,21 @@ navBar();
         ?>
         <p> <?php echo $fila["descripcion"];?> </p>
     </div>
-    <h2 class="mt-5">Creditos</h2>
+    <h2 class="mt-5">Créditos</h2>
     <div id="creditosPersona" class="my-2">
-
+        <table class="table table-responsive borderless table-striped">
+        <tr>
+        <th class="w-75">Título</th><th>Lanzamiento</th><th>Rol</th><th>Comentario</th>
+        </tr>
+        <?php
+        foreach($filaCreditos as $value)
+        {
+            echo "<tr>";
+                echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["rol"]."</td><td>".$value["comentario"]."</td>";
+            echo "</tr>";
+        }
+        ?>
+        </table>
     </div>
 </div>
 <div id="editingStaff">
@@ -116,5 +146,6 @@ navBar();
 <script type="text/javascript" src="../js/staff.js"></script>
 <script type="text/javascript" src="../js/ListadoStaff.js"></script>
 <?php
+$miconexion=null;
 pie();
 ?>
