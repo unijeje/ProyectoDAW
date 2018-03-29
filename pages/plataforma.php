@@ -20,13 +20,21 @@ $selectJuegos=$miconexion->prepare($sql);
 $selectJuegos->execute(array($id_plat));
 $filaJuegos=$selectJuegos->fetchAll(PDO::FETCH_ASSOC);
 
+
 cabecera($fila["nombre"]);
 navBar();
 ?>
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
         <li><a href="#mainPlat"><?php echo $fila["nombre"];?></a></li>
+        <?php
+        if(isset($_SESSION["tipo"]))
+        {
+        ?>
         <li><a id="editarPlatBtn" href="#editingPlat">Editar</a></li>
+        <?php
+        }
+        ?>
         <li><a href="#revisionesPlataforma">Revisiones</a></li>
     </ul>
 <div id="mainPlat">
@@ -55,12 +63,16 @@ navBar();
         </table>
     </div>
 </div>
+<?php
+if(isset($_SESSION["tipo"]))
+{
+?>
 <div id="editingPlat">
-    <div id="registrado">
+    <div id="registrado" class="col-8">
         <h2>Editado correctamente</h2>
         <br>
     </div>
-    <div id="registroError">
+    <div id="registroError" class="col-8">
         <h2 class="text-danger">Error al editar</h2>
         <br>
     </div>
@@ -115,7 +127,9 @@ navBar();
         </div>   
     </div>
 </div>
-
+<?php
+}
+?>
 <div id="revisionesPlataforma">
 <p>Revisiones</p>
 </div>

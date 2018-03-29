@@ -1,4 +1,4 @@
-$("#crear").click(crearCuenta);
+﻿$("#crear").click(crearCuenta);
 
 function crearCuenta()
 {
@@ -36,6 +36,21 @@ function validarCrearCuenta()
 {
     var res=true;
 
+    res=validacionCampo($("#usuario"), "Tiene que tener entre 3 y 20 carácteres", oExpRegNombre);
+
+    if(!validacionCampo($("#pass"), "Tiene que tener un número, caracter y longitud 4", oExpRegPass))
+        res=false;
+
+    if(!validacionCampo($("#email"), "El correo no es válido", oExpRegEmail))
+        res=false;
+
+    if($("#pass2").val().trim()!=$("#pass").val().trim() || $("#pass2").val().trim()=="")
+    {
+        invalidarCampo($("#pass2"), "Las contraseñas no coinciden", true);
+        res=false;
+    }
+    else
+        invalidarCampo($("#pass2"), "", false);
 
     return res;
 }

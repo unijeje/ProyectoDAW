@@ -57,5 +57,13 @@ function validarStaff()
 {
     var res=true;
 
+    if($("#nombre").val().trim()=="")
+    {
+       invalidarCampo($("#nombre"), "No puede dejar este campo vacio", true);
+       res=false;
+    }
+    else
+        invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
+
     return res;
 }

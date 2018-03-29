@@ -15,9 +15,9 @@ $miconexion->beginTransaction();
 try
 {
     
-    $sql="insert into juego(TITULO, SINOPSIS, FECHA, ENLACE, ACTIVO) values('$nombre', '$sinopsis', '$fecha', '$enlace', 1)";
+    $sql="insert into juego(TITULO, SINOPSIS, FECHA, ENLACE, ACTIVO) values(?, ?, ?, ?, 1)";
     $accion = $miconexion->prepare($sql);
-    $accion->execute();
+    $accion->execute(array($nombre, $sinopsis, $fecha, $enlace));
     $idInsert=$miconexion->lastInsertId(); 
     $n=$accion->rowCount();
 

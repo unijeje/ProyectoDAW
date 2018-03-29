@@ -12,7 +12,7 @@ navBar();
 </div>
 
 <div id="registroError">
-    <h2 class="text-danger">Ha habido un error al registrar la cuenta </h2>
+    <h2 class="text-danger text-center">Ha habido un error al registrar la cuenta </h2>
 </div>
 <br>
 <div id="formCrearCuenta" class="row">

@@ -22,7 +22,7 @@ $filaCuentas=$select->fetchAll(PDO::FETCH_ASSOC);
     <h2 class="text-danger">Ha habido un error en la busqueda </h2>
 </div>
 <div id="busqueda">
-    <h1>Buscar Staff</h1>
+    <h1>Buscar Usuario</h1>
     
     <div class="form-group row">
         <input type="text" class="form-control col-10" id="txtBusqueda" placeholder="" name="txtBusqueda">

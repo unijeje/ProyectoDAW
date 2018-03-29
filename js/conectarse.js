@@ -1,10 +1,13 @@
-$("#btnConectar").click(conectarse);
+﻿$("#btnConectar").click(conectarse);
 
 function conectarse()
 {
 
     $("#registrado").hide();
     $("#registroError").hide();
+
+    if(validarConexion())
+    {
 
     var sNombre=formConectarse.usuario.value.trim();
     var sPass=formConectarse.pass.value.trim();
@@ -36,5 +39,20 @@ function conectarse()
             $("#registroError h2").text(oRespuesta[1]);
         }
     },"json");
+    }
     
+}
+
+
+
+function validarConexion()
+{
+    var res=true;
+    //console.log($("#usuario"));
+    res=validacionCampo($("#usuario"), "Tiene que tener entre 3 y 20 carácteres", oExpRegNombre);
+
+    if(!validacionCampo($("#pass"), "Tiene que tener un número, caracter y longitud 4", oExpRegPass))
+        res=false;
+
+    return res;
 }

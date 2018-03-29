@@ -5,16 +5,16 @@ cabecera("Añadir Compañía");
 navBar();
 ?>
 
-<div id="registrado">
+<div id="registrado"  class="col-6">
     <h2>Registrado correctamente</h2>
     <br>
 </div>
-<div id="registrarOtro">
+<div id="registrarOtro"  class="col-6">
     <input type="button" id="btnAgain" class="btn btn-primary col-3" value="Registrar otro" />
     <br>
 </div>
 
-<div id="registroError">
+<div id="registroError"  class="col-6">
     <h2 class="text-danger">Error al añadir</h2>
     <br>
 </div>

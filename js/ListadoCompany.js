@@ -15,6 +15,13 @@ function buscarCompany()
 
     var sNombre=$("#txtBusqueda").val().trim();
 
+    if(sNombre=="")
+        invalidarCampo($("#txtBusqueda"), "Introduzca algún caracter", true);
+    else
+    {
+        invalidarCampo($("#txtBusqueda"), "Introduzca algún caracter", false);
+    
+
     var sDatos= "datos="+sNombre;
     //console.log(oPersona);
     $.get("../servidor/gestionCompany/buscarCompany.php",sDatos,function(res, sStatus, oAjax){
@@ -43,7 +50,7 @@ function buscarCompany()
         
     },"json");
     
-    
+    }
 
 }
 

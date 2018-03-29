@@ -1,7 +1,6 @@
-<?php
+﻿<?php
 
 include_once("../bbdd.php");
-
 $oDatos=json_decode($_POST['datos']);
 $id=$oDatos->id;
 $nombre=$oDatos->nombre;
@@ -10,21 +9,41 @@ $desc=$oDatos->desc;
 $fecha=$oDatos->fecha;
 $esp=$oDatos->esp;
 
-$sql="select ID from company where NOMBRE='".$company."'";
-$fila=consultaUnica($sql);
-$company=$fila["ID"];
+$miconexion=connectDB();
+$miconexion->beginTransaction(); 
+
+try{
 
 
-$sql="update plataforma set NOMBRE='$nombre', COMPANY='$company', Fecha='$fecha', DESCRIPCION='$desc', ESPECIFICACIONES='$esp' where id='$id'";
+
+    $sql="select ID from company where NOMBRE=? ";
+
+    $selectCompany=$miconexion->prepare($sql);
+    $selectCompany->execute(array($company));
+    if($selectCompany->rowCount()>0)
+    {
+        $fila=$selectCompany->fetch();
+        $company=$fila["ID"];
+        
+        $sqlUpdate="update plataforma set NOMBRE=? , COMPANY=? , Fecha=? , DESCRIPCION=? , ESPECIFICACIONES=? where id=? ";
+        $update=$miconexion->prepare($sqlUpdate);
+        $update->execute(array($nombre, $company, $fecha, $desc, $esp, $id));
+
+        $miconexion->commit();
+        $exito = true;
+    }
+    else
+    {
+        $exito="Compañía no existe";   
+    }
 
 
-$n=ejecutaConsultaAccion($sql);
-
-if($n > 0)
-    $exito = true;
-else
-    $exito = false;
-
+}
+catch(PDOException $e)
+{
+    $miconexion->rollback();
+    $exito = $e;
+}
 echo json_encode($exito); 
 
 ?>

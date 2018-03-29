@@ -10,7 +10,7 @@ navBar();
 </div>
 
 <div id="registroError" class="col-6">
-    <h2 class=""></h2>
+    <h2 class="text-center"></h2>
 </div>
 <br>
 <div id="conectarse" class="row">

@@ -96,12 +96,7 @@ function addJuego()
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
-            /*
-            $.post("../servidor/gestionJuego/altaJuegosCompany.php",sDatos,function(bExito, sStatus, oAjax)
-            {
 
-            }
-            */
             
         }
         else
@@ -148,6 +143,38 @@ function respuestaAutoCompleteCompany(oRespuesta, sStatus, oAjax)
 function validarJuego()
 {
     var res=true;
+
+    
+    if($("#nombre").val().trim()=="")
+    {
+       invalidarCampo($("#nombre"), "No puede dejar este campo vacio", true);
+       res=false;
+    }
+    else
+        invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
+
+
+    var camposCompanies=$(".companies");
+    for(var i=0;i<camposCompanies.length;i++)
+    {
+       
+        var valCampo=false;
+        for(var j=0;j<ids.length;j++)
+        {
+            if(camposCompanies[i].value.trim()==ids[j].value.trim())
+            {
+                valCampo=true;                
+            }
+        }
+        
+        if(!valCampo)
+        {
+            res=false;
+            invalidarCampo($(camposCompanies[i]), "Esta compañía no existe", true);
+        }
+        else
+            invalidarCampo($(camposCompanies[i]), "Esta compañía no existe, añadará primero", false);
+    }
 
     return res;
 }

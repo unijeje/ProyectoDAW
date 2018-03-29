@@ -49,3 +49,60 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
+
+/*ExpReg*/
+
+function validacionCampo(oCampo, sMensaje, oExpReg)
+{
+    var res=true;
+
+    if(typeof(oCampo)=="object")
+        oCampo=oCampo[0];
+
+    
+    if(!oExpReg.test(oCampo.value.trim()))
+    {
+        res=false;
+        $(oCampo).addClass("is-invalid");
+        if($(oCampo).parent().find(".invalid-feedback").length>0)
+        {
+            $(oCampo).parent().find('.invalid-feedback').text(sMensaje);
+        }
+        else
+            $(oCampo).parent().append('<div class="invalid-feedback">'+sMensaje+'</div>');
+    }
+    else
+    {
+        $(oCampo).removeClass("is-invalid");
+        $(oCampo).parent().find('.invalid-feedback').remove();
+    }
+
+    return res;
+}
+
+function invalidarCampo(oCampo, sMensaje, bool)
+{
+    if(typeof(oCampo)=="object")
+        oCampo=oCampo[0];
+
+    if(bool)
+    {
+        $(oCampo).addClass("is-invalid");
+        if($(oCampo).parent().find(".invalid-feedback").length>0)
+        {
+            $(oCampo).parent().find('.invalid-feedback').text(sMensaje);
+        }
+        else
+            $(oCampo).parent().append('<div class="invalid-feedback">'+sMensaje+'</div>');
+    }
+    else
+    {
+        $(oCampo).removeClass("is-invalid");
+        $(oCampo).parent().find('.invalid-feedback').remove();
+    }
+}
+
+var oExpRegNombre = /^[a-z\s]{3,20}$/i; //ENTRE 3 y 20 CARACTERES
+var oExpRegPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,40}$/i; //ENTRE 4, 40 una letra y numero al menos
+var oExpRegEmail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;

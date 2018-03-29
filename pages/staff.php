@@ -30,7 +30,14 @@ navBar();
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
         <li><a href="#mainStaff"><?php echo $fila["nombre"];?></a></li>
+        <?php
+        if(isset($_SESSION["tipo"]))
+        {
+        ?>
         <li><a id="editarStaffBtn" href="#editingStaff">Editar</a></li>
+        <?php
+        }
+        ?>
         <li><a href="#revisionesStaff">Revisiones</a></li>
     </ul>
 <div id="mainStaff">
@@ -60,12 +67,16 @@ navBar();
         </table>
     </div>
 </div>
+<?php
+if(isset($_SESSION["tipo"]))
+{
+?>
 <div id="editingStaff">
-    <div id="registrado">
+    <div id="registrado" class="col-8">
         <h2>Editado correctamente</h2>
         <br>
     </div>
-    <div id="registroError">
+    <div id="registroError" class="col-8">
         <h2 class="text-danger">Error al editar</h2>
         <br>
     </div>
@@ -133,7 +144,9 @@ navBar();
         </div>   
     </div>
 </div>
-
+<?php
+}
+?>
 <div id="revisionesStaff">
 <p>Revisiones</p>
 </div>
@@ -144,7 +157,6 @@ navBar();
 </div>
 <script type="text/javascript">var staff_id = <?php echo $id_staff ?>;</script>
 <script type="text/javascript" src="../js/staff.js"></script>
-<script type="text/javascript" src="../js/ListadoStaff.js"></script>
 <?php
 $miconexion=null;
 pie();

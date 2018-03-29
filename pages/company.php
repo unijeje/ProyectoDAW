@@ -16,7 +16,8 @@ $sql="SELECT j.id, j.titulo,j.fecha
 from company c, company_juegos cj, juego j
 where j.id=cj.id_juego
 and c.id=cj.id_company
-and c.id=? 
+and c.id=?
+and j.activo=1 
 order by j.fecha asc";
 $selectCreditos=$miconexion->prepare($sql);
 $selectCreditos->execute(array($id_company));
@@ -26,6 +27,7 @@ $filaCreditos=$selectCreditos->fetchAll(PDO::FETCH_ASSOC);
 $sql="SELECT p.id, p.nombre, p.fecha
 from company c, plataforma p
 where p.company=c.id
+and p.activo=1 
 and c.id=? order by p.fecha";
 $selectCreditos=$miconexion->prepare($sql);
 $selectCreditos->execute(array($id_company));
@@ -37,7 +39,14 @@ navBar();
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
         <li><a href="#mainCompany"><?php echo $fila["nombre"];?></a></li>
+        <?php
+        if(isset($_SESSION["tipo"]))
+        {
+        ?>
         <li><a id="editarCompanyBtn" href="#editingCompany">Editar</a></li>
+        <?php
+        }
+        ?>
         <li><a href="#revisionesCompany">Revisiones</a></li>
     </ul>
 <div id="mainCompany">
@@ -88,12 +97,16 @@ navBar();
         ?>
     </div>
 </div>
+<?php
+if(isset($_SESSION["tipo"]))
+{
+?>
 <div id="editingCompany">
-    <div id="registrado">
+    <div id="registrado" class="col-8">
         <h2>Editado correctamente</h2>
         <br>
     </div>
-    <div id="registroError">
+    <div id="registroError" class="col-8">
         <h2 class="text-danger">Error al editar</h2>
         <br>
     </div>
@@ -147,7 +160,9 @@ navBar();
         </div>   
     </div>
 </div>
-
+<?php
+}
+?>
 <div id="revisionesCompany">
 <p>Revisiones</p>
 </div>

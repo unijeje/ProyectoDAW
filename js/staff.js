@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+﻿$( document ).ready(function() {
     $( "#tabs" ).tabs();
     cargarRevisionesStaff();
 });
@@ -16,48 +16,50 @@ $("#eliminar").click(function()
 });
 function editarPersona()
 {
-    if(validarEdicionStaff())
-    {
-    $("#guidelines").hide();
-    $("#registroError").hide();
-    var sNombre=$("#nombre").val().trim();
-    var sNacionalidad=$("#nacionalidad").val().trim();
-    var sDesc=$("#desc").val().trim();
-    var sGenero=$('input[name=radioGenero]:checked').val();
-    var sEnlace=$("#enlace").val().trim();
 
-    var oPersona={  id: staff_id,
-                    nombre: sNombre,
-                    nacionalidad: sNacionalidad,
-                    desc: sDesc,
-                    genero: sGenero,
-                    enlace: sEnlace};
+     if(validarEdicionStaff())
+     {
 
-    var sDatos= "datos="+JSON.stringify(oPersona);
-    //console.log(oPersona);
-    $.post("../servidor/gestionPersona/editarPersona.php",sDatos,function(bExito, sStatus, oAjax){
+        $("#guidelines").hide();
+        $("#registroError").hide();
+        var sNombre=$("#nombre").val().trim();
+        var sNacionalidad=$("#nacionalidad").val().trim();
+        var sDesc=$("#desc").val().trim();
+        var sGenero=$('input[name=radioGenero]:checked').val();
+        var sEnlace=$("#enlace").val().trim();
 
-        
-        if(bExito==true)
-        {
-            $("#formEditarStaff").hide();
-            $("#guidelines").hide();
-            $("#registrado").show();
-            window.location.reload();
+        var oPersona={  id: staff_id,
+                        nombre: sNombre,
+                        nacionalidad: sNacionalidad,
+                        desc: sDesc,
+                        genero: sGenero,
+                        enlace: sEnlace};
+
+        var sDatos= "datos="+JSON.stringify(oPersona);
+        //console.log(oPersona);
+        $.post("../servidor/gestionPersona/editarPersona.php",sDatos,function(bExito, sStatus, oAjax){
+
             
-        }
-        else
-        {
-            $("#registroError").show();
-        }
-        
-    },"json");
+            if(bExito==true)
+            {
+                $("#formEditarStaff").hide();
+                $("#guidelines").hide();
+                $("#registrado").show();
+                window.location.reload();
+                
+            }
+            else
+            {
+                $("#registroError").show();
+                $("#guidelines").show();
+            }
+            
+        },"json");
+
+    }
+       
+
     
-    }
-    else
-    {
-        $("#guidelines").show();
-    }
 }
 function eliminarPersona()
 {
@@ -87,8 +89,16 @@ function cargarRevisionesStaff()
 function validarEdicionStaff()
 {
     var res=true;
+    
+    if($("#nombre").val().trim()=="")
+    {
+       invalidarCampo($("#nombre"), "No puede dejar este campo vacio", true);
+       res=false;
+    }
+    else
+        invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
 
-
+       
     return res;
 }
 
