@@ -2,43 +2,45 @@
 
 function conectarse()
 {
-
+    
     $("#registrado").hide();
     $("#registroError").hide();
 
     if(validarConexion())
     {
 
-    var sNombre=formConectarse.usuario.value.trim();
-    var sPass=formConectarse.pass.value.trim();
-    
-    var oCuenta={nombre: sNombre,
-                    pass: sPass};
-    
-    var sDatos= "datos="+JSON.stringify(oCuenta);
-    $.get("../servidor/gestionCuenta/conectarse.php",sDatos,function(oRespuesta, sStatus, oAjax){
-        if(oRespuesta[0]==true)
+        var sNombre=formConectarse.usuario.value.trim();
+        var sPass=formConectarse.pass.value.trim();
+        
+        var oCuenta={nombre: sNombre,
+                        pass: sPass};
+        
+        var sDatos= "datos="+JSON.stringify(oCuenta);
+        $.get("../servidor/gestionCuenta/conectarse.php",sDatos,function(oRespuesta, sStatus, oAjax)
         {
-            //$("#registrado").show();
-            //$("#conectarse").hide();
-            var recordar=document.getElementById("recordar").checked;
-            if(recordar)
+            if(oRespuesta[0]==true)
             {
-                //console.log(oRespuesta);
-                setCookie("tipo", oRespuesta[1], 100);
-                setCookie("nombre", oRespuesta[2], 100);
-                setCookie("id", oRespuesta[3], 100);
-            }
+                //$("#registrado").show();
+                //$("#conectarse").hide();
+                var recordar=document.getElementById("recordar").checked;
+                if(recordar)
+                {
+                    //console.log(oRespuesta);
+                    setCookie("tipo", oRespuesta[1], 100);
+                    setCookie("nombre", oRespuesta[2], 100);
+                    setCookie("id", oRespuesta[3], 100);
+                    setCookie("clave", oRespuesta[4], 100);
+                }
 
-           
-            window.location.replace("../index.php");
-        }
-        else
-        {
-            $("#registroError").show();
-            $("#registroError h2").text(oRespuesta[1]);
-        }
-    },"json");
+            
+                window.location.replace("../index.php");
+            }
+            else
+            {
+                $("#registroError").show();
+                $("#registroError h2").text(oRespuesta[1]);
+            }
+        },"json");
     }
     
 }

@@ -1,7 +1,7 @@
 ﻿<?php
 include("utilities/utilities.php");
-iniciarSesion();
 cabeceraIndex("VideoJuegos BBDD");
+iniciarSesion();
 navBarIndex();
 
 

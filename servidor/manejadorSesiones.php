@@ -10,4 +10,5 @@ $tipo=$oDatos->tipo;
 $_SESSION["tipo"]=$tipo;
 $_SESSION["nombre"]=$nombre;
 
+
 ?>

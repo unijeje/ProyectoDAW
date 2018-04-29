@@ -8,7 +8,7 @@ $pass=$oDatos->pass;
 
 $miconexion=connectDB();
 
-$sql="SELECT id, nombre, password, tipo from cuentas where NOMBRE=? ";
+$sql="SELECT id, nombre, password, tipo, clave from cuentas where NOMBRE=? ";
 $select=$miconexion->prepare($sql);
 $select->execute(array($usuario));
 $fila=$select->fetch(PDO::FETCH_ASSOC);
@@ -20,6 +20,7 @@ $tipo=$fila["tipo"];
 $claveEncriptada=$fila["password"];
 $nombre=$fila["nombre"];
 $id=$fila["id"];
+$clave=$fila["clave"];
 
 if(isset($tipo))
 {
@@ -45,7 +46,7 @@ else
 
 $select=null;
 $miconexion=null;
-$respuesta=array($exito, $mensaje, $nombre, $id);
+$respuesta=array($exito, $mensaje, $nombre, $id, $clave);
 
 echo json_encode($respuesta); 
 

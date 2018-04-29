@@ -1,8 +1,10 @@
 ﻿<?php
+
 include("../utilities/utilities.php");
-iniciarSesion();
 cabecera("Conectarse");
+iniciarSesion();
 navBar();
+
 ?>
 
 <div id="registrado" class="col-6">

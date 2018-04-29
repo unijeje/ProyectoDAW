@@ -1,6 +1,6 @@
 ﻿<?php
 include("../utilities/utilities.php");
-include("../servidor/bbdd.php");
+include_once("../servidor/bbdd.php");
 iniciarSesion();
 cabecera("VideoJuegos BBDD");
 
@@ -120,7 +120,7 @@ navBar();
             </div>
         </div>
         <br>
-        <p class="ml-5">Dejar en blanco para mantener la contraseña actual </p>
+        <p class="">Dejar en blanco para mantener la contraseña actual </p>
         <br>
         <div class="form-group row">
             <label class="col-2 col-form-label labelDoble" for="passAntigua">Contraseña Actual:</label>

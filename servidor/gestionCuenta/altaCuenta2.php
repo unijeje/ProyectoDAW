@@ -9,9 +9,11 @@ $correo=$oDatos->correo;
 $claveEncriptada=crypt($pass);
 $date = date('Y-m-d');
 
-$sql="insert into cuentas(NOMBRE, PASSWORD, EMAIL, REGISTRO, TIPO) values(?, ?, ?, ?, 2)";
+$sql="insert into cuentas(NOMBRE, PASSWORD, EMAIL, REGISTRO, TIPO, clave) values(?, ?, ?, ?, 2, ?)";
 
-$stmt = DB::run($sql, [$usuario, $claveEncriptada, $correo, $date]);
+$clave = hash("sha384", $usuario);
+
+$stmt = DB::run($sql, [$usuario, $claveEncriptada, $correo, $date, $clave]);
 $n=$stmt->rowCount();
 
 if($n > 0)

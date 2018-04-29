@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-03-2018 a las 00:20:35
+-- Tiempo de generación: 29-04-2018 a las 16:54:42
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
   `JUEGO` int(9) NOT NULL,
   `USUARIO` int(6) NOT NULL,
   `TEXTO` text CHARACTER SET latin1 NOT NULL,
+  `FECHA` int(20) NOT NULL,
   PRIMARY KEY (`ID`,`JUEGO`),
   KEY `JUEGO` (`JUEGO`),
   KEY `USUARIO` (`USUARIO`)
@@ -52,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `company`
@@ -62,7 +63,8 @@ INSERT INTO `company` (`ID`, `NOMBRE`, `DESCRIPCION`, `FECHA`, `PAIS`, `ENLACE`,
 (4, 'Naughty Dog', 'Empresa desarrolladora de videojuegos estadounidense fundada por Andy Gavin y Jason Rubin en 1984, conocida principalmente por ser la creadora de exitosas sagas, como Crash Bandicoot, para PlayStation, Jak and Daxter, para PlayStation 2 y Uncharted, para PlayStation 3, así como el juego The Last of Us. Con sede en Santa Mónica, California, la empresa fue comprada por Sony Computer Entertainment en 2001.', '1984', 'Estados Unidos', 'https://www.naughtydog.com/', 1),
 (5, 'test02', 'Entrada de prueba', '2018', 'Estados Unidos', '', 0),
 (6, 'Sony Corporation', 'Japanese multinational conglomerate corporation headquartered in K?nan, Minato, Tokyo. Its diversified business includes consumer and professional electronics, gaming, entertainment and financial services. The company is one of the leading manufacturers of electronic products for the consumer and professional markets. Sony was ranked 105th on the 2017 list of Fortune Global 500.', '1946', 'Japón', 'https://www.sony.net/', 1),
-(7, 'Ubisoft', 'es una compañía francesa desarrolladora y distribuidora de videojuegos, fundada en 1986 en Carentoir, en Bretaña. Yves Guillemot, uno de los fundadores, es el actual director ejecutivo y Presidente de la compañía.2 Las oficinas centrales se ubican en Montreuil-Sous-Bois, Francia.', '1986', 'Francia', 'https://www.ubisoft.com/es-es/', 1);
+(7, 'Ubisoft', 'es una compañía francesa desarrolladora y distribuidora de videojuegos, fundada en 1986 en Carentoir, en Bretaña. Yves Guillemot, uno de los fundadores, es el actual director ejecutivo y Presidente de la compañía.2 Las oficinas centrales se ubican en Montreuil-Sous-Bois, Francia.', '1986', 'Francia', 'https://www.ubisoft.com/es-es/', 1),
+(8, 'test', '', '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -114,19 +116,18 @@ CREATE TABLE IF NOT EXISTS `cuentas` (
   `EMAIL` varchar(50) CHARACTER SET latin1 NOT NULL,
   `registro` date NOT NULL,
   `tipo` int(1) NOT NULL,
+  `clave` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`),
   KEY `tipo` (`tipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `cuentas`
 --
 
-INSERT INTO `cuentas` (`ID`, `NOMBRE`, `PASSWORD`, `EMAIL`, `registro`, `tipo`) VALUES
-(1, '12', '123123', '123', '0000-00-00', 2),
-(16, 'hola', '$1$ab1.bg4.$/M8Coeo8zL5McL2Vylu8Q0', 'hola', '2018-03-17', 2),
-(18, 'pepe', '$1$Ok/.9B/.$OKQ2tteBAm0fm9F29.rfg1', 'pepe@gmail.com', '2018-03-18', 1);
+INSERT INTO `cuentas` (`ID`, `NOMBRE`, `PASSWORD`, `EMAIL`, `registro`, `tipo`, `clave`) VALUES
+(23, 'juan', '$1$wt..3A0.$4OiYpOPBCIiZCrpuzcfgu1', 'juan@hotmail.com', '2018-04-29', 2, '161fba3728fd6ca157cd01bcdfadea2c361616be730fe3d0c577ab714e59ac19664ae538fb6730925e2b7f7ad5754ddb');
 
 -- --------------------------------------------------------
 
@@ -219,6 +220,8 @@ CREATE TABLE IF NOT EXISTS `generos_juego` (
 --
 
 INSERT INTO `generos_juego` (`ID_JUEGO`, `ID_GENERO`) VALUES
+(12, 1),
+(12, 2),
 (1, 7),
 (1, 8),
 (1, 9);
@@ -241,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `juego` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `TITULO` (`TITULO`),
   KEY `DURACION` (`DURACION`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `juego`
@@ -249,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `juego` (
 
 INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, `COVER`, `ACTIVO`) VALUES
 (1, 'test editado', 'test123\n\neditado', '2018-12-19', '987', 2, NULL, 0),
-(2, 'test2', 'test123333', '2018-03-31', '1234', NULL, NULL, 1),
+(2, 'test2', 'test123333', '2018-03-31', '1234', NULL, 1, 1),
 (6, 'Crash 2', '123', '2018-03-27', '123', NULL, NULL, 1),
 (12, 'Crash Bandicoot 1', 'El juego se centra alrededor de Crash Bandicoot, un marsupial mutado por el doctor psicópata Neo Cortex y su mano derecha Nitrus Brio, pero Crash intenta parar los planes de su creador (la dominación del mundo), cruzando sobre cualquier contaminación que haya causado para salvar a su novia Tawna, un bandicoot femenino también mutado por el doctor Cortex y Nitrus Brio.', '1996-09-09', 'https://es.wikipedia.org/wiki/Crash_Bandicoot_(videojuego)', 2, NULL, 1),
 (13, 'Crash3', 'test', '2018-03-04', 'test', NULL, NULL, 1),
@@ -262,7 +265,10 @@ INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, 
 (24, 'Crash11', 'test', '2014-03-19', 'test', NULL, NULL, 1),
 (25, 'Crash12', 'test', '2014-03-19', 'test', NULL, NULL, 1),
 (29, 'Crash13', 'test', '2014-03-19', 'test', NULL, NULL, 1),
-(30, 'bandicoot', 'test', '2016-02-01', 'test', NULL, NULL, 1);
+(30, 'bandicoot', 'test', '2016-02-01', 'test', NULL, 1, 1),
+(31, 'hehehe', '', '0000-00-00', '', NULL, NULL, 1),
+(32, '123', '', '0000-00-00', '', NULL, NULL, 1),
+(33, '456', '456', '2018-03-10', '', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -279,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `personas` (
   `ENLACE` varchar(100) DEFAULT NULL,
   `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Volcado de datos para la tabla `personas`
@@ -299,7 +305,9 @@ INSERT INTO `personas` (`ID`, `NOMBRE`, `NACIONALIDAD`, `GENERO`, `DESCRIPCION`,
 (13, 'test 11', 'esp', 'Masculino', 'esp', '', 1),
 (14, 'test 12', 'esp', 'Masculino', 'esp', '', 1),
 (15, 'test 13', 'esp', 'Masculino', 'esp', '', 1),
-(16, 'Jason Rubin', 'Estadounidense', 'Masculino', 'Fundador de Naughty Dog', 'https://en.wikipedia.org/wiki/Jason_Rubin', 1);
+(16, 'Jason Rubin', 'Estadounidense', 'Masculino', 'Fundador de Naughty Dog', 'https://en.wikipedia.org/wiki/Jason_Rubin', 1),
+(17, '123', '', 'Masculino', '', '', 1),
+(18, 'test', '', 'Femenino', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -311,10 +319,27 @@ CREATE TABLE IF NOT EXISTS `personas_roles_juegos` (
   `PERSONA` int(6) NOT NULL,
   `JUEGO` int(9) NOT NULL,
   `ROL` int(2) NOT NULL,
+  `COMENTARIO` varchar(100) CHARACTER SET latin1 COLLATE latin1_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`PERSONA`,`JUEGO`,`ROL`),
   KEY `JUEGO` (`JUEGO`),
   KEY `ROL` (`ROL`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `personas_roles_juegos`
+--
+
+INSERT INTO `personas_roles_juegos` (`PERSONA`, `JUEGO`, `ROL`, `COMENTARIO`) VALUES
+(4, 12, 3, ''),
+(6, 12, 1, ''),
+(7, 12, 2, 'xd'),
+(8, 12, 1, ''),
+(13, 12, 1, ''),
+(14, 12, 5, ''),
+(16, 6, 2, 'hola'),
+(16, 12, 9, 'cx'),
+(16, 13, 2, ''),
+(16, 30, 1, 'test');
 
 -- --------------------------------------------------------
 
@@ -333,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `plataforma` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`),
   KEY `COMPANY` (`COMPANY`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `plataforma`
@@ -342,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `plataforma` (
 INSERT INTO `plataforma` (`ID`, `NOMBRE`, `COMPANY`, `FECHA`, `DESCRIPCION`, `ESPECIFICACIONES`, `ACTIVO`) VALUES
 (1, 'Playstation 1', 6, '1994', 'Test ED', 'Test ED', 1),
 (2, 'Playstation 2', 6, '2000', 'Es la segunda videoconsola de sobremesa producida por Sony Computer Entertainment y la sucesora de PlayStation. Fue lanzada por primera vez el 4 de marzo del año 2000 en Japón, y unos meses después en el resto del mundo. Esta consola es también la que más títulos posee, aproximadamente 10 900 títulos seguida por su predecesora la PlayStation con unos 8000 títulos.', 'CPU: Chip Emotion Engine (128 bits con capacidades SIMD) corriendo a 294.912 MHz (lanzamiento), 299 MHz (nuevos modelos).\nGPU: Chip GraphicsSynthesizer corriendo a 147.456 MHz', 1),
-(3, 'Playstation 3', 6, '2006', 'Es la tercera videoconsola del modelo PlayStation de Sony Computer Entertainment. Forma parte de las videoconsolas de séptima generación y sus competidores son la Xbox 360 de Microsoft y la Wii de Nintendo.', 'CPU:	 Cell Broadband Engine 3,2 GHz con 1PPE y 8 SPEs\nGPU: NVIDIA/SCEI RSX 550 MHz.\nRAM: 256 MB de RAM de tipo GDDR3 VRAM a 700 Mhz con ancho de banda de 128 bits y 256 MB Rambus XDR DRAM a 3.2 GHz con un ancho de banda de 64 bits.', 1),
+(3, '12345', 4, '', '', '', 1),
 (4, 'test01', 4, '2018', 'test', 'test', 0);
 
 -- --------------------------------------------------------
@@ -366,7 +391,9 @@ INSERT INTO `plataforma_juego` (`ID_JUEGO`, `ID_PLATAFORMA`) VALUES
 (1, 1),
 (12, 1),
 (1, 2),
-(12, 3);
+(12, 3),
+(19, 3),
+(25, 3);
 
 -- --------------------------------------------------------
 
@@ -396,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `ID` int(2) NOT NULL AUTO_INCREMENT,
   `ROL` varchar(40) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -406,8 +433,12 @@ INSERT INTO `roles` (`ID`, `ROL`) VALUES
 (1, 'Director'),
 (2, 'Escritor'),
 (3, 'Actor de voz'),
-(4, 'Diseñador'),
-(5, 'OST');
+(4, 'Diseño de Juego'),
+(5, 'Compositor'),
+(6, 'Artista'),
+(7, 'Programador'),
+(8, 'Productor'),
+(9, 'Staff');
 
 -- --------------------------------------------------------
 
@@ -423,14 +454,6 @@ CREATE TABLE IF NOT EXISTS `votos` (
   PRIMARY KEY (`JUEGO`,`CUENTA`),
   KEY `CUENTA` (`CUENTA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `votos`
---
-
-INSERT INTO `votos` (`JUEGO`, `CUENTA`, `NOTA`, `FECHA`) VALUES
-(12, 18, 5, '2018-03-26'),
-(30, 18, 9, '2018-03-26');
 
 --
 -- Restricciones para tablas volcadas

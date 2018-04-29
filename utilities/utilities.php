@@ -1,19 +1,41 @@
 ﻿<?php
-
+include_once("../servidor/bbdd.php");
 function iniciarSesion()
 {
   /*Inicia sesión y comprueba las cookies, si existe cookie de "nombre" apunta la sesion y el tipo de cuenta en variables de sesion*/
   session_cache_limiter();
   session_name('login');
   session_start();
-  if(isset($_COOKIE["nombre"]))
+  if(isset($_COOKIE["clave"]))
   {
-    $_SESSION["tipo"]=$_COOKIE["tipo"];
-    $_SESSION["nombre"]=$_COOKIE["nombre"];
-    $_SESSION["id"]=$_COOKIE["id"];
+    
+    $datos_session=getDatosUsuario($_COOKIE["clave"]);
+    //echo $datos_session["nombre"];
+    // $_SESSION["tipo"]=$_COOKIE["tipo"];
+    // $_SESSION["nombre"]=$_COOKIE["nombre"];
+    // $_SESSION["id"]=$_COOKIE["id"];
+    $_SESSION["tipo"]=$datos_session["tipo"];
+    $_SESSION["nombre"]=$datos_session["nombre"];
+    $_SESSION["id"]=$datos_session["id"];
   }
 
 }
+
+
+function getDatosUsuario($clave)
+{
+    $miconexion=connectDB();
+
+    $sql="SELECT nombre, tipo, id from cuentas where clave=? ";
+    $select=$miconexion->prepare($sql);
+    $select->execute(array($clave));
+    $fila=$select->fetch(PDO::FETCH_ASSOC);
+    
+    $res=array("id"=>$fila["id"], "nombre"=>$fila["nombre"], "tipo"=>$fila["tipo"]);
+    return $res;
+}
+
+
 function navBar()
 {
   $cabecera='
@@ -89,7 +111,6 @@ function navBar()
 }
 function cabecera($titulo)
 {
-
 
   $cabecera='<!DOCTYPE html>
 <html>
@@ -187,7 +208,6 @@ function navBarIndex()
 
 function cabeceraIndex($titulo)
 {
-
   $cabecera='<!DOCTYPE html>
 <html>
 <head>
