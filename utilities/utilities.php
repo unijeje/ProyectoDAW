@@ -1,5 +1,14 @@
 ﻿<?php
-include_once("../servidor/bbdd.php");
+$url=substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1);
+if($url!="index.php")
+{
+  include_once("../servidor/bbdd.php");
+}
+else
+{
+  include_once("servidor/bbdd.php");
+}
+
 function iniciarSesion()
 {
   /*Inicia sesión y comprueba las cookies, si existe cookie de "nombre" apunta la sesion y el tipo de cuenta en variables de sesion*/
