@@ -82,10 +82,46 @@ $( document ).ready(function() {
 
 });
 
+function mostrarPaginacion(evento)
+{
+    // var target=evento.target;
+    // var numberPage = $(target).text();
+    // console.log(numberPage);
+}
+
 function procesarComentarios(oRespuesta, sStatus, oAjax)
 {
     if(oAjax.status==200)
     {
+
+        // var maxComentariosPage = 5;
+
+        // var numPages = Math.ceil(oRespuesta.length / maxComentariosPage);
+
+        // $("#paginateComentarios").append('<li class="page-item"><a class="page-link" href="#">Previous</a></li>');
+
+        // for(var i=1;i<=numPages;i++)
+        // {
+
+        //     if(i==1)
+        //     {
+        //         $("#comentariosMostrar").append("<div id='paginateComment"+i+"'> 123</div>")
+        //     }
+        //     else
+        //     {
+        //         $("#comentariosMostrar").append("<div id='paginateComment"+i+"'> 456</div>");
+        //         $("#paginateComment"+i+"").hide();
+        //         console.log( $("#paginateComment"+i+""));
+        //     }
+
+
+            
+        //     $("#paginateComentarios").append('<li class="page-item"><a class="page-link paginateComment" href="#">'+i+'</a></li>');
+        //     $(".paginateComment:last").click(mostrarPaginacion())
+        // }
+
+        // $("#paginateComentarios").append('<li class="page-item"><a class="page-link" href="#">Next</a></li>');
+
         for(var i=0;i<oRespuesta.length;i++)
         {
             var iRandom=Math.floor(Math.random() * (3 - 1 + 1)) + 1;

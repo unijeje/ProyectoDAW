@@ -4,6 +4,7 @@ include_once("../servidor/bbdd.php");
 iniciarSesion();
 cabecera("VideoJuegos BBDD");
 
+
 $miconexion=connectDB();
 
 if(isset($_GET["id"]))
@@ -16,7 +17,7 @@ if(isset($_GET["id"]))
     $usuario=$fila["nombre"];
 
 }
-else
+else if (isset($_SESSION["id"]))
 {
     $usuario=$_SESSION["nombre"];
     $id= $_SESSION["id"];
@@ -26,6 +27,10 @@ else
     $select->execute(array($usuario));
     $fila=$select->fetch();
     
+}
+else
+{
+    header('Location: login.php');
 }
 $fila['registro']=fechaFormato($fila['registro']);
 
@@ -63,7 +68,7 @@ navBar();
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content col-8 ml-2">
+  <div class="tab-content col-9 ml-2">
     <div id="perfil" class="container tab-pane active"><br>
       <table class="table table-striped ">
         <tr>
@@ -170,8 +175,13 @@ navBar();
         </div>
     </div>
     <div id="comentarios" class="container tab-pane fade"><br>
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    
+      <table id="tablaComentarios" class="table table-hover">
+        <tr>
+            <th id="mostrarHoraComentariosPerfil">Fecha</th><th id="mostrarHoraComentariosPerfil">Juego</th><th id="mostrarHoraComentariosPerfil">Comentario</th>
+        </tr>
+
+      </table>
     </div>
 
 

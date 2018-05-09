@@ -1,5 +1,9 @@
 $("#guardar").click(editarPerfil);
 $("#eliminar").click(eliminarPerfil);
+
+var sEnviarPerfil= "datos="+user_id;
+$.get("../servidor/gestionCuenta/buscarComentarios.php", sEnviarPerfil, procesarComentarios, "json");
+
 var sNombreUsuario=$("#usuario").val();
 function editarPerfil()
 {
@@ -250,6 +254,27 @@ function actualizarNota(event)
     },"json");
     
     
+}
+
+
+function procesarComentarios(oRespuesta, sStatus, oAjax)
+{
+    if(oAjax.status==200)
+    {
+        var oTabla = $("#tablaComentarios");
+        for(var i=0;i<oRespuesta.length;i++)
+        {
+            var comentario = oRespuesta[i].texto;
+            if(comentario.length > 50)
+            {
+                comentario = comentario.substr(0, 50);
+                comentario+="..."; 
+            }
+
+            $("#tablaComentarios").append("<tr><td>"+oRespuesta[i].fecha+"</td><td><a href='juego.php?id="+oRespuesta[i].juego+"'>"+oRespuesta[i].titulo+"</a></td><td>"+comentario+"</td></tr>");
+        }
+
+    }
 }
 
 

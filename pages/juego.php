@@ -397,6 +397,12 @@ if(isset($_SESSION["tipo"]))
             </form>  
         </div>
         <div class="tab-pane container" id="images">
+            <?php
+            if($filaJuego["cover"]!=null)
+            {
+                echo "<img id='imgCover' class='mt-2 offset-3' src='../img/covers/".$id_juego.".png'>";
+            }
+            ?>
             <form name="formEditarImg" id="formEditarImg">
             <div class="form-group mt-3">
                 <label for="imgJuegoCover">Imagen Cover:</label>
@@ -438,6 +444,8 @@ if(isset($_SESSION["tipo"]))
     <h3 class="text-center">Comentarios</h3>
     <div id="comentariosMostrar">
     </div>
+    <ul class="pagination" id="paginateComentarios">
+    </ul>
     <?php
     if(isset($_SESSION["tipo"]))
     {
