@@ -2,6 +2,15 @@ body {
     background-color: #dce2df;
 }
 
+
+.navbar-nav li:hover
+{
+    border: solid 1px #CCC;
+    -moz-box-shadow: 1px 1px 5px #999;
+    -webkit-box-shadow: 1px 1px 5px #999;
+    box-shadow: 1px 1px 5px #999;
+}
+
 p, li:not(.nav-item)
 {
     font-size:1.2em;
@@ -135,6 +144,23 @@ a:visited {
     width:100%; 
     height:auto;
 }
+
+.screenshotJuego
+{
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    border: solid 1px #EFEFEF;
+}
+
+.screenshotJuego:hover
+{
+    border: solid 1px #CCC;
+    -moz-box-shadow: 1px 1px 5px #999;
+    -webkit-box-shadow: 1px 1px 5px #999;
+    box-shadow: 1px 1px 5px #999;
+}
+
 .autoAlturaTd
 {
     height:60px;

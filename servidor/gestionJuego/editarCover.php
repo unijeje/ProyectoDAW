@@ -41,15 +41,6 @@ else
     
 }
 
-
-
-/*
-echo "<pre>";
-print_r($_FILES['image']);
-echo "</pre>";
-echo json_encode($insertName);
-*/
-
 echo json_encode($exito); 
 
 ?>

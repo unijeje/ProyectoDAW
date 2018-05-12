@@ -80,6 +80,11 @@ $( document ).ready(function() {
     //variables para validacion
     var mensajeCommentBox;
 
+
+    $("#btnEditarScreenshot").click(guardarImagenes);
+
+    $("#btnEliminarScreenshots").click(eliminarImagenes);
+
 });
 
 function mostrarPaginacion(evento)
@@ -94,6 +99,7 @@ function procesarComentarios(oRespuesta, sStatus, oAjax)
     if(oAjax.status==200)
     {
 
+        //TODO: comentarios con paginacion
         // var maxComentariosPage = 5;
 
         // var numPages = Math.ceil(oRespuesta.length / maxComentariosPage);
@@ -150,6 +156,80 @@ function procesarComentarios(oRespuesta, sStatus, oAjax)
             $("#comentariosMostrar").append(sHtml);
         }
     }
+}
+
+
+function eliminarImagenes()
+{
+    var sEnviarJuego= "datos="+juego_id;
+    $.post("../servidor/gestionJuego/eliminarScreenshots.php", sEnviarJuego, function(bExito, sStatus, oAjax)
+    {
+        if(bExito == true)
+        {
+            $("#registrado").show();
+            $("#formEditarImg").hide();
+            $("#guidelines").hide();
+            window.location.reload();
+        }
+        else
+        {
+            $("#registroError").show();
+        }
+    }, "json");
+}
+
+function guardarImagenes()
+{
+    $("#registroError").hide();
+    var fileInput = document.querySelectorAll('#imgJuegoScreenshot');
+
+    if(fileInput[0].files.length > 10)
+    {
+        $("#registroError p").text("Numero de imágenes pérmitido superado.");
+        $("#registroError").show();
+        
+        return;
+    }
+
+    var formData = new FormData();
+
+    for(var i=0;i<fileInput[0].files.length;i++)
+    {
+        var file = fileInput[0].files[i];
+        formData.append('image[]', file);
+    }
+
+    formData.append('id_juego', juego_id);
+
+    //ajax
+    $.ajax({
+        url: "../servidor/gestionJuego/editarScreenshots.php",
+        type : "POST",
+        data : formData,
+        dataType: "json",
+        
+        success: function(bExito, sStatus, oAjax){
+            
+            if(bExito[0]==true)
+            {
+                $("#registrado").show();
+                $("#formEditarImg").hide();
+                $("#guidelines").hide();
+                window.location.reload();
+            }
+            else
+            {
+                $("#registroError p").text(bExito[1]);
+                $("#registroError").show();
+            }
+            
+           console.log(bExito);
+        },
+        
+        processData : false,
+        contentType : false
+    });
+
 }
 
 function guardarComentario()

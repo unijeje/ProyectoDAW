@@ -29,8 +29,6 @@ print_r($filaCompany);
 echo "</pre>";
 */
 
-//fetch comentarios
-
 //fetch generos
 $sql="SELECT g.id, g.genero from generos g inner join generos_juego j on g.id=j.id_genero and j.id_juego=?";
 $rsGenero=$miconexion->prepare($sql);
@@ -104,6 +102,14 @@ if(isset($_SESSION["tipo"]))
     {
         $votoJuego=$filaVoto["nota"];
     }
+}
+
+//screenshots
+$directory = "../img/screenshots/juego_".$id_juego."/";
+$numImagenes = 0;
+$files = glob($directory . "*.png");
+if ($files){
+ $numImagenes = count($files);
 }
 
 cabecera($filaJuego["titulo"]);
@@ -232,7 +238,21 @@ if($filaJuego!=null)
             
         </div>
         <p class="col-10 offset-1 mt-3"><?php echo $filaJuego["sinopsis"];?></p>
-        <p  class="col-10 offset-1 mt-5">Fotos</p>
+
+        <div class="col-10 offset-1 mt-3 text-center">
+        <?php
+        
+        if($numImagenes == 0)
+        {
+            echo "<p>No hay Imágenes subidas para este juego.";
+        }
+        else
+        for( $i=0; $i < $numImagenes; $i++)
+        {
+            echo "<img class='m-4 screenshotJuego' src='../img/screenshots/juego_".$id_juego."/screenshot".$i.".png'</img>";
+        }        
+        ?>
+        </div>
     </div>
 
     <h2 class="mt-5">Listado de Staff</h2>
@@ -422,7 +442,30 @@ if(isset($_SESSION["tipo"]))
                    
             </div>
             
+            
+
             </form>
+
+            <form name="formEditarScreenShots" id="formEditarScreenShots">
+            <div class="form-group mt-3">
+                <label for="imgJuegoScreenshot">Imágenes:</label>
+                <div class="custom-file" id="customFile" lang="es">
+                    <input multiple type="file" class="custom-file-input col-8" id="imgJuegoScreenshot" aria-describedby="fileHelp">
+                    <label class="custom-file-label col-8" for="imgJuegoScreenshot">
+                    Seleccione Imagen...
+                    </label>
+                </div>
+                <input type="button" id="btnEditarScreenshot" class="btn btn-primary col-8 mt-2" value="Guardar Imágenes" />
+                <?php
+                echo '<input type="button" id="btnEliminarScreenshots" class="btn btn-danger col-8 mt-2" value="Eliminar Imágenes" /> ';
+                ?>
+                   
+            </div>
+            
+            
+
+            </form>
+
         </div>
         <?php
             if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador

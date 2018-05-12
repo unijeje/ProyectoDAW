@@ -2,6 +2,20 @@
 
 if(isset($_POST["enviar"]))
 {
+	echo "<pre>";
+	print_r($_FILES);
+	echo "</pre>";
+	
+	
+	foreach ($_FILES['image']['name'] as $key=>$value)
+	{
+		if(move_uploaded_file($_FILES["image"]["tmp_name"][$key], $rutaDirectorio."/".$insertName)
+		{
+			echo $value;
+		}
+	}
+	
+	/*
 	$tmnMax=500000; //5mb
 	$valid_extensions = array('jpeg', 'jpg', 'png');
 	echo "<pre>";
@@ -38,6 +52,8 @@ if(isset($_POST["enviar"]))
 	}
 	else
 		echo "mas de 10MB";
+	
+	*/
 
 }
 
@@ -53,7 +69,7 @@ if(isset($_POST["enviar"]))
 ?>
 <br><br>
 <form method="post" action="#" enctype="multipart/form-data">
-	<input type="file" name="image">
+	<input multiple type="file" name="image">
 	<br><br>
 	<input type="submit" name="enviar"/>
 
