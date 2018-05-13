@@ -45,7 +45,7 @@ function addStaff()
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
-            
+            altaRevision(oCompany, user_id, companyRev);
         }
         else
         {

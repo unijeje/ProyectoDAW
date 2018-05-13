@@ -59,7 +59,17 @@ navBar();
     }
     ?> 
     <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#votos">Mis votos</a>
+    <?php
+     if(isset($_GET["id"]))
+     {
+         echo '<a class="nav-link" data-toggle="pill" href="#votos">Votos</a>';
+     }
+     else
+     {
+        echo '<a class="nav-link" data-toggle="pill" href="#votos">Mis votos</a>';
+     }
+      
+    ?>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="pill" href="#comentarios">Mis comentarios</a>

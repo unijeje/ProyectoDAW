@@ -9,22 +9,61 @@ $desc=$oDatos->desc;
 $fecha=$oDatos->fecha;
 $esp=$oDatos->esp;
 
-$sql="select ID from company where NOMBRE='".$company."'";
-$fila=consultaUnica($sql);
-$company=$fila["ID"];
 
 
-$sql="insert into plataforma(NOMBRE, DESCRIPCION, FECHA, COMPANY, ESPECIFICACIONES, ACTIVO) values('$nombre', '$desc', '$fecha', '$company', '$esp', 1)";
+try
+{
+    $miconexion=connectDB();
 
-$n=ejecutaConsultaAccion($sql);
+    $sql="select ID from company where NOMBRE=?";
+    
+    $select = $miconexion->prepare($sql);
+    
+    $select->execute(array($company));
+    
+    $fila = $select->fetch(PDO::FETCH_ASSOC);
+    
+    $companyId=$fila["ID"];
+    
+    if($companyId == null)
+    {
+        $exito[0] = false;
+        $exito[1] = "No se ha podido encontrar la empresa.";
+        echo json_encode($exito); 
+        exit();
+    }
+    
+    $sql="insert into plataforma(NOMBRE, DESCRIPCION, FECHA, COMPANY, ESPECIFICACIONES, ACTIVO) values(?, ?, ?, ?, ?, 1)";
+    
+    $insert = $miconexion->prepare($sql);
+    
+    $insert->execute(array($nombre, $desc, $fecha, $companyId, $esp));
+    
+    $n = $insert->rowCount();
+    
+    
+    $select = null;
+    $insert = null;
+    $miconexion = null;
+    
+    
+    if($n > 0)
+        $exito[0] = true;
+    else
+    {
+        $exito[0] = false;
+        $exito[1] = "Fallo inesperado al insertar.";
+    }
+}
+catch(PDOEXCEPTION $e)
+{
+    $exito[0] = false;
+    $exito[1] = "Fallo inesperado al insertar.";
+}
 
-if($n > 0)
-    $exito = true;
-else
-    $exito = false;
+    
 
 echo json_encode($exito); 
 
-//echo json_encode($sql); 
 
 ?>

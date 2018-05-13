@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2018 a las 16:54:42
+-- Tiempo de generación: 13-05-2018 a las 16:14:07
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -37,6 +37,19 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
   KEY `USUARIO` (`USUARIO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`ID`, `JUEGO`, `USUARIO`, `TEXTO`, `FECHA`) VALUES
+(1, 30, 23, 'test', 1525885433),
+(1, 33, 23, 'ajksddddddddddddddddddd180923yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh182hddddddddddddddddddddddddddd', 1525887970),
+(2, 30, 23, 'test2', 1525885449),
+(3, 30, 23, 'sdbn', 1525890611),
+(4, 30, 23, 'asd', 1525890614),
+(5, 30, 23, 'aw1', 1525890618),
+(6, 30, 23, 'h', 1525890621);
+
 -- --------------------------------------------------------
 
 --
@@ -53,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Volcado de datos para la tabla `company`
@@ -64,7 +77,10 @@ INSERT INTO `company` (`ID`, `NOMBRE`, `DESCRIPCION`, `FECHA`, `PAIS`, `ENLACE`,
 (5, 'test02', 'Entrada de prueba', '2018', 'Estados Unidos', '', 0),
 (6, 'Sony Corporation', 'Japanese multinational conglomerate corporation headquartered in K?nan, Minato, Tokyo. Its diversified business includes consumer and professional electronics, gaming, entertainment and financial services. The company is one of the leading manufacturers of electronic products for the consumer and professional markets. Sony was ranked 105th on the 2017 list of Fortune Global 500.', '1946', 'Japón', 'https://www.sony.net/', 1),
 (7, 'Ubisoft', 'es una compañía francesa desarrolladora y distribuidora de videojuegos, fundada en 1986 en Carentoir, en Bretaña. Yves Guillemot, uno de los fundadores, es el actual director ejecutivo y Presidente de la compañía.2 Las oficinas centrales se ubican en Montreuil-Sous-Bois, Francia.', '1986', 'Francia', 'https://www.ubisoft.com/es-es/', 1),
-(8, 'test', '', '', '', '', 1);
+(8, 'test', '', '', '', '', 1),
+(9, 'Microsoft', '', '1975', 'Estados Unidos', 'https://es.wikipedia.org/wiki/Microsoft', 1),
+(11, 'Square Enix', '', '2003', 'Japón', '', 1),
+(12, 'Nihon Falcom', '', '1981', 'Japón', '', 1);
 
 -- --------------------------------------------------------
 
@@ -101,7 +117,9 @@ INSERT INTO `company_juegos` (`ID_JUEGO`, `ID_COMPANY`) VALUES
 (22, 6),
 (29, 6),
 (30, 6),
-(1, 7);
+(1, 7),
+(35, 7),
+(35, 9);
 
 -- --------------------------------------------------------
 
@@ -233,7 +251,7 @@ INSERT INTO `generos_juego` (`ID_JUEGO`, `ID_GENERO`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `juego` (
-  `ID` int(6) NOT NULL AUTO_INCREMENT,
+  `ID` int(9) NOT NULL AUTO_INCREMENT,
   `TITULO` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `SINOPSIS` text CHARACTER SET utf8 COLLATE utf8_spanish_ci,
   `FECHA` date DEFAULT NULL,
@@ -244,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `juego` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `TITULO` (`TITULO`),
   KEY `DURACION` (`DURACION`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Volcado de datos para la tabla `juego`
@@ -268,7 +286,8 @@ INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, 
 (30, 'bandicoot', 'test', '2016-02-01', 'test', NULL, 1, 1),
 (31, 'hehehe', '', '0000-00-00', '', NULL, NULL, 1),
 (32, '123', '', '0000-00-00', '', NULL, NULL, 1),
-(33, '456', '456', '2018-03-10', '', NULL, NULL, 1);
+(33, '456', '456', '2018-03-10', '', NULL, NULL, 1),
+(35, 'juegoRevision1', '', '2018-05-24', '', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -285,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `personas` (
   `ENLACE` varchar(100) DEFAULT NULL,
   `ACTIVO` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Volcado de datos para la tabla `personas`
@@ -307,7 +326,9 @@ INSERT INTO `personas` (`ID`, `NOMBRE`, `NACIONALIDAD`, `GENERO`, `DESCRIPCION`,
 (15, 'test 13', 'esp', 'Masculino', 'esp', '', 1),
 (16, 'Jason Rubin', 'Estadounidense', 'Masculino', 'Fundador de Naughty Dog', 'https://en.wikipedia.org/wiki/Jason_Rubin', 1),
 (17, '123', '', 'Masculino', '', '', 1),
-(18, 'test', '', 'Femenino', '', '', 1);
+(18, 'test', '', 'Femenino', '', '', 1),
+(19, 'testRevision', 'España', 'Masculino', '', '', 1),
+(20, 'testRevision2', 'España', 'Masculino', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -358,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `plataforma` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `NOMBRE` (`NOMBRE`),
   KEY `COMPANY` (`COMPANY`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Volcado de datos para la tabla `plataforma`
@@ -368,7 +389,9 @@ INSERT INTO `plataforma` (`ID`, `NOMBRE`, `COMPANY`, `FECHA`, `DESCRIPCION`, `ES
 (1, 'Playstation 1', 6, '1994', 'Test ED', 'Test ED', 1),
 (2, 'Playstation 2', 6, '2000', 'Es la segunda videoconsola de sobremesa producida por Sony Computer Entertainment y la sucesora de PlayStation. Fue lanzada por primera vez el 4 de marzo del año 2000 en Japón, y unos meses después en el resto del mundo. Esta consola es también la que más títulos posee, aproximadamente 10 900 títulos seguida por su predecesora la PlayStation con unos 8000 títulos.', 'CPU: Chip Emotion Engine (128 bits con capacidades SIMD) corriendo a 294.912 MHz (lanzamiento), 299 MHz (nuevos modelos).\nGPU: Chip GraphicsSynthesizer corriendo a 147.456 MHz', 1),
 (3, '12345', 4, '', '', '', 1),
-(4, 'test01', 4, '2018', 'test', 'test', 0);
+(4, 'test01', 4, '2018', 'test', 'test', 0),
+(7, 'Xbox', 9, '2001', 'es una marca de videojuegos creada por Microsoft que incluye una serie de videoconsolas desarrolladas por la misma compañía, de sexta a octava generación, así como aplicaciones (juegos), servicios de streaming y el servicio en línea Xbox Live. La marca fue introducida por primera vez el 15 de noviembre de 2001 en los Estados Unidos, con el lanzamiento de la consola Xbox.', '', 1),
+(18, 'Xbox 360', 9, '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -402,16 +425,28 @@ INSERT INTO `plataforma_juego` (`ID_JUEGO`, `ID_PLATAFORMA`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `revisiones` (
-  `ID` int(9) NOT NULL,
-  `TIPO` varchar(1) NOT NULL,
+  `ID` int(9) NOT NULL AUTO_INCREMENT,
+  `TIPO` varchar(1) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `NUMERO` int(9) NOT NULL,
-  `FECHA` date NOT NULL,
-  `DESCRIPCION` text,
+  `FECHA` datetime NOT NULL,
+  `DESCRIPCION` text CHARACTER SET latin1 COLLATE latin1_spanish_ci,
   `USUARIO` int(6) NOT NULL,
-  `ANTES` text NOT NULL,
-  `DESPUES` text NOT NULL,
+  `ANTES` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `DESPUES` text CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`ID`,`TIPO`,`NUMERO`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `revisiones`
+--
+
+INSERT INTO `revisiones` (`ID`, `TIPO`, `NUMERO`, `FECHA`, `DESCRIPCION`, `USUARIO`, `ANTES`, `DESPUES`) VALUES
+(1, 'P', 1, '2018-05-13 00:00:00', 'Creación de entrada de plataforma.', 23, '0', '{"nombre":"Xbox 360","company":"Microsoft","desc":"","fecha":"","esp":""}'),
+(2, 'S', 1, '2018-05-13 00:00:00', 'Creación de entrada de plataforma.', 23, '0', '{"nombre":"testRevision","nacionalidad":"España","desc":"","genero":"Masculino","enlace":""}'),
+(3, 'S', 2, '2018-05-13 00:00:00', 'Creación de entrada de plataforma.', 23, '0', '{"nombre":"testRevision2","nacionalidad":"España","desc":"","genero":"Masculino","enlace":""}'),
+(4, 'J', 1, '2018-05-13 00:00:00', 'Creación de entrada de plataforma.', 23, '0', '{"nombre":"juegoRevision1","arrayCompany":"[\\"Microsoft\\",\\"Ubisoft\\"]","sinopsis":"","enlace":"","fecha":"2018-05-24"}'),
+(5, 'C', 1, '2018-05-13 00:00:00', 'Creación de entrada de plataforma.', 23, '0', '{"nombre":"Square Enix","pais":"Japón","desc":"","fecha":"2003","enlace":""}'),
+(6, 'C', 2, '2018-05-13 16:13:24', 'Creación de entrada de plataforma.', 23, '0', '{"nombre":"Nihon Falcom","pais":"Japón","desc":"","fecha":"1981","enlace":""}');
 
 -- --------------------------------------------------------
 

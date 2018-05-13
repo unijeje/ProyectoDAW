@@ -55,6 +55,7 @@ navBar();
         </form>
     </div>   
 </div>
+<script type="text/javascript">var user_id = <?php echo $_SESSION["id"] ?>;</script>
 <script type="text/javascript" src="../js/addCompany.js"></script>
 <?php
 pie();

@@ -16,6 +16,7 @@ navBar();
 
 <div id="registroError"  class="col-6">
     <h2 class="text-danger">Error al añadir</h2>
+    <p></p>
     <br>
 </div>
 
@@ -56,6 +57,7 @@ navBar();
         </form>
     </div>   
 </div>
+<script type="text/javascript">var user_id = <?php echo $_SESSION["id"] ?>;</script>
 <script type="text/javascript" src="../js/addPlat.js"></script>
 <?php
 pie();

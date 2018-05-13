@@ -39,17 +39,19 @@ function addPlat()
 
         var sDatos= "datos="+JSON.stringify(oPlat);
         $.post("../servidor/gestionPlataforma/altaPlat.php",sDatos,function(bExito, sStatus, oAjax){
-        if(bExito==true)
+        if(bExito[0])
         {
             $("#formAddPlat").hide();
             $("h1").hide();
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
+            altaRevision(oPlat, user_id, plataformaRev);
             
         }
         else
         {
+            $("#registroError p").text(bExito[1]);
             $("#registroError").show();
         }
         },"json");

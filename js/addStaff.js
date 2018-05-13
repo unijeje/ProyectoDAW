@@ -39,7 +39,7 @@ function addStaff()
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
-            
+            altaRevision(oPersona, user_id, staffRev);
         }
         else
         {

@@ -103,6 +103,37 @@ function invalidarCampo(oCampo, sMensaje, bool)
     }
 }
 
+
+function altaRevision(oDatos, sUser, sTipo)
+{
+
+    if(oDatos == null || sUser == null || sTipo == null)
+    {
+        return "Error inesperado. Parámetros para la revision no son correctos.";
+    }
+
+    var sDatos = JSON.stringify({usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
+
+    var sDatos = "revision="+ sDatos;
+
+    $.post("../servidor/gestionRevisiones/revision.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito[0])
+        {
+            //TODO: log en fichero con revisiones
+            
+        }
+        else
+        {
+            
+        }
+        },"json");
+}
+
+var plataformaRev = "P";
+var juegoRev = "J";
+var companyRev = "C";
+var staffRev = "S";
+
 var oExpRegNombre = /^[a-z\s]{3,20}$/i; //ENTRE 3 y 20 CARACTERES
 var oExpRegPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,40}$/i; //ENTRE 4, 40 una letra y numero al menos
 var oExpRegEmail = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
