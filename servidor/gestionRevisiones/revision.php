@@ -9,10 +9,11 @@ $revision = json_decode($_POST["revision"]);
 $datos = $revision->datos;
 $user = $revision->usuario;
 $tipo = $revision->tipo;
+$id = $revision->idModelo;
 
-echo json_encode(altaRevision($datos, $user, $tipo));
+echo json_encode(altaRevision($datos, $user, $tipo, $id));
 
-function altaRevision($datos, $user, $tipo)
+function altaRevision($datos, $user, $tipo, $id)
 {
     /*
     TIPO: 
@@ -25,7 +26,23 @@ function altaRevision($datos, $user, $tipo)
 
     $fecha = date('Y-m-d H:i:s');
 
-    $descripcion = "Creación de entrada de plataforma.";
+    switch($tipo)
+    {
+        case "P":
+            $modeo="plataforma";
+            break;
+        case "J":
+            $modelo="juego";
+            break;
+        case "C":
+            $modelo="compañía";
+            break;
+        case "S":
+            $modelo="staff";
+            break;
+    }
+
+    $descripcion = "Creación de entrada de $modelo .";
 
     $antes = "0";
     $despues = $datos;
@@ -52,11 +69,11 @@ function altaRevision($datos, $user, $tipo)
             return $exito;
         }
 
-        $sql = "INSERT INTO revisiones(TIPO, NUMERO, FECHA, DESCRIPCION, USUARIO, ANTES, DESPUES) values (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO revisiones(TIPO, ID_MODELO, NUMERO, FECHA, DESCRIPCION, USUARIO, ANTES, DESPUES) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $insert = $miconexion->prepare($sql);
 
-        $insert->execute(array($tipo, $numero, $fecha, $descripcion, $user, $antes, $despues));
+        $insert->execute(array($tipo, $id, $numero, $fecha, $descripcion, $user, $antes, $despues));
 
         $n = $insert->rowCount();
     

@@ -16,6 +16,7 @@ navBar();
 
 <div id="registroError" class="col-6" >
     <h2 class="text-danger">Error al añadir</h2>
+    <p></p>
     <br>
 </div>
 

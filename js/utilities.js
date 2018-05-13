@@ -104,15 +104,15 @@ function invalidarCampo(oCampo, sMensaje, bool)
 }
 
 
-function altaRevision(oDatos, sUser, sTipo)
+function altaRevision(oDatos, sUser, sTipo, sIdModelo)
 {
 
-    if(oDatos == null || sUser == null || sTipo == null)
+    if(oDatos == null || sUser == null || sTipo == null || sIdModelo == null)
     {
         return "Error inesperado. Parámetros para la revision no son correctos.";
     }
 
-    var sDatos = JSON.stringify({usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
+    var sDatos = JSON.stringify({idModelo: sIdModelo , usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
 
     var sDatos = "revision="+ sDatos;
 

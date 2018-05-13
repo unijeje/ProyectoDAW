@@ -38,17 +38,18 @@ function addStaff()
 
         var sDatos= "datos="+JSON.stringify(oCompany);
         $.post("../servidor/gestionCompany/altaCompany.php",sDatos,function(bExito, sStatus, oAjax){
-        if(bExito==true)
+        if(bExito[0])
         {
             $("#formAddCompany").hide();
             $("h1").hide();
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
-            altaRevision(oCompany, user_id, companyRev);
+            altaRevision(oCompany, user_id, companyRev, bExito[1]);
         }
         else
         {
+            $("#registroError p").text(bExito[1]);
             $("#registroError").show();
         }
         },"json");

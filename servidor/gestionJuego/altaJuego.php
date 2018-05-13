@@ -23,7 +23,7 @@ try
 
     if($n > 0)
     {
-        $exito = true;
+        
         
         if(trim($company[0])!="")
         {
@@ -40,8 +40,8 @@ try
 
         }
 
-        
-        
+        $exito[0] = true;
+        $exito[1] = $idInsert;
         
     }
 
@@ -51,7 +51,8 @@ try
 catch(PDOException $e)
 {
     $miconexion->rollback();
-    $exito = false;
+    $exito[0] = false;
+    $exito[1] = "Error Inesperado al insertar.";
 }
 
 $miconexion=null;

@@ -40,7 +40,8 @@ try
     $insert->execute(array($nombre, $desc, $fecha, $companyId, $esp));
     
     $n = $insert->rowCount();
-    
+
+    $last_id=$miconexion->lastInsertId();  
     
     $select = null;
     $insert = null;
@@ -48,7 +49,10 @@ try
     
     
     if($n > 0)
+    {
         $exito[0] = true;
+        $exito[1] = $last_id;
+    }    
     else
     {
         $exito[0] = false;

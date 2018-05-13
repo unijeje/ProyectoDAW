@@ -32,17 +32,18 @@ function addStaff()
 
         var sDatos= "datos="+JSON.stringify(oPersona);
         $.post("../servidor/gestionPersona/altaPersona.php",sDatos,function(bExito, sStatus, oAjax){
-        if(bExito==true)
+        if(bExito[0])
         {
             $("#formAddStaff").hide();
             $("h1").hide();
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
-            altaRevision(oPersona, user_id, staffRev);
+            altaRevision(oPersona, user_id, staffRev, bExito[1]);
         }
         else
         {
+            $("#registroError p").text(bExito[1]);
             $("#registroError").show();
         }
         },"json");

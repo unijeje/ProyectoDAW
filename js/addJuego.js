@@ -89,18 +89,19 @@ function addJuego()
 
         var sDatos= "datos="+JSON.stringify(oJuego);
         $.post("../servidor/gestionJuego/altaJuego.php",sDatos,function(bExito, sStatus, oAjax){
-        if(bExito==true)
+        if(bExito[0])
         {
             $("#formAddJuego").hide();
             $("h1").hide();
             $("#guidelines").hide();
             $("#registrado").show();
             $("#registrarOtro").show();
-            altaRevision(oJuego, user_id, juegoRev);
+            altaRevision(oJuego, user_id, juegoRev, bExito[1]);
             
         }
         else
         {
+            $("#registroError p").text(bExito[1]);
             $("#registroError").show();
         }
         },"json");

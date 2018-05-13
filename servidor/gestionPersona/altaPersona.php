@@ -9,14 +9,36 @@ $desc=$oDatos->desc;
 $genero=$oDatos->genero;
 $enlace=$oDatos->enlace;
 
-$sql="insert into personas(NOMBRE, NACIONALIDAD, GENERO, DESCRIPCION, ENLACE, ACTIVO) values('$nombre', '$nacionalidad', '$genero', '$desc', '$enlace', 1)";
 
-$n=ejecutaConsultaAccion($sql);
+try
+{
+    $miconexion=connectDB();
 
-if($n > 0)
-    $exito = true;
-else
-    $exito = false;
+    $sql="insert into personas(NOMBRE, NACIONALIDAD, GENERO, DESCRIPCION, ENLACE, ACTIVO) values(?, ?, ?, ?, ?, 1)";
+
+    $insert = $miconexion->prepare($sql);
+    $insert->execute(array($nombre, $nacionalidad, $genero, $desc, $enlace));
+
+    $n = $insert->rowCount();
+
+    $last_id=$miconexion->lastInsertId();  
+
+    if($n > 0)
+        {
+            $exito[0] = true;
+            $exito[1] =$last_id;
+        }
+    else
+    {
+        $exito[0] = false;
+        $exito[1] = "Fallo inesperado al insertar.";
+    }
+}
+catch(PDOEXCEPTION $e)
+{
+    $exito[0] = false;
+    $exito[1] = "Fallo inesperado al insertar.";
+}
 
 echo json_encode($exito); 
 
