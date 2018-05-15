@@ -2,6 +2,10 @@ body {
     background-color: #dce2df;
 }
 
+.navbar-nav
+{
+    padding: .2em;
+}
 
 .navbar-nav li:hover
 {
@@ -109,10 +113,15 @@ a:visited {
     height: 200px;
 }
 
-#tablaListadoJuego a:hover, #creditosPersona a:hover, #creditosCompany a:hover
+#revisionesListado a:hover
 {
     text-decoration: underline dotted gray;
-    
+    font-size: 1.1em;
+}
+
+#tablaListadoJuego a:hover, #creditosPersona a:hover, #creditosCompany a:hover
+{
+    text-decoration: underline dotted gray;    
 }
 #tablaListadoJuego a
 {

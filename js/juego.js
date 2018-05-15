@@ -85,7 +85,39 @@ $( document ).ready(function() {
 
     $("#btnEliminarScreenshots").click(eliminarImagenes);
 
+    var sDatosRevisiones = "datos="+JSON.stringify({id:juego_id, tipo: "J"})
+    $.get("../servidor/gestionJuego/getRevisiones.php", sDatosRevisiones, procesarRevisiones, "json");
+
 });
+
+function procesarRevisiones(oRespuesta, sStatus, oAjax)
+{
+    if(oAjax.status==200)
+    {
+        
+        for(var i=0;i<oRespuesta.length;i++)
+        {
+            var sID = oRespuesta[i].ID;
+            var sNumero = oRespuesta[i].NUMERO;
+            var sFecha = oRespuesta[i].FECHA.padEnd(10);
+            var sDescripcion = oRespuesta[i].DESCRIPCION.padEnd(10);
+            var sUsuario = oRespuesta[i].NOMBRE;
+            var sIdUsuario = oRespuesta[i].PERFIL;
+            console.log(sNumero);
+            var sHtml = "<tr>";
+            sHtml += "<td><a href='revision.php?id="+sID+"'>J"+juego_id+"."+sNumero+"</a></td>";
+            sHtml += "<td><a href='perfil.php?id="+sIdUsuario+"'>"+sUsuario+"</a></td>";
+            sHtml += "<td>"+sDescripcion+"</td>";
+            sHtml += "<td>"+sFecha+"</td>";
+            sHtml += "</tr>";
+            $("#revisionesListado").append(sHtml);
+        }
+    }
+    else
+    {
+        $("#revisionesJuego").append("<p>Error. No se han podido obtener las revisiones desde el servidor.");
+    }
+}
 
 function mostrarPaginacion(evento)
 {
@@ -155,6 +187,10 @@ function procesarComentarios(oRespuesta, sStatus, oAjax)
             sHtml+='</div>  ';
             $("#comentariosMostrar").append(sHtml);
         }
+    }
+    else
+    {
+        $("#comentariosMostrar").append("<p>Error consiguiendo comentarios desde el servidor.</p>");
     }
 }
 

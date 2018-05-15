@@ -139,7 +139,7 @@ if($filaJuego!=null)
             }
             ?>
         </div>
-        <div id="informacionJuego" class="row col-6 offset-1">
+        <div id="informacionJuego" class="row col-8 offset-1">
             <table class ="table table-responsive borderless">
             <tr><td>Lanzamiento</td><td><?php echo $filaJuego["fecha"];?></td></tr>
 
@@ -509,7 +509,10 @@ if(isset($_SESSION["tipo"]))
 
 
 <div id="revisionesJuego">
-<p>Revisiones</p>
+    <h3 class="text-center">Revisiones</h3>
+    <table class="table table-bordered" id="revisionesListado">
+    <tr><th>ID REVISION</th><th>USUARIO</th><th>Descripción</th><th>Fecha</th></tr>
+    </table>
 </div>
 
 

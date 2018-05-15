@@ -42,7 +42,7 @@ function altaRevision($datos, $user, $tipo, $id)
             break;
     }
 
-    $descripcion = "Creación de entrada de $modelo .";
+    $descripcion = "Creación de entrada de $modelo.";
 
     $antes = "0";
     $despues = $datos;
