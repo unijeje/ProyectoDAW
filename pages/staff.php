@@ -148,7 +148,10 @@ if(isset($_SESSION["tipo"]))
 }
 ?>
 <div id="revisionesStaff">
-<p>Revisiones</p>
+    <h3 class="text-center">Revisiones</h3>
+    <table class="table table-bordered" id="revisionesListado">
+    <tr><th>ID REVISION</th><th>USUARIO</th><th>Descripción</th><th>Fecha</th></tr>
+    </table>
 </div>
 
 </div>

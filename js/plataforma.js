@@ -1,7 +1,9 @@
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
-    cargarRevisionesStaff();
     $.get("../servidor/gestionCompany/autoCompleteCompany.php", respuestaAutoCompleteCompany, "json");
+
+    var sDatosRevisiones = "datos="+JSON.stringify({id:plat_id, tipo: plataformaRev})
+    $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, cargarRevisionesStaff, "json");
     
 });
 
@@ -80,9 +82,32 @@ function eliminarPlat()
     },"json");
 
 }
-function cargarRevisionesStaff()
+function cargarRevisionesStaff(oRespuesta, sStatus, oAjax)
 {
-
+    if(oAjax.status==200)
+    {
+        
+        for(var i=0;i<oRespuesta.length;i++)
+        {
+            var sID = oRespuesta[i].ID;
+            var sNumero = oRespuesta[i].NUMERO;
+            var sFecha = oRespuesta[i].FECHA.padEnd(10);
+            var sDescripcion = oRespuesta[i].DESCRIPCION.padEnd(10);
+            var sUsuario = oRespuesta[i].NOMBRE;
+            var sIdUsuario = oRespuesta[i].PERFIL;
+            var sHtml = "<tr>";
+            sHtml += "<td><a href='revision.php?id="+sID+"'>J"+plat_id+"."+sNumero+"</a></td>";
+            sHtml += "<td><a href='perfil.php?id="+sIdUsuario+"'>"+sUsuario+"</a></td>";
+            sHtml += "<td>"+sDescripcion+"</td>";
+            sHtml += "<td>"+sFecha+"</td>";
+            sHtml += "</tr>";
+            $("#revisionesListado").append(sHtml);
+        }
+    }
+    else
+    {
+        $("#revisionesPlataforma").append("<p>Error. No se han podido obtener las revisiones desde el servidor.</p>");
+    }
 }
 function validarEdicionPlat()
 {

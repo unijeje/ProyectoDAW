@@ -85,8 +85,8 @@ $( document ).ready(function() {
 
     $("#btnEliminarScreenshots").click(eliminarImagenes);
 
-    var sDatosRevisiones = "datos="+JSON.stringify({id:juego_id, tipo: "J"})
-    $.get("../servidor/gestionJuego/getRevisiones.php", sDatosRevisiones, procesarRevisiones, "json");
+    var sDatosRevisiones = "datos="+JSON.stringify({id:juego_id, tipo: juegoRev})
+    $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, procesarRevisiones, "json");
 
 });
 
@@ -115,7 +115,7 @@ function procesarRevisiones(oRespuesta, sStatus, oAjax)
     }
     else
     {
-        $("#revisionesJuego").append("<p>Error. No se han podido obtener las revisiones desde el servidor.");
+        $("#revisionesJuego").append("<p>Error. No se han podido obtener las revisiones desde el servidor.</p>");
     }
 }
 
