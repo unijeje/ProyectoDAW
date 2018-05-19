@@ -16,7 +16,8 @@ $(document).ready(function() {
                 $(nTd).html("<a href='juego.php?id="+oData.ID+"'>"+oData.TITULO+"</a>");
                 }
             },
-                { data: 'FECHA' }
+                { data: 'FECHA' },
+                { data: 'MEDIA'}
                 ]
     } );
 
