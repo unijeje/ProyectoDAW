@@ -1,5 +1,9 @@
 ﻿var ids=[];
 var listaPersonas=[];
+var oJuegoAntiguo;
+var oCompaniesAntiguo;
+var oStaffAntiguo;
+var oPlatAntiguo;
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
     //cargarRevisionesStaff();
@@ -25,7 +29,6 @@ $( document ).ready(function() {
     $("#btnCompany").click(addCompany);
     $("#btnEditarCompany").click(guardarCompanies);
 
-    $("#btnPlat").click(addPlataforma);
     $("#btnEditarPlat").click(guardarPlataformas);
     //console.log(plats_id);
 
@@ -88,6 +91,7 @@ $( document ).ready(function() {
     var sDatosRevisiones = "datos="+JSON.stringify({id:juego_id, tipo: juegoRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, procesarRevisiones, "json");
 
+
 });
 
 function procesarRevisiones(oRespuesta, sStatus, oAjax)
@@ -103,7 +107,6 @@ function procesarRevisiones(oRespuesta, sStatus, oAjax)
             var sDescripcion = oRespuesta[i].DESCRIPCION.padEnd(10);
             var sUsuario = oRespuesta[i].NOMBRE;
             var sIdUsuario = oRespuesta[i].PERFIL;
-            console.log(sNumero);
             var sHtml = "<tr>";
             sHtml += "<td><a href='revision.php?id="+sID+"'>J"+juego_id+"."+sNumero+"</a></td>";
             sHtml += "<td><a href='perfil.php?id="+sIdUsuario+"'>"+sUsuario+"</a></td>";
@@ -205,7 +208,8 @@ function eliminarImagenes()
             $("#registrado").show();
             $("#formEditarImg").hide();
             $("#guidelines").hide();
-            window.location.reload();
+            editarRevision(0, 0, user_id, juegoRev, juego_id, "Eliminar screenshots del juego.");
+            setTimeout(function(){window.location.reload();}, 1000);
         }
         else
         {
@@ -251,7 +255,8 @@ function guardarImagenes()
                 $("#registrado").show();
                 $("#formEditarImg").hide();
                 $("#guidelines").hide();
-                window.location.reload();
+                editarRevision(0, 0, user_id, juegoRev, juego_id, "Añadir screenshots al juego.");
+                setTimeout(function(){window.location.reload();}, 1000);
             }
             else
             {
@@ -259,7 +264,6 @@ function guardarImagenes()
                 $("#registroError").show();
             }
             
-           console.log(bExito);
         },
         
         processData : false,
@@ -383,7 +387,25 @@ function guardarStaff()
             $("#registrado").show();
             $("#formStaff").hide();
             $("#guidelines").hide();
-            window.location.reload();
+
+            var oNombresAntiguos = [];
+            var oRolesAntiguos = [];
+            var oComentsAntiguos = [];
+
+            for(var i=0;i<filaStaff.length;i++)
+            {
+                oNombresAntiguos.push(filaStaff[i]["nombre"]);
+                oRolesAntiguos.push(filaStaff[i]["rol"]);
+                oComentsAntiguos.push(filaStaff[i]["comentario"]);
+            }
+
+            var oStaffAntiguo = {id: juego_id,
+                                nombres: oNombresAntiguos,
+                                roles: oRolesAntiguos,
+                                coment: oComentsAntiguos};
+
+            editarRevision(oDatos, oStaffAntiguo, user_id, juegoRev, juego_id, "Editar Staff del juego.");
+            setTimeout(function(){window.location.reload();}, 1000);
         }
         else
         {
@@ -482,7 +504,8 @@ function eliminarCover()
             $("#registrado").show();
             $("#formEditarImg").hide();
             $("#guidelines").hide();
-            window.location.reload();
+            editarRevision(0, 0, user_id, juegoRev, juego_id, "Eliminar del juego.");
+            setTimeout(function(){window.location.reload();}, 1000);
         }
         else
         {
@@ -512,7 +535,8 @@ function guardarCoverImg()
                 $("#registrado").show();
                 $("#formEditarImg").hide();
                 $("#guidelines").hide();
-                window.location.reload();
+                editarRevision(0, 0, user_id, juegoRev, juego_id, "Agregar cover del juego.");
+                setTimeout(function(){window.location.reload();}, 1000);
             }
             else
             {
@@ -523,17 +547,6 @@ function guardarCoverImg()
         processData : false,
         contentType : false
     });
-
-
-    /*
-    console.log(fileInput);
-    console.log(file);
-    console.log(formData);
-    // Display the key/value pairs
-    for (var pair of formData.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
-    }
-    */
 }
 
 function guardarNota()
@@ -569,7 +582,8 @@ function darJuegoBaja()
         $("#borrarJuego").hide();
         $("#guidelines").hide();
         $("#registrado").show();
-        
+        editarRevision(0, 0, user_id, juegoRev, juego_id, "Dar juego de baja.");
+        setTimeout(function(){window.location.reload();}, 1000);
     }
     else
     {
@@ -609,6 +623,23 @@ function getListadoGenero(oGeneros, sStatus, oAjax)
         var oOption=$("#generos option[value="+generos_id[i]+"]");
         $(oOption).prop('selected', true);
     }
+    setTimeout(function()
+    {
+        var sNombre=$("#formEditInfo #nombre").val().trim();
+        var sSinopsis=$("#formEditInfo #sinopsis").val().trim();
+        var sEnlace=$("#formEditInfo #enlace").val().trim();
+        var sFecha=$('#formEditInfo #fecha').val().trim();
+        var sDuracion=$("#formEditInfo #duracion").val();
+        var selectedGeneros = $('#formEditInfo #generos').val();
+        oJuegoAntiguo =  {  id: juego_id,
+                                nombre: sNombre,
+                                sinopsis: sSinopsis,
+                                enlace: sEnlace,
+                                fecha: sFecha,
+                                duracion: sDuracion,
+                                generos: selectedGeneros};
+    }, 2000);
+
 
 }
 
@@ -641,9 +672,8 @@ function guardarInformacion()
             $("#registrado").show();
             $("#formEditInfo").hide();
             $("#guidelines").hide();
-            window.location.reload();
-
-            
+            editarRevision(oJuego, oJuegoAntiguo, user_id, juegoRev, juego_id, "Editar información principal del juego.");
+            setTimeout(function(){window.location.reload();}, 1000);
         }
         else
         {
@@ -683,7 +713,8 @@ function guardarPlataformas()
                 $("#registrado").show();
                 $("#formEditPlat").hide();
                 $("#guidelines").hide();
-                window.location.reload();
+                editarRevision(oPlataformas, oPlatAntiguo, user_id, juegoRev, juego_id, "Editar plataformas del juego.");
+                setTimeout(function(){window.location.reload();}, 1000);
             }
             else
             {
@@ -713,23 +744,19 @@ function rellenarPlataformas(oPlat, sStatus, oAjax)
             var oCheckbox=$("input[value="+plats_id[i]+"]");
             $(oCheckbox).prop('checked', true);
         }
-        /*
-        var sDatos= "datos="+juego_id;
-        $.get("../servidor/gestionJuego/getSelectedPlat.php", sDatos, function(oRespuesta, sStatus, oAjax)
+
+        var oPlataformasSel=$("input[name=checkboxPlat]:checked");
+
+        var oPlataformasCargadas = [];
+
+        for(var i=0;i<oPlataformasSel.length;i++)
         {
-            if(oAjax.status==200)
-            {
-                //console.log(oRespuesta);
-                for(var i=0;i<plats_id.length;i++)
-                {
-                    var oCheckbox=$("input[value="+plats_id[i].id_plataforma+"]");
-                    $(oCheckbox).prop('checked', true);
-                }
-            }
-        },"json"); 
-        */
-}   
-    
+            oPlataformasCargadas.push(oPlataformasSel[i].value);
+        }
+
+        oPlatAntiguo = {plat: oPlataformasCargadas, id: juego_id};
+
+    }   
 }
 
 function guardarCompanies()
@@ -753,14 +780,8 @@ function guardarCompanies()
                 $("#registrado").show();
                 $("#formEditCompany").hide();
                 $("#guidelines").hide();
-                window.location.reload();
-                /*
-                $.post("../servidor/gestionJuego/altaJuegosCompany.php",sDatos,function(bExito, sStatus, oAjax)
-                {
-    
-                }
-                */
-                
+                editarRevision(oCompanies, oCompaniesAntiguo, user_id, juegoRev, juego_id, "Editar compañías del juego.");
+                setTimeout(function(){window.location.reload();}, 1000);             
             }
             else
             {
@@ -805,10 +826,16 @@ function rellenarCompanies(oRespuesta, sStatus, oAjax)
                 }}).autocomplete("instance")._renderItem=function(ul, item){
                     return $("<li>").append("<div>"+item.value+"<br>"+item.desc+"</div>").appendTo(ul);
                 };
-
-            
-
         }
+
+        var companiesCargadas = [];
+
+        $.each($('.companies'), function(i, val)
+        {
+            companiesCargadas.push($(val).val().trim());
+        });
+
+        oCompaniesAntiguo = {arrayCompany: companiesCargadas, id: juego_id};
         
     }
     
@@ -841,10 +868,6 @@ function addCompany()
 
 }
 
-function addPlataforma()
-{
-
-}
 
 
 function ocultarCompany(event)

@@ -127,18 +127,19 @@ function editarRevision(oDatosNuevo, oDatosAntiguo, sUser, sTipo, sIdModelo, sDe
         descripcion : sDescripcion
     });
 
-    var sDatos = "revision="+ sDatos;
+    var sDatosEnviar = "revision="+ sDatos;
 
-    $.post("../servidor/gestionRevisiones/revision.php",sDatos,function(bExito, sStatus, oAjax){
+    $.post("../servidor/gestionRevisiones/revisionEditar.php", sDatosEnviar,function(bExito, sStatus, oAjax){
+        var sTipoModelo = getTipoModelo(sTipo);
         if(bExito[0])
         {
-            //TODO: log en fichero con revisiones
-            
+            sDatosLog = "datos="+JSON.stringify({level : "info" , message : "Edición Entrada "+sTipoModelo+" Con ID: "+sIdModelo});                   
         }
         else
         {
-            
+            sDatosLog = "datos="+JSON.stringify({level : "error" , message : "Error en la edición entrada "+sTipoModelo+" Con ID: "+sIdModelo+". Detalles: "+bExito[1]});
         }
+        $.post("../servidor/registrarLog.php",sDatosLog, "json");     
         },"json");
 }
 
@@ -157,20 +158,18 @@ function altaRevision(oDatos, sUser, sTipo, sIdModelo)
 
     var sDatos = JSON.stringify({idModelo: sIdModelo , usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
 
-    var sDatos = "revision="+ sDatos;
+    var sDatosEnviar = "revision="+ oDatos;
 
-    $.post("../servidor/gestionRevisiones/revision123.php",sDatos,function(bExito, sStatus, oAjax){
+    $.post("../servidor/gestionRevisiones/revision123.php",sDatosEnviar,function(bExito, sStatus, oAjax){
         var sTipoModelo = getTipoModelo(sTipo);
-        console.log(sTipoModelo);
         if(bExito[0])
         {
             sDatosLog = "datos="+JSON.stringify({level : "info" , message : "Creacion Entrada "+sTipoModelo+" Con ID: "+sIdModelo});                   
         }
         else
         {
-            sDatosLog = "datos="+JSON.stringify({level : "error" , message : "Error en la creacion entrada "+sTipoModelo+" Con ID: "+sIdModelo});
+            sDatosLog = "datos="+JSON.stringify({level : "error" , message : "Error en la creacion entrada "+sTipoModelo+" Con ID: "+sIdModelo+". Detalles: "+bExito[1]});
         }
-        console.log(sDatosLog);
         $.post("../servidor/registrarLog.php",sDatosLog, "json");     
 
         },"json");

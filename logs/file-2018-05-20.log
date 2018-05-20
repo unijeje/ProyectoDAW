@@ -5,3 +5,39 @@
 2018-05-20 14:06:16 DEBUG 3436 test.
 2018-05-20 14:28:25 INFO Creacion Entrada Juego Con ID: 39
 2018-05-20 14:38:04 ERROR Error requesting page ../servidor/gestionRevisiones/revision123.phpDetalles: Not Found
+2018-05-20 14:43:55 ERROR Error requesting page ../servidor/gestionJuego/altaJuego.phpDetalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-20 15:57:09 ERROR Error requesting page ../servidor/gestionRevisiones/revisionEditar.php Detalles: 
+2018-05-20 16:00:21 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:02:22 ERROR Error requesting page ../servidor/gestionRevisiones/revisionEditar.php Detalles: 
+2018-05-20 16:06:32 ERROR Error requesting page ../servidor/gestionRevisiones/revisionEditar.php Detalles: 
+2018-05-20 16:07:12 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:07:48 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:08:10 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:09:43 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:10:49 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:14:51 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:40:16 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:41:14 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:51:19 ERROR Error requesting page ../servidor/gestionRevisiones/revisionEditar.php Detalles: 
+2018-05-20 16:52:36 ERROR Error requesting page ../servidor/gestionRevisiones/revisionEditar.php Detalles: 
+2018-05-20 16:52:53 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 16:57:46 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 17:45:56 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 17:57:13 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 18:18:17 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 20:21:19 ERROR Error requesting page ../servidor/gestionJuego/editarJuego.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-20 20:22:54 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 20:27:42 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 20:28:39 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 20:29:35 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 21:00:00 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 21:03:19 INFO Edición Entrada Juego Con ID: 36
+2018-05-20 21:32:21 ERROR Error requesting page ../servidor/gestionJuego/getCompanyOfGame.php?datos=36 Detalles: 
+2018-05-20 21:32:21 ERROR Error requesting page ../servidor/gestionPlataforma/listadoPlat.php Detalles: 
+2018-05-20 21:32:21 ERROR Error requesting page ../servidor/gestionJuego/getListaGeneros.php Detalles: 
+2018-05-20 21:32:21 ERROR Error requesting page ../servidor/gestionJuego/getListaDuracion.php Detalles: 
+2018-05-20 21:32:21 ERROR Error requesting page ../servidor/gestionCompany/autoCompleteCompany.php Detalles: 
+2018-05-20 21:32:21 ERROR Error requesting page ../servidor/gestionJuego/getListaRoles.php Detalles: 
+2018-05-20 21:32:22 ERROR Error requesting page ../servidor/gestionPersona/listadoPersonas.php Detalles: 
+2018-05-20 21:32:22 ERROR Error requesting page ../servidor/gestionJuego/getComentarios.php?datos=36 Detalles: 
+2018-05-20 21:32:22 ERROR Error requesting page ../servidor/gestionRevisiones/getRevisiones.php?datos={"id":36,"tipo":"J"} Detalles: 

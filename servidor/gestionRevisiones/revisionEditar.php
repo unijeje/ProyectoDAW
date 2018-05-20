@@ -6,14 +6,16 @@ include_once("../bbdd.php");
 
 $revision = json_decode($_POST["revision"]);
 
-$datos = $revision->datos;
+$datosNuevo = $revision->datosNuevo;
+$datosAntiguo = $revision->datosAntiguo;
 $user = $revision->usuario;
 $tipo = $revision->tipo;
 $id = $revision->idModelo;
+$descripcion = $revision ->descripcion;
 
-echo json_encode(altaRevision($datos, $user, $tipo, $id));
+echo json_encode(altaRevision($datosNuevo, $datosAntiguo, $user, $tipo, $id, $descripcion));
 
-function altaRevision($datos, $user, $tipo, $id)
+function altaRevision($datosNuevo, $datosAntiguo, $user, $tipo, $id, $descripcion)
 {
     /*
     TIPO: 
@@ -42,38 +44,33 @@ function altaRevision($datos, $user, $tipo, $id)
             break;
     }
 
-    $descripcion = "Creación de entrada de $modelo.";
-
-    $antes = "0";
-    $despues = $datos;
-
     try
     {
         $miconexion=connectDB();
-        /*
-        $sql = "SELECT max(numero) as numero from revisiones where tipo = ? and id_modelo = ? ";
+
+        $sql = "SELECT max(numero) as numero from revisiones where tipo = ? and id_modelo = ?";
 
         $select = $miconexion->prepare($sql);
 
         $select->execute(array($tipo, $id));
 
         $fila = $select->fetch(PDO::FETCH_ASSOC);
-        */
-        $numero=1;
+    
+        $numero=$fila["numero"]+1;
 
 
-        // if($numero == -1)
-        // {
-        //     $exito[0] = false;
-        //     $exito[1] = "Fallo al buscar la id de revisión con este tipo de datos.";
-        //     return $exito;
-        // }
-        
+        if($numero == -1)
+        {
+            $exito[0] = false;
+            $exito[1] = "Fallo al buscar la id de revisión con este tipo de datos.";
+            return $exito;
+        }
+
         $sql = "INSERT INTO revisiones(TIPO, ID_MODELO, NUMERO, FECHA, DESCRIPCION, USUARIO, ANTES, DESPUES) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $insert = $miconexion->prepare($sql);
 
-        $insert->execute(array($tipo, $id, $numero, $fecha, $descripcion, $user, $antes, $despues));
+        $insert->execute(array($tipo, $id, $numero, $fecha, $descripcion, $user, $datosAntiguo, $datosNuevo));
 
         $n = $insert->rowCount();
     
