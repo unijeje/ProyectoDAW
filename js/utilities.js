@@ -1,3 +1,10 @@
+$( document ).ajaxError(function( event, request, settings, thrownError) {
+    $( "#msg" ).append( "<li>Error requesting page " + settings.url + "</li>" );
+    sDatosLog = "datos="+JSON.stringify({level : "error" , message : "Error requesting page " + settings.url + " Detalles: "+thrownError});
+    $.post("../servidor/registrarLog.php",sDatosLog, "json");     
+  });
+
+
 function falloValidacion(sTexto, oInput)
 {
     //console.log(oInput);
@@ -103,16 +110,22 @@ function invalidarCampo(oCampo, sMensaje, bool)
     }
 }
 
-
-function altaRevision(oDatos, sUser, sTipo, sIdModelo)
+function editarRevision(oDatosNuevo, oDatosAntiguo, sUser, sTipo, sIdModelo, sDescripcion)
 {
 
-    if(oDatos == null || sUser == null || sTipo == null || sIdModelo == null)
+    if(oDatosNuevo == null || sUser == null || sTipo == null || sIdModelo == null || oDatosAntiguo == null || sDescripcion == null)
     {
         return "Error inesperado. Parámetros para la revision no son correctos.";
     }
 
-    var sDatos = JSON.stringify({idModelo: sIdModelo , usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
+    var sDatos = JSON.stringify({
+        idModelo: sIdModelo , 
+        usuario : sUser , 
+        tipo : sTipo , 
+        datosNuevo : JSON.stringify(oDatosNuevo) ,
+        datosAntiguo : JSON.stringify(oDatosAntiguo) ,
+        descripcion : sDescripcion
+    });
 
     var sDatos = "revision="+ sDatos;
 
@@ -127,6 +140,57 @@ function altaRevision(oDatos, sUser, sTipo, sIdModelo)
             
         }
         },"json");
+}
+
+
+
+function altaRevision(oDatos, sUser, sTipo, sIdModelo)
+{
+
+    if(oDatos == null || sUser == null || sTipo == null || sIdModelo == null)
+    {
+        $mensaje = "Error inesperado. Parámetros para añadir la revision de una entrada no son correctos.";
+        sDatosLog = "datos="+JSON.stringify({level : "error" , message : $mensaje});
+        $.post("../servidor/registrarLog.php",sDatosLog, "json");
+        return $mensaje;
+    }
+
+    var sDatos = JSON.stringify({idModelo: sIdModelo , usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
+
+    var sDatos = "revision="+ sDatos;
+
+    $.post("../servidor/gestionRevisiones/revision123.php",sDatos,function(bExito, sStatus, oAjax){
+        var sTipoModelo = getTipoModelo(sTipo);
+        console.log(sTipoModelo);
+        if(bExito[0])
+        {
+            sDatosLog = "datos="+JSON.stringify({level : "info" , message : "Creacion Entrada "+sTipoModelo+" Con ID: "+sIdModelo});                   
+        }
+        else
+        {
+            sDatosLog = "datos="+JSON.stringify({level : "error" , message : "Error en la creacion entrada "+sTipoModelo+" Con ID: "+sIdModelo});
+        }
+        console.log(sDatosLog);
+        $.post("../servidor/registrarLog.php",sDatosLog, "json");     
+
+        },"json");
+}
+
+function getTipoModelo(sTipo)
+{
+    switch(sTipo)
+    {
+        case plataformaRev:
+            return "Plataforma";
+        case juegoRev:
+            return "Juego";
+        case companyRev:
+            return "Compañía";
+        case staffRev:
+            return "Staff";
+        default:
+            return "Error: no se ha encontrado el tipo de modelo";
+    }
 }
 
 var plataformaRev = "P";

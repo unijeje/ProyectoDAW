@@ -1,5 +1,13 @@
 ﻿$("#btnConectar").click(conectarse);
 
+$("#pass").keyup(function(event)
+{
+    var code = event.keyCode || event.which;
+    if(code == 13) { //Enter keycode
+        conectarse();
+    }
+});
+
 function conectarse()
 {
     

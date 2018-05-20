@@ -1,0 +1,13 @@
+<configuration>
+	<appender name="myAppender" class="LoggerAppenderDailyFile">
+		<layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s} %level %message%newline" />
+        </layout>
+		<param name="file" value="../logs/file-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+	</appender>
+	<root>
+		<level value="ALL" />
+		<appender_ref ref="myAppender" />
+	</root>
+</configuration>

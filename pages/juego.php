@@ -6,7 +6,7 @@ include_once("../servidor/bbdd.php");
 $id_juego=$_GET["id"];
 
 $miconexion=connectDB();
-$sql="select titulo, sinopsis, fecha, enlace, cover, duracion from juego where id=?";
+$sql="select titulo, sinopsis, fecha, enlace, cover, duracion, media from juego where id=?";
 
 $rsJuego=$miconexion->prepare($sql);
 $rsJuego->execute(array($id_juego));
@@ -231,9 +231,18 @@ if($filaJuego!=null)
                 echo "</tr>";
                 echo "</div>";
             }
-            ?>
-            <tr><td>Enlace</td><td><a class='text-primary' target="_blank" href="<?php echo $filaJuego["enlace"];?>"><?php echo $filaJuego["enlace"];?></a></td></tr>
+            if(isset($filaJuego["enlace"]) && trim($filaJuego["enlace"])!="")
+            {
+                $enlace = $filaJuego["enlace"];
+                echo "<tr><td>Enlace</td><td><a class='text-primary' target='_blank' href='".$enlace."'>".$enlace."</a></td></tr>";
+            }
+            if(isset($filaJuego["media"]) && trim($filaJuego["media"])!="" && $filaJuego["media"]>0)
+            {
+                $media = $filaJuego["media"];
+                echo "<tr><td>Rating</td><td>".$media."</td></tr>";
+            }
 
+            ?>
             </table>
             
         </div>
