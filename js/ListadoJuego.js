@@ -4,9 +4,9 @@ $(document).ready(function() {
         //'sDom': 'lptip' ,
         var juegos=$('#tablaListadoJuego').DataTable( {
         data: oRespuesta,
-        'sDom': "<'row'<'col-8'l><'col-4'p>>" +
+        'sDom': "<'row'<'col-6'l><'col-6'p>>" +
                 "<'row'<'col-12't>>" +
-                "<'row'<'col-8'i><'col-4'p>>",
+                "<'row'<'col-6'i><'col-6'p>>",
         "language": {
             "url": "../utilities/datatable_ESP.lang"
         },

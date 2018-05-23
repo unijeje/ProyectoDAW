@@ -72,7 +72,7 @@ if($revision!=null)
             if(isset($antes) && !is_int($antes) && property_exists($antes, "nombre"))
             {
                 
-                echo "<table class='table table-responsive'>";
+                echo "<table class='table table-bordered'>";
                 echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
 
                 if($antesArray["nombre"] == $despuesArray["nombre"])
@@ -226,10 +226,40 @@ if($revision!=null)
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "arrayCompany"))
             {
                 echo "información compañias juego";
+
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "roles"))
             {
-                echo "información staff juego";
+                unset($antesArray["id"]);
+                unset($despuesArray["id"]);
+                echo "información staff juego<br>";
+                // $sql = "SELECT select s.NOMBRE, s.ID, PRJ.comentario, r.ROL"
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th></th><th>Nombres</th><th>Roles</th><th>Comentario</th></tr>";
+
+                for($i=0;$i<count($antesArray["nombres"]);$i++)
+                {
+                    echo "<tr>";
+                    echo "<td>antes</td>";
+                    echo "<td>".$antesArray["nombres"][$i]."</td>";
+                    echo "<td>".$antesArray["roles"][$i]."</td>";
+                    echo "<td>".$antesArray["coment"][$i]."</td>";
+                    echo "</tr>";
+                }
+                for($i=0;$i<count($despuesArray["nombres"]);$i++)
+                {
+                    echo "<tr>";
+                    echo "<td>después</td>";
+                    echo "<td>".$despuesArray["nombres"][$i]."</td>";
+                    echo "<td>".$despuesArray["roles_nomb"][$i]."</td>";
+                    echo "<td>".$despuesArray["coment"][$i]."</td>";
+                    echo "</tr>";
+                }
+  
+               
+
+                echo "</table>";
+                
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "plat"))
             {
@@ -256,6 +286,9 @@ if($revision!=null)
 
 
 echo "</center>";
-
+echo "<pre>";
+                print_r($antesArray);
+                print_r($despuesArray);
+                echo "</pre>";
 
 ?>

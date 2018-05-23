@@ -1,5 +1,9 @@
 body {
-    background-color: #dce2df;
+    /* background-color: #dce2df; */
+    /* background-color: #003366;
+    color: #B2BCC0; */
+    background-color: #CBD1D4;
+    color: #212930;
 }
 
 .navbar-nav
@@ -51,6 +55,7 @@ a{
 
 a:hover {
     text-decoration: none;
+    color: #D57500;
 }
 a:visited {
     text-decoration: none;
@@ -100,7 +105,8 @@ a:visited {
 .elementoListado a:hover
 {
     background-color: #007bff;
-    font-weight: bold;
+    /* font-weight: bold; */
+    text-decoration: underline dotted gray;
 }
 
 .ui-autocomplete {
@@ -119,7 +125,7 @@ a:visited {
 #revisionesListado a:hover
 {
     text-decoration: underline dotted gray;
-    font-size: 1.1em;
+    /* font-size: 1.1em; */
 }
 
 #tablaListadoJuego a:hover, #creditosPersona a:hover, #creditosCompany a:hover

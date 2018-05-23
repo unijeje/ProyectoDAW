@@ -1,7 +1,10 @@
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
-    $.get("../servidor/gestionCompany/autoCompleteCompany.php", respuestaAutoCompleteCompany, "json");
-
+    
+    if(user_id != -1)
+    {
+        $.get("../servidor/gestionCompany/autoCompleteCompany.php", respuestaAutoCompleteCompany, "json");
+    }
     var sDatosRevisiones = "datos="+JSON.stringify({id:plat_id, tipo: plataformaRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, cargarRevisionesStaff, "json");
     
@@ -154,7 +157,11 @@ function respuestaAutoCompleteCompany(oRespuesta, sStatus, oAjax)
             //arrayDNI.push(oRespuesta[i].dni);
             var arrayDatos={};
             arrayDatos["value"]=oRespuesta[i].nombre;
-            arrayDatos["desc"]="Fecha: "+oRespuesta[i].fecha+" - País: "+oRespuesta[i].pais;
+
+            var fecha = oRespuesta[i].fecha == null || oRespuesta[i].fecha.trim()=="" ? "0/0/0" : oRespuesta[i].fecha;
+            var pais = oRespuesta[i].pais == null || oRespuesta[i].pais.trim()=="" ? "desconocido" : oRespuesta[i].pais;
+
+            arrayDatos["desc"]="Fecha: "+fecha+" - País: "+pais;
             companies.push(arrayDatos);
         }
         

@@ -32,17 +32,19 @@ $( document ).ready(function() {
     $("#btnEditarPlat").click(guardarPlataformas);
     //console.log(plats_id);
 
+    if(user_id != -1)
+    {
+
+   
     $("#btnEditInfo").click(guardarInformacion);
     $.get("../servidor/gestionJuego/getListaGeneros.php", getListadoGenero, "json");
-    //console.log(generos_id);
     $.get("../servidor/gestionJuego/getListaDuracion.php", getListadoDuracion, "json");
-    //console.log(duracion_id);
 
     $("#eliminar").click(function()
     {
         $( "#dialog-eliminar" ).dialog("open");
     });
-
+    }
     $("#nota").change(guardarNota);
 
     $('.custom-file-input').on('change',function(){ //cambia el nombre en el input al nombre del fichero seleccionado
@@ -363,18 +365,21 @@ function guardarStaff()
     var oNombreValues=[];
     var oRolesValues=[];
     var oComentsValues=[];
+    var oRolesNombres=[];
 
     for (var i=0;i<oCamposNombre.length;i++)
     {
         oNombreValues.push(oCamposNombre[i].value.trim());
         oRolesValues.push(oSelectsRol[i].value);
         oComentsValues.push(oCamposComentario[i].value.trim());
+        oRolesNombres.push(oSelectsRol[i][oSelectsRol[i].selectedIndex].text);
     }
 
     var oDatos={id: juego_id,
                 nombres: oNombreValues,
                 roles: oRolesValues,
-                coment: oComentsValues};
+                coment: oComentsValues,
+                roles_nomb : oRolesNombres};
 
     var sDatos= "datos="+JSON.stringify(oDatos);
 
@@ -796,7 +801,7 @@ function guardarCompanies()
 
 function rellenarCompanies(oRespuesta, sStatus, oAjax)
 {
-    if(oAjax.status==200)
+    if(oAjax.status==200 && user_id!=-1)
     {
         
         //console.log(oRespuesta);

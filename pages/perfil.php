@@ -72,7 +72,16 @@ navBar();
     ?>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" href="#comentarios">Mis comentarios</a>
+    <?php
+     if(isset($_GET["id"]))
+     {
+        echo '<a class="nav-link" data-toggle="pill" href="#comentarios">Comentarios</a>';
+     }
+     else
+     {
+        echo '<a class="nav-link" data-toggle="pill" href="#comentarios">Mis comentarios</a>';
+     }
+    ?>
     </li>
 
   </ul>

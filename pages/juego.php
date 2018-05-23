@@ -534,14 +534,17 @@ if(isset($_SESSION["tipo"]))
 </div>
 <div class="mt-5">
 </div>
-<script type="text/javascript">var juego_id = <?php echo $id_juego ;?>; var plats_id= <?php echo $idsPlataforma ;?>; var generos_id= <?php echo $idsGenero ;?>; 
+<script type="text/javascript">
+var juego_id = <?php echo $id_juego ;?>; 
+var plats_id= <?php echo $idsPlataforma ;?>; 
+var generos_id= <?php echo $idsGenero ;?>; 
 var duracion_id= <?php echo $duracionJuego ;?>;
-var user_id= <?php echo $_SESSION["id"] ;?>;
-var user_name= <?php echo json_encode($_SESSION["nombre"]) ;?>;
+var user_id= <?php echo isset($_SESSION["id"]) ? $_SESSION["id"] : -1 ;?>;
+var user_name= <?php echo isset($_SESSION["nombre"]) ? json_encode($_SESSION["nombre"]) : json_encode("0");?>;
 var filaStaff = <?php echo json_encode($filaStaff) ;?>;
 </script>
 <script type="text/javascript" src="../js/juego.js"></script>
-<script type="text/javascript" src="../js/ListadoStaff.js"></script>
+<!-- <script type="text/javascript" src="../js/ListadoStaff.js"></script> -->
 <?php
 }
 else
