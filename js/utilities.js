@@ -157,10 +157,10 @@ function altaRevision(oDatos, sUser, sTipo, sIdModelo)
     }
 
     var sDatos = JSON.stringify({idModelo: sIdModelo , usuario : sUser , tipo : sTipo , datos : JSON.stringify(oDatos)});
+    console.log(sDatos);
+    var sDatosEnviar = "revision="+ sDatos;
 
-    var sDatosEnviar = "revision="+ oDatos;
-
-    $.post("../servidor/gestionRevisiones/revision123.php",sDatosEnviar,function(bExito, sStatus, oAjax){
+    $.post("../servidor/gestionRevisiones/revision.php",sDatosEnviar,function(bExito, sStatus, oAjax){
         var sTipoModelo = getTipoModelo(sTipo);
         if(bExito[0])
         {

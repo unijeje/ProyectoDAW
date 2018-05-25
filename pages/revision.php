@@ -27,7 +27,7 @@ switch($revision["TIPO"])
         $select= $miconexion->prepare($sql);
         $select->execute(array($revision["ID_MODELO"]));
         $datosJuego=$select->fetch(PDO::FETCH_ASSOC);
-        $nombre = $datosJuego["TITULO"];
+        $nombre = "<tr class='text-left'><th>Nombre: </th><td><a href='juego.php?id=".$revision["ID_MODELO"]."'>".$datosJuego["TITULO"]."</a></td></tr>";
         cabecera($datosJuego["TITULO"]." - Revisión ".$revision["NUMERO"]);
         break;
     case "C":
@@ -35,7 +35,24 @@ switch($revision["TIPO"])
         $select= $miconexion->prepare($sql);
         $select->execute(array($revision["ID_MODELO"]));
         $datosCompany=$select->fetch(PDO::FETCH_ASSOC);
+        $nombre = "<tr class='text-left'><th>Nombre: </th><td><a href='company.php?id=".$revision["ID_MODELO"]."'>".$datosCompany["NOMBRE"]."</a></td></tr>";
         cabecera($datosCompany["NOMBRE"]." - Revisión ".$revision["NUMERO"]);
+        break;
+    case "P":
+        $sql="SELECT NOMBRE, COMPANY, FECHA, DESCRIPCION, ESPECIFICACIONES from plataforma where ID = ?";
+        $select= $miconexion->prepare($sql);
+        $select->execute(array($revision["ID_MODELO"]));
+        $datosPlataforma=$select->fetch(PDO::FETCH_ASSOC);
+        $nombre = "<tr class='text-left'><th>Nombre: </th><td><a href='plataforma.php?id=".$revision["ID_MODELO"]."'>".$datosPlataforma["NOMBRE"]."</a></td></tr>";
+        cabecera($datosPlataforma["NOMBRE"]." - Revisión ".$revision["NUMERO"]);
+        break;
+    case "S":
+        $sql="SELECT NOMBRE, NACIONALIDAD, GENERO, DESCRIPCION, ENLACE from personas where ID = ?";
+        $select= $miconexion->prepare($sql);
+        $select->execute(array($revision["ID_MODELO"]));
+        $datosStaff=$select->fetch(PDO::FETCH_ASSOC);
+        $nombre = "<tr class='text-left'><th>Nombre: </th><td><a href='staff.php?id=".$revision["ID_MODELO"]."'>".$datosStaff["NOMBRE"]."</a></td></tr>";
+        cabecera($datosStaff["NOMBRE"]." - Revisión ".$revision["NUMERO"]);
         break;
 }
 
@@ -52,12 +69,7 @@ echo "<center>";
 echo "<h2>Información: </h2>";
 echo "<table class='table table-responsive'>";
 echo "<tr class='text-left'><th>Revisión: </th><td>".$revision["TIPO"].$revision["ID_MODELO"].".".$revision["NUMERO"]."</td></tr>";
-if($revision["TIPO"] == "J")
-    echo "<tr class='text-left'><th>Nombre: </th><td><a href='juego.php?id=".$revision["ID_MODELO"]."'>".$nombre."</a></td></tr>";
-else
-{
-    
-}
+echo $nombre;
 echo "<tr class='text-left'><th>Fecha: </th><td>".$revision["FECHA"]."</td></tr>";
 echo "<tr class='text-left'><th>Usuario: </th><td><a href='perfil.php?id=".$revision["USUARIO"]."'>".$nombre_usuario."</a></td></tr>";
 echo "<tr class='text-left'><th>Descripción: </th><td>".$revision["DESCRIPCION"]."</td></tr>";
@@ -66,7 +78,7 @@ echo "</table>";
 
 
 
-echo "<h2>Cambios: </h2>";
+echo "<h2>Información: </h2>";
 
 if($revision!=null)
 {
@@ -318,64 +330,224 @@ if($revision!=null)
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "plat"))
             {
-                $antesPlat = implode(", ", $antesArray["plat"]);
-                $despuesPlat = implode(", ", $despuesArray["plat"]);
-                $sql = "SELECT id, nombre from plataforma where id in (".$antesPlat.", ".$despuesPlat.")";
-                $select= $miconexion->prepare($sql);
-                $select->execute();
-                $plat=$select->fetchAll(PDO::FETCH_ASSOC);
-
-                echo "<h2>Antes</h2>";
-                echo "<ul class='list-group'>";
-                foreach($plat as $key=>$value)
+                if(count($antesArray["plat"])<1)
                 {
-                    if(in_array($value["id"], $antesArray["plat"]))
+                    $despuesPlat = implode(", ", $despuesArray["plat"]);
+                    $sql = "SELECT id, nombre from plataforma where id in (".$despuesPlat.")";
+                    $select= $miconexion->prepare($sql);
+                    $select->execute();
+                    $plat=$select->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<h2>Nuevas Plataformas</h2>";
+                    echo "<ul class='list-group'>";
+                    foreach($plat as $key=>$value)
                     {
-                        
-                        echo "<li class='list-group-item'>".$value["nombre"]."</li>";
-                        
+                        if(in_array($value["id"], $despuesArray["plat"]))
+                        {
+                            echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                        }
                     }
+                    echo "</ul>";
                 }
-                echo "</ul>";
+                else
+                {             
+                    $antesPlat = implode(", ", $antesArray["plat"]);
+                    $despuesPlat = implode(", ", $despuesArray["plat"]);
+                    $sql = "SELECT id, nombre from plataforma where id in (".$antesPlat.", ".$despuesPlat.")";
+                    $select= $miconexion->prepare($sql);
+                    $select->execute();
+                    $plat=$select->fetchAll(PDO::FETCH_ASSOC);
 
-                echo "<h2>Después</h2>";
-                echo "<ul class='list-group'>";
-                foreach($plat as $key=>$value)
+                    echo "<h2>Antes</h2>";
+                    echo "<ul class='list-group'>";
+                    foreach($plat as $key=>$value)
+                    {
+                        if(in_array($value["id"], $antesArray["plat"]))
+                        {
+                            
+                            echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                            
+                        }
+                    }
+                    echo "</ul>";
+
+                    echo "<h2>Después</h2>";
+                    echo "<ul class='list-group'>";
+                    foreach($plat as $key=>$value)
+                    {
+                        if(in_array($value["id"], $despuesArray["plat"]))
+                        {
+                            
+                            echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                            
+                        }
+                    }
+                    echo "</ul>";
+                }
+
+            }
+            else
+            {
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
+                foreach($despuesArray as $key=>$value)
                 {
-                    if(in_array($value["id"], $despuesArray["plat"]))
+                    if($key == "arrayCompany")
                     {
-                        
-                        echo "<li class='list-group-item'>".$value["nombre"]."</li>";
-                        
+                        foreach($value as $key2=>$company)
+                        {
+                            echo "<tr>";
+                            echo "<td>Compañía</td>";
+                            echo "<td>".$company."</td>";
+                            echo "</tr>";
+                        }
                     }
+                    else
+                    {
+                        echo "<tr>";
+                        echo "<td>".$key."</td>";
+                        echo "<td>".$despuesArray[$key]."</td>";
+                        echo "</tr>";
+                    }
+                    
                 }
-                echo "</ul>";
-
+                echo "</table>";
             }
             break;
         case "C":
+            if(!isset($antesArray["id"]))
+            {
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
+                foreach($despuesArray as $key=>$value)
+                {
+                    echo "<tr>";
+                    echo "<td>".$key."</td>";
+                    echo "<td>".$despuesArray[$key]."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
+            else
+            {
+                unset($antesArray["id"]);
+                unset($despuesArray["id"]);
+
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
+                foreach($antesArray as $key=>$value)
+                {
+                    if($antesArray[$key] != $despuesArray[$key])
+                    {
+                        echo "<tr class='table-danger'>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                    }
+                    echo "<td>".$key."</td>";
+                    echo "<td>".$antesArray[$key]."</td>";
+                    echo "<td>".$despuesArray[$key]."</td>";
+                    echo "</tr>";
+                }
+            }
+
+            
+            echo "</table>";
 
             break;
         
         case "S":
+            if(!isset($antesArray["id"]))
+            {
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
+                foreach($despuesArray as $key=>$value)
+                {
+                    echo "<tr>";
+                    echo "<td>".$key."</td>";
+                    echo "<td>".$despuesArray[$key]."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
+            else
+            {
+                unset($antesArray["id"]);
+                unset($despuesArray["id"]);
 
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
+                foreach($antesArray as $key=>$value)
+                {
+                    if($antesArray[$key] != $despuesArray[$key])
+                    {
+                        echo "<tr class='table-danger'>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                    }
+                    echo "<td>".$key."</td>";
+                    echo "<td>".$antesArray[$key]."</td>";
+                    echo "<td>".$despuesArray[$key]."</td>";
+                    echo "</tr>";
+                }
+            }
+
+            
+            echo "</table>";
             break;
-
         case "P":
+            if(!isset($antesArray["id"]))
+            {
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
+                foreach($despuesArray as $key=>$value)
+                {
+                    echo "<tr>";
+                    echo "<td>".$key."</td>";
+                    echo "<td>".$despuesArray[$key]."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
+            else
+            {
+                unset($antesArray["id"]);
+                unset($despuesArray["id"]);
 
+                echo "<table class='table table-bordered'>";
+                echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
+                foreach($antesArray as $key=>$value)
+                {
+                    if($antesArray[$key] != $despuesArray[$key])
+                    {
+                        echo "<tr class='table-danger'>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                    }
+                    echo "<td>".$key."</td>";
+                    echo "<td>".$antesArray[$key]."</td>";
+                    echo "<td>".$despuesArray[$key]."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+            }
             break;
 
         default:
-
+            echo "<h2>Error no controlado. No se ha encontrado el modelo de datos.</h2>";
             break;
     }
 }
 
 
 echo "</center>";
+
 echo "<pre>";
 print_r($antesArray);
-print_r($despuesArray);
 echo "</pre>";
 
 ?>

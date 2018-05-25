@@ -1,7 +1,20 @@
-﻿$( document ).ready(function() {
+﻿var oStaffAntiguo; 
+$( document ).ready(function() {
     $( "#tabs" ).tabs();
     var sDatosRevisiones = "datos="+JSON.stringify({id:staff_id, tipo: staffRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, cargarRevisionesStaff, "json");
+    var sNombre=$("#nombre").val().trim();
+        var sNacionalidad=$("#nacionalidad").val().trim();
+        var sDesc=$("#desc").val().trim();
+        var sGenero=$('input[name=radioGenero]:checked').val();
+        var sEnlace=$("#enlace").val().trim();
+
+        oStaffAntiguo={  id: staff_id,
+                        nombre: sNombre,
+                        nacionalidad: sNacionalidad,
+                        desc: sDesc,
+                        genero: sGenero,
+                        enlace: sEnlace};
 });
 
 
@@ -46,7 +59,8 @@ function editarPersona()
                 $("#formEditarStaff").hide();
                 $("#guidelines").hide();
                 $("#registrado").show();
-                window.location.reload();
+                editarRevision(oPersona, oStaffAntiguo, user_id, staffRev, staff_id, "Editar información de staff.");
+                setTimeout(function(){window.location.reload();}, 1000);
                 
             }
             else

@@ -1,3 +1,4 @@
+var oPlatAntiguo; 
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
     
@@ -7,7 +8,21 @@ $( document ).ready(function() {
     }
     var sDatosRevisiones = "datos="+JSON.stringify({id:plat_id, tipo: plataformaRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, cargarRevisionesStaff, "json");
-    
+
+
+    var sNombre=$("#nombre").val().trim();
+    var sCompany=$("#company").val().trim();
+    var sDesc=$("#desc").val().trim();
+    var sFecha=$('#fecha').val().trim();
+    var sEsp=$("#esp").val().trim();
+
+    oPlatAntiguo =  {id: plat_id,
+            nombre: sNombre,
+            company: sCompany,
+            desc: sDesc,
+            fecha: sFecha,
+            esp: sEsp};
+
 });
 
 
@@ -50,7 +65,8 @@ function editarPlat()
                 $("#guidelines").hide();
                 
                 $("#registrado").show();
-                //window.location.reload();
+                editarRevision(oPlat, oPlatAntiguo, user_id, plataformaRev, plat_id, "Editar información de plataforma.");
+                setTimeout(function(){window.location.reload();}, 1000);
                 
             }
             else

@@ -1,2 +1,17 @@
 2018-05-25 19:22:48 INFO Edición Entrada Juego Con ID: 36
 2018-05-25 19:22:48 ERROR Error requesting page ../servidor/registrarLog.php Detalles: 
+2018-05-25 21:57:27 INFO Edición Entrada Compañía Con ID: 13
+2018-05-25 22:38:29 INFO Edición Entrada Plataforma Con ID: 1
+2018-05-25 23:07:31 INFO Edición Entrada Compañía Con ID: 8
+2018-05-25 23:08:45 INFO Edición Entrada Staff Con ID: 18
+2018-05-25 23:24:32 ERROR Error requesting page ../servidor/gestionRevisiones/revision123.php Detalles: Not Found
+2018-05-25 23:25:56 ERROR Error requesting page ../servidor/gestionRevisiones/revision123.php Detalles: Not Found
+2018-05-25 23:27:00 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-25 23:27:49 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-25 23:33:41 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-25 23:34:47 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-25 23:35:35 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-05-25 23:37:05 INFO Creacion Entrada Juego Con ID: 46
+2018-05-25 23:39:43 INFO Edición Entrada Juego Con ID: 46
+2018-05-25 23:39:44 ERROR Error requesting page ../servidor/registrarLog.php Detalles: 
+2018-05-25 23:58:09 INFO Edición Entrada Juego Con ID: 46

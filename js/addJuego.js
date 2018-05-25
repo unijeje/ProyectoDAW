@@ -82,7 +82,7 @@ function addJuego()
         //var sCompany=$('.company').val().trim();
 
         var oJuego=  {nombre: sNombre,
-                        arrayCompany: JSON.stringify(valoresCompany),
+                        arrayCompany: valoresCompany,
                         sinopsis: sSinopsis,
                         enlace: sEnlace,
                         fecha: sFecha};

@@ -174,7 +174,9 @@ if(isset($_SESSION["tipo"]))
 <div id="dialog-eliminar" title="Eliminar <?php echo $fila["nombre"];?>">
     <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar a esta compañía?</p>
 </div>
-<script type="text/javascript">var company_id = <?php echo $id_company ?>;</script>
+
+<script type="text/javascript">var company_id = <?php echo $id_company ?>;
+var user_id= <?php echo isset($_SESSION["id"]) ? $_SESSION["id"] : -1 ;?>;</script>
 <script type="text/javascript" src="../js/company.js"></script>
 <?php
 pie();

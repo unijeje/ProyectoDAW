@@ -1,9 +1,24 @@
+var oCompanyAntiguo; 
 $( document ).ready(function() {
     $( "#tabs" ).tabs();
     
     var sDatosRevisiones = "datos="+JSON.stringify({id:company_id, tipo: companyRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, cargarRevisionesStaff, "json");
 
+
+    var sNombre=$("#nombre").val().trim();
+    var sPais=$("#pais").val().trim();
+    var sDesc=$("#desc").val().trim();
+    var sFecha=$('#fecha').val().trim();
+    var sEnlace=$("#enlace").val().trim();
+
+    oCompanyAntiguo = {id: company_id,
+        nombre: sNombre,
+        pais: sPais,
+        desc: sDesc,
+        fecha: sFecha,
+        enlace: sEnlace};
+    
 });
 
 
@@ -46,8 +61,8 @@ function editarCompany()
                 $("#formEditarCompany").hide();
                 $("#guidelines").hide();
                 $("#registrado").show();
-                window.location.reload();
-                
+                editarRevision(oCompany, oCompanyAntiguo, user_id, companyRev, company_id, "Editar información de compañía.");
+                setTimeout(function(){window.location.reload();}, 1000);
             }
             else
             {

@@ -7,7 +7,7 @@ $nombre=$oDatos->nombre;
 $sinopsis=$oDatos->sinopsis;
 $enlace=$oDatos->enlace;
 $fecha=$oDatos->fecha;
-$company=json_decode($oDatos->arrayCompany);
+$company=$oDatos->arrayCompany;
 
 
 $miconexion=connectDB();

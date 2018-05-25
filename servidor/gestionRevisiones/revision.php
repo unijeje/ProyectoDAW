@@ -6,6 +6,10 @@ include_once("../bbdd.php");
 
 $revision = json_decode($_POST["revision"]);
 
+// echo "<pre>";
+// print_r($revision);
+// echo "</pre>";
+
 $datos = $revision->datos;
 $user = $revision->usuario;
 $tipo = $revision->tipo;
