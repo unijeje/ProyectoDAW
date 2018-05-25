@@ -260,12 +260,9 @@ if($revision!=null)
             {
                 unset($antesArray["id"]);
                 unset($despuesArray["id"]);
-                echo "información staff juego<br>";
-                // $sql = "SELECT select s.NOMBRE, s.ID, PRJ.comentario, r.ROL"
                 echo "<table class='table table-bordered'>";
                 echo "<tr><th></th><th>Nombres</th><th>Roles</th><th>Comentario</th></tr>";
                 $count = max(count($antesArray["nombres"]), count($despuesArray["nombres"]));
-                echo count($despuesArray);
                 for ($i=0;$i<$count;$i++)
                 {
                     
@@ -330,7 +327,11 @@ if($revision!=null)
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "plat"))
             {
-                if(count($antesArray["plat"])<1)
+                if(count($antesArray["plat"])<1 && count($despuesArray["plat"])<1)
+                {
+                    echo "<h3>No plataformas.</h3>";
+                }
+                else if(count($antesArray["plat"])<1)
                 {
                     $despuesPlat = implode(", ", $despuesArray["plat"]);
                     $sql = "SELECT id, nombre from plataforma where id in (".$despuesPlat.")";
@@ -344,6 +345,24 @@ if($revision!=null)
                         if(in_array($value["id"], $despuesArray["plat"]))
                         {
                             echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                        }
+                    }
+                    echo "</ul>";
+                }
+                else if(count($despuesArray["plat"])<1)
+                {
+                    $antesPlat = implode(", ", $antesArray["plat"]);
+                    $sql = "SELECT id, nombre from plataforma where id in (".$antesPlat.")";
+                    $select= $miconexion->prepare($sql);
+                    $select->execute();
+                    $plat=$select->fetchAll(PDO::FETCH_ASSOC);
+                    echo "<h2>Plataformas Eliminadas</h2>";
+                    echo "<ul class='list-group'>";
+                    foreach($plat as $key=>$value)
+                    {
+                        if(in_array($value["id"], $antesArray["plat"]))
+                        {
+                            echo "<li class='list-group-item list-group-item-danger'>".$value["nombre"]."</li>";
                         }
                     }
                     echo "</ul>";
