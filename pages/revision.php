@@ -28,6 +28,14 @@ switch($revision["TIPO"])
         $select->execute(array($revision["ID_MODELO"]));
         $datosJuego=$select->fetch(PDO::FETCH_ASSOC);
         $nombre = $datosJuego["TITULO"];
+        cabecera($datosJuego["TITULO"]." - Revisión ".$revision["NUMERO"]);
+        break;
+    case "C":
+        $sql="SELECT NOMBRE, DESCRIPCION, FECHA, PAIS, ENLACE from company where ID = ?";
+        $select= $miconexion->prepare($sql);
+        $select->execute(array($revision["ID_MODELO"]));
+        $datosCompany=$select->fetch(PDO::FETCH_ASSOC);
+        cabecera($datosCompany["NOMBRE"]." - Revisión ".$revision["NUMERO"]);
         break;
 }
 
@@ -38,10 +46,7 @@ $despues = json_decode($revision["DESPUES"]);
 $antesArray = (array) $antes;
 $despuesArray = (array) $despues;
 
-
-cabecera($datosJuego["TITULO"]." - Revisión ".$revision["NUMERO"]);
 navBar();
-
 
 echo "<center>";
 echo "<h2>Información: </h2>";
@@ -70,8 +75,7 @@ if($revision!=null)
         case "J":
 
             if(isset($antes) && !is_int($antes) && property_exists($antes, "nombre"))
-            {
-                
+            {                
                 echo "<table class='table table-bordered'>";
                 echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
 
@@ -225,8 +229,20 @@ if($revision!=null)
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "arrayCompany"))
             {
-                echo "información compañias juego";
-
+                echo "<h2>Antes</h2>";
+                echo "<ul class='list-group'>";
+                foreach($antesArray["arrayCompany"] as $key=>$value)
+                {
+                    echo "<li class='list-group-item'>".$value."</li>";
+                }
+                echo "</ul>";
+                echo "<h2>Después</h2>";
+                echo "<ul class='list-group'>";
+                foreach($despuesArray["arrayCompany"] as $key=>$value)
+                {
+                    echo "<li class='list-group-item'>".$value."</li>";
+                }
+                echo "</ul>";
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "roles"))
             {
@@ -236,34 +252,105 @@ if($revision!=null)
                 // $sql = "SELECT select s.NOMBRE, s.ID, PRJ.comentario, r.ROL"
                 echo "<table class='table table-bordered'>";
                 echo "<tr><th></th><th>Nombres</th><th>Roles</th><th>Comentario</th></tr>";
-
-                for($i=0;$i<count($antesArray["nombres"]);$i++)
+                $count = max(count($antesArray["nombres"]), count($despuesArray["nombres"]));
+                echo count($despuesArray);
+                for ($i=0;$i<$count;$i++)
                 {
-                    echo "<tr>";
+                    
+                    if(isset($antesArray["nombres"][$i]) && isset($despuesArray["nombres"][$i]) && $antesArray["nombres"][$i] == $despuesArray["nombres"][$i] && $antesArray["roles"][$i] == $despuesArray["roles_nomb"][$i] && $antesArray["coment"][$i] == $despuesArray["coment"][$i])
+                    {
+                        $difference = false;
+                    }
+                    else
+                    {
+                        $difference = true;
+                    }
+                    if($difference)
+                    {
+                        echo "<tr class='table-danger'>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                    }
+                    
                     echo "<td>antes</td>";
-                    echo "<td>".$antesArray["nombres"][$i]."</td>";
-                    echo "<td>".$antesArray["roles"][$i]."</td>";
-                    echo "<td>".$antesArray["coment"][$i]."</td>";
+                    if(!isset($antesArray["nombres"][$i]))
+                    {
+                        echo "<td></td>";
+                        echo "<td></td>";
+                        echo "<td></td>";
+                    }
+                    else
+                    {
+
+                        echo "<td>".$antesArray["nombres"][$i]."</td>";
+                        echo "<td>".$antesArray["roles"][$i]."</td>";
+                        echo "<td>".$antesArray["coment"][$i]."</td>";
+                    }
                     echo "</tr>";
-                }
-                for($i=0;$i<count($despuesArray["nombres"]);$i++)
-                {
-                    echo "<tr>";
+                    if($difference)
+                    {
+                        echo "<tr class='table-danger'>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                    }
                     echo "<td>después</td>";
-                    echo "<td>".$despuesArray["nombres"][$i]."</td>";
-                    echo "<td>".$despuesArray["roles_nomb"][$i]."</td>";
-                    echo "<td>".$despuesArray["coment"][$i]."</td>";
+                    if(!isset($despuesArray["nombres"][$i]))
+                    {
+                        echo "<td></td>";
+                        echo "<td></td>";
+                        echo "<td></td>";
+                    }
+                    else
+                    {
+                        echo "<td>".$despuesArray["nombres"][$i]."</td>";
+                        echo "<td>".$despuesArray["roles_nomb"][$i]."</td>";
+                        echo "<td>".$despuesArray["coment"][$i]."</td>";
+                    }
                     echo "</tr>";
                 }
-  
-               
 
                 echo "</table>";
                 
             }
             else if(isset($antes) && !is_int($antes) && property_exists($antes, "plat"))
             {
-                echo "información plataformas juego";
+                $antesPlat = implode(", ", $antesArray["plat"]);
+                $despuesPlat = implode(", ", $despuesArray["plat"]);
+                $sql = "SELECT id, nombre from plataforma where id in (".$antesPlat.", ".$despuesPlat.")";
+                $select= $miconexion->prepare($sql);
+                $select->execute();
+                $plat=$select->fetchAll(PDO::FETCH_ASSOC);
+
+                echo "<h2>Antes</h2>";
+                echo "<ul class='list-group'>";
+                foreach($plat as $key=>$value)
+                {
+                    if(in_array($value["id"], $antesArray["plat"]))
+                    {
+                        
+                        echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                        
+                    }
+                }
+                echo "</ul>";
+
+                echo "<h2>Después</h2>";
+                echo "<ul class='list-group'>";
+                foreach($plat as $key=>$value)
+                {
+                    if(in_array($value["id"], $despuesArray["plat"]))
+                    {
+                        
+                        echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                        
+                    }
+                }
+                echo "</ul>";
+
             }
             break;
         case "C":
@@ -287,8 +374,8 @@ if($revision!=null)
 
 echo "</center>";
 echo "<pre>";
-                print_r($antesArray);
-                print_r($despuesArray);
-                echo "</pre>";
+print_r($antesArray);
+print_r($despuesArray);
+echo "</pre>";
 
 ?>
