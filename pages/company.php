@@ -3,42 +3,28 @@ include("../utilities/utilities.php");
 iniciarSesion();
 
 include_once("../servidor/bbdd.php");
-$miconexion=connectDB();
+include("../modelo/company.php");
+
 $id_company=$_GET["id"];
-$sql="select nombre, fecha, pais, descripcion, enlace from company where id=? ";
-$select=$miconexion->prepare($sql);
-$select->execute(array($id_company));
-$fila=$select->fetch();
 
 
-//creditos compañía
-$sql="SELECT j.id, j.titulo,j.fecha
-from company c, company_juegos cj, juego j
-where j.id=cj.id_juego
-and c.id=cj.id_company
-and c.id=?
-and j.activo=1 
-order by j.fecha asc";
-$selectCreditos=$miconexion->prepare($sql);
-$selectCreditos->execute(array($id_company));
-$filaCreditos=$selectCreditos->fetchAll(PDO::FETCH_ASSOC);
 
-//creditos consola
-$sql="SELECT p.id, p.nombre, p.fecha
-from company c, plataforma p
-where p.company=c.id
-and p.activo=1 
-and c.id=? order by p.fecha";
-$selectCreditos=$miconexion->prepare($sql);
-$selectCreditos->execute(array($id_company));
-$filaPlataformas=$selectCreditos->fetchAll(PDO::FETCH_ASSOC);
+if (isset($_GET['pageno'])) {
+    $pageno = $_GET['pageno'];
+} else {
+    $pageno = 1;
+}
 
-cabecera($fila["nombre"]);
+$company = new Company($id_company, $pageno);
+
+
+
+cabecera($company->getNombre());
 navBar();
 ?>
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
-        <li><a href="#mainCompany"><?php echo $fila["nombre"];?></a></li>
+        <li><a href="#mainCompany"><?php echo $company->getNombre();?></a></li>
         <?php
         if(isset($_SESSION["tipo"]))
         {
@@ -51,13 +37,13 @@ navBar();
     </ul>
 <div id="mainCompany">
     <div id="datosCompany" class="col-10 offset-1">
-        <h2 class="text-center"><?php echo $fila["nombre"];?></h2>
-        <p class="text-center">Nacionalidad: <?php echo $fila["pais"];?></p>
-        <p class="text-center">Fecha: <?php echo $fila["fecha"];?></p>
-        <?php if ($fila["enlace"]!=null)
-        echo '<p class="text-center">Enlace: '.$fila["enlace"].'</p>';
+        <h2 class="text-center"><?php echo $company->getNombre();?></h2>
+        <p class="text-center">Nacionalidad: <?php echo $company->getPais();?></p>
+        <p class="text-center">Fecha: <?php echo $company->getFecha();?></p>
+        <?php if ($company->getEnlace()!=null)
+        echo '<p class="text-center">Enlace: '.$company->getEnlace().'</p>';
         ?>
-        <p> <?php echo $fila["descripcion"];?> </p>
+        <p> <?php echo $company->getDescripcion();?> </p>
     </div>
     <h2 class="mt-5">Creditos</h2>
     <div id="creditosCompany" class="my-2">
@@ -67,7 +53,7 @@ navBar();
             <th class="w-75">Título</th><th>Lanzamiento</th>
             </tr>
             <?php
-            foreach($filaCreditos as $value)
+            foreach($company->getJuegos() as $value)
             {
                 echo "<tr>";
                     echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td>";
@@ -75,7 +61,20 @@ navBar();
             }
             
             echo '</table>';
-        if($filaPlataformas!=null)
+            ?>
+            <?php echo $pageno;?>
+            <ul class="pagination">
+                <li><a href="?id=<?php echo $id_company;?>?pageno=1">Primera</a></li>
+                <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+                    <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Anterior</a>
+                </li>
+                <li class="<?php if($pageno >= $company->getTotalPages()){ echo 'disabled'; } ?>">
+                    <a href="<?php if($pageno >= $company->getTotalPages()){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Siguiente</a>
+                </li>
+                <li><a href="?pageno=<?php echo $company->getTotalPages(); ?>">Última</a></li>
+            </ul>
+            <?php
+        if($company->getPlataformas()!=null)
         {
             ?>
         <h3>Consolas</h3>
@@ -84,7 +83,7 @@ navBar();
             <th class="w-75">Título</th><th>Lanzamiento</th>
             </tr>
             <?php
-            foreach($filaPlataformas as $value)
+            foreach($company->getPlataformas() as $value)
             {
                 echo "<tr>";
                     echo "<td><a href='plataforma.php?id=".$value['id']."'>".$value["nombre"]."</a></td><td>".$value["fecha"]."</td>";
@@ -92,6 +91,7 @@ navBar();
             }
             ?>
             </table>
+
         <?php
         }
         ?>
@@ -111,7 +111,7 @@ if(isset($_SESSION["tipo"]))
         <br>
     </div>
 
-    <h1>Editar <?php echo $fila["nombre"];?> </h1>
+    <h1>Editar <?php echo $company->getNombre();?> </h1>
     <br>
     <div id="guidelines" class="col-8">
     <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
@@ -123,24 +123,24 @@ if(isset($_SESSION["tipo"]))
             <form name="formEditarCompany" id="formEditarCompany" method="get" action"#"> 
             <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $fila['nombre'];?>"/>
+            <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $company->getNombre();?>"/>
         </div>
         <div class="form-group">
             <label for="pais">Pais:</label>
-            <input type="text" class="form-control col-8" id="pais" placeholder="Estados Unidos" name="pais"  value="<?php echo $fila['pais'];?>"/>
+            <input type="text" class="form-control col-8" id="pais" placeholder="Estados Unidos" name="pais"  value="<?php echo $company->getPais();?>"/>
         </div>
         <div class="form-group">
             <label for="desc">Descripción:</label>
-            <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc"> <?php echo $fila['descripcion'];?></textarea>
+            <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc"> <?php echo $company->getDescripcion();?></textarea>
         </div>
 
         <div class="form-group">
             <label for="enlace">Página web:</label>
-            <input type="text" class="form-control col-8" id="enlace" placeholder="https://www.naughtydog.com/" name="enlace"  value="<?php echo $fila['enlace'];?>"/>
+            <input type="text" class="form-control col-8" id="enlace" placeholder="https://www.naughtydog.com/" name="enlace"  value="<?php echo $company->getDescripcion();?>"/>
         </div>
         <div class="form-group">
             <label for="fecha">Año:</label>
-            <input type="text" class="form-control col-8" id="fecha" placeholder="1984" name="fecha"  value="<?php echo $fila['fecha'];?>"/>
+            <input type="text" class="form-control col-8" id="fecha" placeholder="1984" name="fecha"  value="<?php echo $company->getFecha();?>"/>
         </div>
         <br>
 
@@ -171,7 +171,7 @@ if(isset($_SESSION["tipo"]))
 </div>
 
 </div>
-<div id="dialog-eliminar" title="Eliminar <?php echo $fila["nombre"];?>">
+<div id="dialog-eliminar" title="Eliminar <?php echo $company->getNombre();?>">
     <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar a esta compañía?</p>
 </div>
 

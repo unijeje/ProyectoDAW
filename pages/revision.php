@@ -565,8 +565,5 @@ if($revision!=null)
 
 echo "</center>";
 
-echo "<pre>";
-print_r($antesArray);
-echo "</pre>";
 
 ?>
