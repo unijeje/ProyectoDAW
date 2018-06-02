@@ -93,7 +93,9 @@ $( document ).ready(function() {
     var sDatosRevisiones = "datos="+JSON.stringify({id:juego_id, tipo: juegoRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, procesarRevisiones, "json");
 
-
+	$('[data-fancybox="gallery"]').fancybox({
+        // Options will go here
+    });
 });
 
 function procesarRevisiones(oRespuesta, sStatus, oAjax)

@@ -6,6 +6,7 @@ body {
     color: #212930;
 }
 
+
 .navbar-nav
 {
     padding: .2em;
@@ -162,6 +163,8 @@ a:visited {
     width:100%; 
     height:auto;
 }
+
+
 
 .screenshotJuego
 {

@@ -258,7 +258,10 @@ if($filaJuego!=null)
         else
         for( $i=0; $i < $numImagenes; $i++)
         {
-            echo "<img class='m-4 screenshotJuego' src='../img/screenshots/juego_".$id_juego."/screenshot".$i.".png'</img>";
+            echo "<a href='../img/screenshots/juego_".$id_juego."/screenshot".$i.".png' data-fancybox='gallery' data-caption='Caption #1'>";
+                echo "<img class='m-4 screenshotJuego' src='../img/screenshots/juego_".$id_juego."/screenshot".$i.".png' alt='' />";
+            echo "</a>";
+            // echo "<img class='m-4 screenshotJuego' src='../img/screenshots/juego_".$id_juego."/screenshot".$i.".png'</img>";
         }        
         ?>
         </div>
