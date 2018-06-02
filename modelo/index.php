@@ -1,7 +1,6 @@
 <?php
-<?php
 
-class Plataforma
+class Datos
 {
     private $miconexion;
     private $id;
@@ -17,18 +16,47 @@ class Plataforma
     private $numResultados = 10;
     public $pages;
     private $numTotal;
+    private $numImages = 4;
+    public $imagenHtml="";
 
-    function __construct($idPlataforma)
+    function __construct()
     {
-        $this->miconexion=connectDB();
-        $this->id = $idPlataforma;
-        $this->getDatosPlataforma();
-        $this->getNumeroJuegos();
-        $this->pages = new Paginator($this->numResultados, "p");
-        $this->pages->set_total($this->numTotal);
-        $this->getCreditosJuegos();
-        $this->miconexion=null;
+        // $this->miconexion=connectDB();
+        // $this->id = $idPlataforma;
+        // $this->getDatosPlataforma();
+        // $this->getNumeroJuegos();
+        // $this->pages = new Paginator($this->numResultados, "p");
+        // $this->pages->set_total($this->numTotal);
+        // $this->getCreditosJuegos();
+        // $this->miconexion=null;
 
+    }
+
+    function random_screenshot($dir = 'img/screenshots')
+    {
+        $dirs = array_filter(glob($dir.'/*'), 'is_dir');
+
+
+        // $randomDir = $dirs[mt_rand(0, count($dirs) - 1)];
+
+        $randomDir = array_rand($dirs, $this->numImages);
+        echo "<pre>";
+        print_r( $randomDir);
+        echo "</pre>";
+        $imagenes=[];
+        foreach($randomDir as $key=>$value)
+        {
+            $files = glob($dirs[$value] . '/*.*');
+            $file = array_rand($files);
+            $imagenes[]=$files[$file];
+        }
+
+        foreach($imagenes as $filename)
+        {
+            $this->imagenHtml.="<a href='".$filename."' data-fancybox='gallery' data-caption='Caption #1'>";
+            $this->imagenHtml.=   "<img class='m-4 screenshotJuego' src='".$filename."' alt='' />";
+            $this->imagenHtml.="</a>";
+        }
     }
 
     private function getDatosPlataforma()
@@ -107,7 +135,5 @@ class Plataforma
 	}
 
 }
-
-?>
 
 ?>

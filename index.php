@@ -8,6 +8,9 @@ include("controller/index.php");
 </div>
 <div id="imagenes" class="col-12 mb-5">
     <p>imagenes</p>
+    <?php
+    echo $datos->imagenHtml;
+    ?>
 </div>
 </div>
 
