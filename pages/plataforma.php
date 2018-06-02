@@ -1,32 +1,12 @@
 ﻿<?php
-include("../utilities/utilities.php");
-iniciarSesion();
 
-include_once("../servidor/bbdd.php");
-$id_plat=$_GET["id"];
-$miconexion=connectDB();
-$sql="select p.nombre, p.fecha, c.nombre as company, p.descripcion, p.especificaciones from company c, plataforma p where p.company=c.id and p.id=? ";
-$select=$miconexion->prepare($sql);
-$select->execute(array($id_plat));
-$fila=$select->fetch();
-
-//listado juegos por plataforma
-$sql="SELECT j.id, j.titulo, j.fecha
-from plataforma p, plataforma_juego pj, juego j
-where pj.id_juego=j.id
-and pj.id_plataforma=p.id
-and pj.id_plataforma=? order by j.titulo";
-$selectJuegos=$miconexion->prepare($sql);
-$selectJuegos->execute(array($id_plat));
-$filaJuegos=$selectJuegos->fetchAll(PDO::FETCH_ASSOC);
+include("../controller/plataforma.php");
 
 
-cabecera($fila["nombre"]);
-navBar();
 ?>
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
-        <li><a href="#mainPlat"><?php echo $fila["nombre"];?></a></li>
+        <li><a href="#mainPlat"><?php echo $plataforma->getNombre();?></a></li>
         <?php
         if(isset($_SESSION["tipo"]))
         {
@@ -39,28 +19,40 @@ navBar();
     </ul>
 <div id="mainPlat">
     <div id="datosCompany" class="col-10 offset-1">
-        <h2 class="text-center"><?php echo $fila["nombre"];?></h2>
-        <p class="text-center">Compañía: <?php echo $fila["company"];?></p>
-        <p class="text-center">Lanzamiento: <?php echo $fila["fecha"];?></p>
-        <p> <?php echo $fila["descripcion"];?> </p>
+        <h2 class="text-center"><?php echo $plataforma->getNombre();?></h2>
+        <p class="text-center">Compañía: <?php echo $plataforma->getCompany();?></p>
+        <p class="text-center">Lanzamiento: <?php echo $plataforma->getFecha();?></p>
+        <p> <?php echo $plataforma->getDescripcion();?> </p>
         <h3>Especificaciones</h3>
-        <p> <?php echo $fila["especificaciones"];?> </p>
+        <p> <?php echo $plataforma->getEspecificaciones();?> </p>
     </div>
     <h2 class="mt-5">Lista de juegos</h2>
-    <div id="creditosCompany" class="my-2">
-        <table class="table borderless table-striped">
-        <tr>
-        <th class="w-75">Título</th><th>Lanzamiento</th>
-        </tr>
-        <?php
-        foreach($filaJuegos as $value)
-        {
-            echo "<tr>";
-                echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td>";
-            echo "</tr>";
-        }
-        ?>
-        </table>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseJuego">
+                Juegos
+                </a>
+            </div>
+            <div id="collapseJuego" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table borderless table-striped">
+                    <tr>
+                    <th class="w-75">Título</th><th>Lanzamiento</th><th>Nota</th>
+                    </tr>
+                    <?php
+                    foreach($plataforma->getJuegos() as $value)
+                    {
+                        echo "<tr>";
+                            echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["media"]."</td>";
+                        echo "</tr>";
+                    }
+                    echo '</table>';
+                    echo $plataforma->pages->page_links('?', '&id='.$id_plat);
+                    ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php
@@ -77,7 +69,7 @@ if(isset($_SESSION["tipo"]))
         <br>
     </div>
 
-    <h1>Editar <?php echo $fila["nombre"];?> </h1>
+    <h1>Editar <?php echo $plataforma->getNombre();?> </h1>
     <br>
     <div id="guidelines" class="col-8">
     <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
@@ -89,25 +81,25 @@ if(isset($_SESSION["tipo"]))
             <form name="formEditarPlat" id="formEditarPlat" method="get" action"#"> 
         <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $fila["nombre"];?>"/>
+            <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $plataforma->getNombre();?>"/>
         </div>
         <div class="form-group">
             <label for="company">Compañía:</label>
-            <input type="text" class="form-control col-8" id="company" placeholder="Sony" name="company" value="<?php echo $fila["company"];?>"/>
+            <input type="text" class="form-control col-8" id="company" placeholder="Sony" name="company" value="<?php echo $plataforma->getCompany();?>"/>
             <input type="hidden" id="company-name">
         </div>
         <div class="form-group">
             <label for="desc">Descripción:</label>
-            <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc"><?php echo $fila["descripcion"];?></textarea>
+            <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc"><?php echo $plataforma->getDescripcion();?></textarea>
         </div>
 
         <div class="form-group">
             <label for="esp">Especificaciones:</label>
-            <textarea class="form-control col-8" id="esp" rows="5" placeholder="" name="esp"><?php echo $fila["especificaciones"];?></textarea>
+            <textarea class="form-control col-8" id="esp" rows="5" placeholder="" name="esp"><?php echo $plataforma->getEspecificaciones();?></textarea>
         </div>
         <div class="form-group">
             <label for="fecha">Año:</label>
-            <input type="text" class="form-control col-8" id="fecha" placeholder="1984" name="fecha" value="<?php echo $fila["fecha"];?>"/>
+            <input type="text" class="form-control col-8" id="fecha" placeholder="1984" name="fecha" value="<?php echo $plataforma->getFecha();?>"/>
         </div>
         <br>
 
@@ -138,7 +130,7 @@ if(isset($_SESSION["tipo"]))
 </div>
 
 </div>
-<div id="dialog-eliminar" title="Eliminar <?php echo $fila["nombre"];?>">
+<div id="dialog-eliminar" title="Eliminar <?php echo $plataforma->getNombre();?>">
     <p class="text-danger"><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>¿Está seguro de que quiere eliminar a esta plataforma?</p>
 </div>
 <script type="text/javascript">

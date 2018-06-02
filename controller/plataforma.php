@@ -4,13 +4,12 @@ iniciarSesion();
 
 include_once("../servidor/bbdd.php");
 include('../utilities/paginator.php');
-$id_company=$_GET["id"];
-include("../modelo/company.php");
+$id_plat=$_GET["id"];
 
+include("../modelo/plataforma.php");
 
-$company = new Company($id_company);
+$plataforma = new Plataforma($id_plat);
 
-cabecera($company->getNombre());
+cabecera($plataforma->getNombre());
 navBar();
-
 ?>

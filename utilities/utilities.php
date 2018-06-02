@@ -135,6 +135,7 @@ function cabecera($titulo)
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/cr-1.4.1/datatables.min.css"/>
 <link rel="stylesheet" href="../css/css01.css">
 <link rel="stylesheet" href="../css/css02.css">
+<link rel="stylesheet" href="../css/pagination.css">
 <script type="text/javascript" src="../js/utilities.js"></script>
 <title>'.$titulo.'</title>
 </head>';
@@ -230,6 +231,7 @@ function cabeceraIndex($titulo)
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="css/css01.css">
 <link rel="stylesheet" href="css/css02.css">
+<link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="js/utilities.js"></script>
 <title>'.$titulo.'</title>
 </head>';

@@ -47,7 +47,7 @@ function addPlat()
             $("#registrado").show();
             $("#registrarOtro").show();
             altaRevision(oPlat, user_id, plataformaRev, bExito[1]);
-            
+            $("#formAddPlat")[0].reset();
         }
         else
         {

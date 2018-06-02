@@ -2,7 +2,10 @@
 
 include_once("../bbdd.php");
 
+
+
 $oDatos=json_decode($_POST['datos']);
+
 $nombre=$oDatos->nombre;
 $pais=$oDatos->pais;
 $desc=$oDatos->desc;

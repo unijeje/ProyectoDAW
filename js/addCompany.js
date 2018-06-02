@@ -4,7 +4,7 @@ $( "#formAddCompany #fecha" ).datepicker({ dateFormat: 'yy-mm-dd' });
 } );
 */
 
-$("#btnADD").click(addStaff);
+$("#btnADD").click(addCompany);
 $("#registrarOtro").click(mostrarForm);
 
 function mostrarForm()
@@ -17,7 +17,7 @@ function mostrarForm()
     $("#registrado").hide();
 }
 
-function addStaff()
+function addCompany()
 {
     $("#guidelines").hide();
     $("#registroError").hide();
@@ -37,6 +37,7 @@ function addStaff()
                         enlace: sEnlace};
 
         var sDatos= "datos="+JSON.stringify(oCompany);
+        console.log(sDatos);
         $.post("../servidor/gestionCompany/altaCompany.php",sDatos,function(bExito, sStatus, oAjax){
         if(bExito[0])
         {
@@ -46,11 +47,12 @@ function addStaff()
             $("#registrado").show();
             $("#registrarOtro").show();
             altaRevision(oCompany, user_id, companyRev, bExito[1]);
+            $("#formAddCompany")[0].reset();
         }
         else
         {
-            $("#registroError p").text(bExito[1]);
             $("#registroError").show();
+            $("#registroError p").text(bExito[1]);
         }
         },"json");
     }

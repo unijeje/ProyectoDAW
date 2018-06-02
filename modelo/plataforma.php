@@ -1,55 +1,56 @@
 <?php
 
-class Company
+class Plataforma
 {
     private $miconexion;
     private $id;
     private $nombre;
+    private $company;
     private $descripcion;
+    private $especificaciones;
     private $fecha;
     private $pais;
     private $enlace;
     private $activo;
     private $juegos = [];
-    private $plataformas = [];
     private $numResultados = 10;
     public $pages;
     private $numTotal;
 
-    function __construct($idCompany)
+    function __construct($idPlataforma)
     {
         $this->miconexion=connectDB();
-        $this->id = $idCompany;
-        $this->getDatosCompany();
+        $this->id = $idPlataforma;
+        $this->getDatosPlataforma();
         $this->getNumeroJuegos();
         $this->pages = new Paginator($this->numResultados, "p");
         $this->pages->set_total($this->numTotal);
         $this->getCreditosJuegos();
-        $this->getCreditosConsolas();
         $this->miconexion=null;
 
     }
 
-    private function getDatosCompany()
+    private function getDatosPlataforma()
     {
-        $sql="select nombre, fecha, pais, descripcion, enlace, activo from company where id=? ";
+        $sql="select p.nombre, p.fecha, c.nombre as company, p.descripcion, p.especificaciones, p.activo from company c, plataforma p where p.company=c.id and p.id=? ";
         $select=$this->miconexion->prepare($sql);
         $select->execute(array($this->id));
-        $fila=$select->fetch(PDO::FETCH_ASSOC);
+        $fila=$select->fetch();
         $this->nombre = $fila["nombre"];
-        $this->descripcion = $fila["descripcion"];
         $this->fecha = $fila["fecha"];
-        $this->pais = $fila["pais"];
-        $this->enlace = $fila["enlace"];
+        $this->company = $fila["company"];
+        $this->descripcion = $fila["descripcion"];
+        $this->especificaciones = $fila["especificaciones"];
         $this->activo = $fila["activo"];
+
         $select = null;
     }
 
     private function getCreditosJuegos()
     {
-        $sql="SELECT j.id, j.titulo,j.fecha, j.media from company c, company_juegos cj, juego j
-        where j.id=cj.id_juego and c.id=cj.id_company
-        and c.id=? and j.activo=1 order by j.fecha asc ".$this->pages->get_limit();
+        $sql="SELECT j.id, j.titulo,j.fecha, j.media from plataforma p, plataforma_juego pj, juego j
+        where j.id=pj.id_juego and p.id=pj.id_plataforma
+        and p.id=? and j.activo=1 order by j.fecha asc ".$this->pages->get_limit();
         $selectCreditos=$this->miconexion->prepare($sql);
         $selectCreditos->execute(array($this->id));
         $this->juegos = $selectCreditos->fetchAll(PDO::FETCH_ASSOC);
@@ -57,24 +58,11 @@ class Company
         $selectCreditos = null;
     }
 
-    private function getCreditosConsolas()
-    {
-        $sql="SELECT p.id, p.nombre, p.fecha
-        from company c, plataforma p
-        where p.company=c.id
-        and p.activo=1 
-        and c.id=? order by p.fecha";
-        $selectCreditos=$this->miconexion->prepare($sql);
-        $selectCreditos->execute(array($this->id));
-        $this->plataformas = $selectCreditos->fetchAll(PDO::FETCH_ASSOC);
-        $selectCreditos = null;
-    }
-
     private function getNumeroJuegos()
     {
-        $sql="SELECT COUNT(*) from company c, company_juegos cj, juego j
-        where j.id=cj.id_juego and c.id=cj.id_company
-        and c.id=? and j.activo=1 ";
+        $sql="SELECT COUNT(*) from plataforma p, plataforma_juego pj, juego j
+        where j.id=pj.id_juego and p.id=pj.id_plataforma
+        and p.id=? and j.activo=1 ";
         $selectNumber = $this->miconexion->prepare($sql);
         $selectNumber->execute(array($this->id));
         $this->numTotal=$selectNumber->fetch()[0];
@@ -101,12 +89,12 @@ class Company
 	}
 
 
-	public function getPais(){
-		return $this->pais;
+	public function getCompany(){
+		return $this->company;
 	}
 
-	public function getEnlace(){
-		return $this->enlace;
+	public function getEspecificaciones(){
+		return $this->especificaciones;
 	}
 
 	public function getActivo(){
@@ -117,10 +105,6 @@ class Company
 		return $this->juegos;
 	}
 
-	public function getPlataformas(){
-		return $this->plataformas;
-    }
-
-
 }
+
 ?>

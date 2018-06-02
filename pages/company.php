@@ -1,26 +1,6 @@
 ﻿<?php
-include("../utilities/utilities.php");
-iniciarSesion();
+include("../controller/company.php");
 
-include_once("../servidor/bbdd.php");
-include("../modelo/company.php");
-
-$id_company=$_GET["id"];
-
-
-
-if (isset($_GET['pageno'])) {
-    $pageno = $_GET['pageno'];
-} else {
-    $pageno = 1;
-}
-
-$company = new Company($id_company, $pageno);
-
-
-
-cabecera($company->getNombre());
-navBar();
 ?>
 <div id="tabs" style="background: none repeat scroll 0% 0% #dce2df;">
     <ul>
@@ -46,56 +26,68 @@ navBar();
         <p> <?php echo $company->getDescripcion();?> </p>
     </div>
     <h2 class="mt-5">Creditos</h2>
-    <div id="creditosCompany" class="my-2">
-        <h3>Juegos</h3>
-        <table class="table borderless table-striped">
-            <tr>
-            <th class="w-75">Título</th><th>Lanzamiento</th>
-            </tr>
-            <?php
-            foreach($company->getJuegos() as $value)
-            {
-                echo "<tr>";
-                    echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td>";
-                echo "</tr>";
-            }
-            
-            echo '</table>';
-            ?>
-            <?php echo $pageno;?>
-            <ul class="pagination">
-                <li><a href="?id=<?php echo $id_company;?>?pageno=1">Primera</a></li>
-                <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
-                    <a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Anterior</a>
-                </li>
-                <li class="<?php if($pageno >= $company->getTotalPages()){ echo 'disabled'; } ?>">
-                    <a href="<?php if($pageno >= $company->getTotalPages()){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Siguiente</a>
-                </li>
-                <li><a href="?pageno=<?php echo $company->getTotalPages(); ?>">Última</a></li>
-            </ul>
-            <?php
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseJuego">
+                Juegos
+                </a>
+            </div>
+            <div id="collapseJuego" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table borderless table-striped">
+                    <tr>
+                    <th class="w-75">Título</th><th>Lanzamiento</th><th>Nota</th>
+                    </tr>
+                    <?php
+                    foreach($company->getJuegos() as $value)
+                    {
+                        echo "<tr>";
+                            echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["media"];
+                        echo "</tr>";
+                    }
+                    echo '</table>';
+                    echo $company->pages->page_links('?', '&id='.$id_company);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <?php
         if($company->getPlataformas()!=null)
         {
-            ?>
-        <h3>Consolas</h3>
-        <table class="table borderless table-striped">
-            <tr>
-            <th class="w-75">Título</th><th>Lanzamiento</th>
-            </tr>
-            <?php
-            foreach($company->getPlataformas() as $value)
-            {
-                echo "<tr>";
-                    echo "<td><a href='plataforma.php?id=".$value['id']."'>".$value["nombre"]."</a></td><td>".$value["fecha"]."</td>";
-                echo "</tr>";
-            }
-            ?>
-            </table>
-
+        ?>
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link my-2" data-toggle="collapse" href="#collapsePlat">
+                Plataformas
+                </a>
+            </div>
+            <div id="collapsePlat" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table borderless table-striped">
+                    <tr>
+                    <th class="w-75">Título</th><th>Lanzamiento</th>
+                    </tr>
+                    <?php
+                    foreach($company->getPlataformas() as $value)
+                    {
+                        echo "<tr>";
+                            echo "<td><a href='plataforma.php?id=".$value['id']."'>".$value["nombre"]."</a></td><td>".$value["fecha"]."</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                    </table>
+                </div>
+            </div>
+        </div>
         <?php
         }
         ?>
     </div>
+    
+        
+            
+    
 </div>
 <?php
 if(isset($_SESSION["tipo"]))

@@ -33,7 +33,7 @@ function altaRevision($datos, $user, $tipo, $id)
     switch($tipo)
     {
         case "P":
-            $modeo="plataforma";
+            $modelo="plataforma";
             break;
         case "J":
             $modelo="juego";

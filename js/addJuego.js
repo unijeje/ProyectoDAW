@@ -97,7 +97,7 @@ function addJuego()
             $("#registrado").show();
             $("#registrarOtro").show();
             altaRevision(oJuego, user_id, juegoRev, bExito[1]);
-            
+            $("#formAddJuego")[0].reset();
         }
         else
         {

@@ -1,0 +1,56 @@
+2018-06-02 16:41:42 INFO Creacion Entrada Compañía Con ID: 14
+2018-06-02 16:45:59 INFO Creacion Entrada Compañía Con ID: 15
+2018-06-02 16:47:08 INFO Creacion Entrada Compañía Con ID: 16
+2018-06-02 16:49:57 INFO Creacion Entrada Compañía Con ID: 17
+2018-06-02 16:51:58 INFO Creacion Entrada Compañía Con ID: 18
+2018-06-02 16:53:17 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 16:56:25 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:01:17 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:13:18 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:14:38 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:15:31 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:16:14 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:17:54 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:20:52 ERROR Error requesting page ../servidor/gestionCompany/altaCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:23:36 ERROR Error requesting page ../servidor/gestionCompany/editarCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:24:18 ERROR Error requesting page ../servidor/gestionCompany/editarCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:24:50 ERROR Error requesting page ../servidor/gestionCompany/editarCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:25:03 INFO Edición Entrada Compañía Con ID: 19
+2018-06-02 17:30:50 INFO Creacion Entrada Compañía Con ID: 20
+2018-06-02 17:31:55 INFO Creacion Entrada Compañía Con ID: 21
+2018-06-02 17:34:04 INFO Creacion Entrada Staff Con ID: 22
+2018-06-02 17:36:44 INFO Creacion Entrada Staff Con ID: 23
+2018-06-02 17:37:43 INFO Creacion Entrada Staff Con ID: 24
+2018-06-02 17:42:09 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:43:50 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:52:31 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:53:23 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:58:49 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 17:59:51 ERROR Error requesting page ../servidor/gestionRevisiones/revision.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-02 18:06:45 INFO Creacion Entrada Compañía Con ID: 22
+2018-06-02 18:09:25 INFO Creacion Entrada Plataforma Con ID: 28
+2018-06-02 18:11:30 INFO Creacion Entrada Juego Con ID: 47
+2018-06-02 18:13:05 INFO Creacion Entrada Juego Con ID: 48
+2018-06-02 18:13:58 INFO Creacion Entrada Compañía Con ID: 23
+2018-06-02 18:15:50 INFO Creacion Entrada Compañía Con ID: 24
+2018-06-02 18:17:52 INFO Creacion Entrada Staff Con ID: 25
+2018-06-02 18:18:05 INFO Edición Entrada Compañía Con ID: 24
+2018-06-02 18:21:54 INFO Creacion Entrada Juego Con ID: 49
+2018-06-02 18:22:08 INFO Edición Entrada Juego Con ID: 48
+2018-06-02 18:22:24 INFO Edición Entrada Juego Con ID: 48
+2018-06-02 18:26:54 INFO Creacion Entrada Juego Con ID: 50
+2018-06-02 21:00:07 INFO Creacion Entrada Juego Con ID: 51
+2018-06-02 21:03:10 INFO Creacion Entrada Juego Con ID: 52
+2018-06-02 21:04:17 INFO Creacion Entrada Juego Con ID: 53
+2018-06-02 21:04:59 INFO Creacion Entrada Juego Con ID: 54
+2018-06-02 21:05:33 INFO Creacion Entrada Juego Con ID: 55
+2018-06-02 21:15:19 INFO Edición Entrada Juego Con ID: 51
+2018-06-02 21:15:38 INFO Edición Entrada Juego Con ID: 47
+2018-06-02 21:15:51 INFO Edición Entrada Juego Con ID: 52
+2018-06-02 22:06:10 INFO Creacion Entrada Juego Con ID: 56
+2018-06-02 22:06:18 INFO Creacion Entrada Juego Con ID: 57
+2018-06-02 22:06:29 INFO Creacion Entrada Juego Con ID: 58
+2018-06-02 22:07:04 INFO Edición Entrada Juego Con ID: 50
+2018-06-02 22:08:14 INFO Edición Entrada Juego Con ID: 56
+2018-06-02 22:08:33 INFO Edición Entrada Juego Con ID: 57
+2018-06-02 22:08:54 INFO Edición Entrada Juego Con ID: 58

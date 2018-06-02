@@ -40,6 +40,7 @@ function addStaff()
             $("#registrado").show();
             $("#registrarOtro").show();
             altaRevision(oPersona, user_id, staffRev, bExito[1]);
+            $("#formAddStaff")[0].reset();
         }
         else
         {

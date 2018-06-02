@@ -1,21 +1,7 @@
 <?php
-include("../utilities/utilities.php");
-iniciarSesion();
-cabecera("Plataformas");
-navBar();
-include_once("../servidor/bbdd.php");
-$limit=9;
 
-if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
-$start_from = ($page-1) * $limit; 
+include("../controller/listadoPlat.php");
 
-/*3 Filas dividir limit entre 3 y hacer 3 tablas */
-$resPorTabla=$limit/3;
-$miconexion=connectDB();
-$sql="SELECT id, nombre from plataforma where ACTIVO=1 order by nombre LIMIT $start_from, $limit";
-$select=$miconexion->prepare($sql);
-$select->execute();
-$filaPlat=$select->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div id="registroError">
     <h2 class="text-danger">Ha habido un error en la busqueda </h2>
@@ -36,7 +22,7 @@ $filaPlat=$select->fetchAll(PDO::FETCH_ASSOC);
     <?php
         $i=0;
         echo '<div class="list-inline text-center col-12">';
-        foreach($filaPlat as $fila)
+        foreach($filaPlataforma as $fila)
         {
             if($i==$resPorTabla)
             {
@@ -59,35 +45,11 @@ $filaPlat=$select->fetchAll(PDO::FETCH_ASSOC);
 </div>
 <div id="paginacion" class="mt-5 ml-5">
     <?php
-    $resultset=null;
-    $sqlCount="Select count(id) as num from plataforma";
-    $select = $miconexion->prepare($sqlCount);
-    $select->execute();
-    $fila=$select->fetch(PDO::FETCH_ASSOC);
-    $numRes=$fila["num"];
-    $numPag=ceil($numRes / $limit);
-    $pagLink = "<nav><ul class='pagination'>";  
-    for ($i=1; $i<=$numPag; $i++) {  
-                    $pagLink .= "<li class='page-item'><a  class='page-link' href='listadoPlat.php?page=".$i."'>".$i."</a></li>";  
-    };  
-    echo $pagLink . "</ul></nav>";
-
+    echo $listado->pages->page_links();
     ?>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-    $('.pagination').pagination({
-            items: <?php echo $numRes;?>,
-            itemsOnPage: <?php echo $limit;?>,
-            cssStyle: 'compact-theme',
-            currentPage : <?php echo $page;?>,
-            hrefTextPrefix : 'listadoPlat.php?page='
-        });
-        });
-</script>
 <script type="text/javascript" src="../js/ListadoPlat.js"></script>
-<script type="text/javascript" src="../utilities/jquery.simplePagination.js"></script>
 <?php
 $miconexion=null;
 pie();

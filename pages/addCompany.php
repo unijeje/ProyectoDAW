@@ -27,7 +27,7 @@ navBar();
 <p> Antes de añadir consulte si ya existe en la base de datos </p>
 </div>
 <br>
-<div id="registrar" class="row">
+<div id="registrar" class="row mb-5">
     <div class="col-12 ">
         <form name="formAddCompany" id="formAddCompany" method="get" action"#"> 
         <div class="form-group">
