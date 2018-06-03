@@ -10,4 +10,7 @@ $datos = new Datos();
 
 $datos->random_screenshot();
 
+$datos->getUltimasRevisiones();
+
+
 ?>

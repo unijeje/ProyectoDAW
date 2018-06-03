@@ -214,7 +214,7 @@ function navBarIndex()
     </div>  
     </nav>
     <br> 
-    <div class="container">';
+    <div class="container-fluid">';
     echo $cabecera;
 }
 

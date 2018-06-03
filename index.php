@@ -3,11 +3,11 @@ include("controller/index.php");
 
 ?>
 <div class="row">
-<div id="intro" class="col-12 mb-3">
-    <p>intro</p>
+<div id="intro" class="offset-1 col-10 mb-3 text-monospace">
+    <h2 class="text-center">Bienvenido a VJDB</h2>
+    <p>Proyecto final 2º DAW Juan Mallén. El objetivo de este proyecto es recopilar información relacionada con videojuegos y sus autores y hacerla accesible de manera asequible a todo el mundo.</p>
 </div>
-<div id="imagenes" class="col-12 mb-5">
-    <p>imagenes</p>
+<div id="imagenes" class="col-12 mb-5 text-center">
     <?php
     echo $datos->imagenHtml;
     ?>
@@ -20,17 +20,21 @@ include("controller/index.php");
 </div>
 </div>
 <div class="row">
-<div id="revisiones" class="col-3">
-    <p>Ultimas Revisiones</p>
+    <div id="revisiones" class="col-4">
+        <p>Ultimas Revisiones</p>
+        <?php
+        echo $datos->revHtml;
+        ?>
+    </div>
+    <div id="comentarios" class="col-4">
+        <p>Ultimos Comentarios</p>
+    </div>
+    <div id="juegos" class="col-4">
+        <p>Random Juegos</p>
+    </div>
 </div>
-<div id="comentarios" class="offset-1 col-3">
-    <p>Ultimos Comentarios</p>
+<div class="row mb-5">
 </div>
-<div id="juegos" class="offset-1 col-3">
-    <p>Random Juegos</p>
-</div>
-</div>
-
 <?php
-//pie();
+pie();
 ?>

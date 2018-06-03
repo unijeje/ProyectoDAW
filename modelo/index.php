@@ -18,10 +18,11 @@ class Datos
     private $numTotal;
     private $numImages = 4;
     public $imagenHtml="";
+    public $revHtml="";
 
     function __construct()
     {
-        // $this->miconexion=connectDB();
+        $this->miconexion=connectDB();
         // $this->id = $idPlataforma;
         // $this->getDatosPlataforma();
         // $this->getNumeroJuegos();
@@ -40,9 +41,7 @@ class Datos
         // $randomDir = $dirs[mt_rand(0, count($dirs) - 1)];
 
         $randomDir = array_rand($dirs, $this->numImages);
-        echo "<pre>";
-        print_r( $randomDir);
-        echo "</pre>";
+
         $imagenes=[];
         foreach($randomDir as $key=>$value)
         {
@@ -59,19 +58,60 @@ class Datos
         }
     }
 
-    private function getDatosPlataforma()
+    public function getUltimasRevisiones()
     {
-        $sql="select p.nombre, p.fecha, c.nombre as company, p.descripcion, p.especificaciones, p.activo from company c, plataforma p where p.company=c.id and p.id=? ";
+        $sql="SELECT r.id, r.id_modelo, r.tipo, r.numero, c.nombre as user, c.id as id_user from revisiones r inner join cuentas c on r.usuario=c.id order by r.fecha desc limit 10";
         $select=$this->miconexion->prepare($sql);
-        $select->execute(array($this->id));
-        $fila=$select->fetch();
-        $this->nombre = $fila["nombre"];
-        $this->fecha = $fila["fecha"];
-        $this->company = $fila["company"];
-        $this->descripcion = $fila["descripcion"];
-        $this->especificaciones = $fila["especificaciones"];
-        $this->activo = $fila["activo"];
+        $select->execute();
+        $rev=$select->fetchAll(PDO::FETCH_ASSOC);
 
+        $sqlJuego = "SELECT titulo from juego where id=?";
+        $sqlStaff = "SELECT nombre from personas where id=?";
+        $sqlCompany = "SELECT nombre from company where id=?";
+        $sqlPlat = "SELECT nombre from plataforma where id=?";
+
+        $selectJuego = $this->miconexion->prepare($sqlJuego);
+        $selectStaff = $this->miconexion->prepare($sqlStaff);
+        $selectCompany = $this->miconexion->prepare($sqlCompany);
+        $selectPlat = $this->miconexion->prepare($sqlPlat);
+
+        $nombres=[];
+
+        foreach($rev as $key=>$value)
+        {
+            switch($value["tipo"])
+            {
+                case "J":
+                    $selectJuego->execute([$value["id_modelo"]]);
+                    $resJuego = $selectJuego->fetch(PDO::FETCH_ASSOC);
+                    $rev[$key]["nombre"]=$resJuego["titulo"];
+                    break;
+                case "S":
+                    $selectStaff->execute([$value["id_modelo"]]);
+                    $resStaff = $selectStaff->fetch(PDO::FETCH_ASSOC);
+                    $rev[$key]["nombre"]=$resStaff["nombre"];
+                    break;
+                case "C":
+                    $selectCompany->execute([$value["id_modelo"]]);
+                    $resCompany = $selectCompany->fetch(PDO::FETCH_ASSOC);
+                    $rev[$key]["nombre"]=$resCompany["nombre"];
+                    break;
+                case "P":
+                    $selectPlat->execute([$value["id_modelo"]]);
+                    $resPlat = $selectPlat->fetch(PDO::FETCH_ASSOC);
+                    $rev[$key]["nombre"]=$resPlat["nombre"];
+                    break;
+            }
+
+            $this->revHtml.="<a href='pages/revision.php?id=".$rev[$key]["id"]."'>".$rev[$key]["nombre"]."</a> por <a href='pages/perfil.php?id=".$rev[$key]["id_user"]."'>".$rev[$key]["user"]."</a><br>";
+
+        }
+
+        
+        $selectJuego = null;
+        $selectStaff = null;
+        $selectCompany = null;
+        $selectPlat = null;
         $select = null;
     }
 
