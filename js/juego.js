@@ -179,7 +179,7 @@ function procesarComentarios(oRespuesta, sStatus, oAjax)
             sHtml+='                </div>';
             sHtml+='                <div class="pull-left meta col-7 mt-2">';
             sHtml+='                    <div class="title h5">';
-            sHtml+='                        <a href="#"><b>'+oRespuesta[i].nombre+'</b></a>';
+            sHtml+='                        <a href="perfil.php?id='+oRespuesta[i].id_user+'"><b>'+oRespuesta[i].nombre+'</b></a>';
             sHtml+='                    </div>';
             sHtml+='                </div>';
             sHtml+='                <div class="fechaPub col-3 mt-2">';

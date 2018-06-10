@@ -19,17 +19,15 @@ class Datos
     private $numImages = 4;
     public $imagenHtml="";
     public $revHtml="";
+    public $commentHtml="";
 
     function __construct()
     {
         $this->miconexion=connectDB();
-        // $this->id = $idPlataforma;
-        // $this->getDatosPlataforma();
-        // $this->getNumeroJuegos();
-        // $this->pages = new Paginator($this->numResultados, "p");
-        // $this->pages->set_total($this->numTotal);
-        // $this->getCreditosJuegos();
-        // $this->miconexion=null;
+        $this->random_screenshot();
+        $this->getUltimasRevisiones();
+        $this->getUltimosComentarios();
+        $this->miconexion=null;
 
     }
 
@@ -115,16 +113,23 @@ class Datos
         $select = null;
     }
 
-    private function getCreditosJuegos()
+    public function getUltimosComentarios()
     {
-        $sql="SELECT j.id, j.titulo,j.fecha, j.media from plataforma p, plataforma_juego pj, juego j
-        where j.id=pj.id_juego and p.id=pj.id_plataforma
-        and p.id=? and j.activo=1 order by j.fecha asc ".$this->pages->get_limit();
-        $selectCreditos=$this->miconexion->prepare($sql);
-        $selectCreditos->execute(array($this->id));
-        $this->juegos = $selectCreditos->fetchAll(PDO::FETCH_ASSOC);
+        $sql="SELECT p.nombre, p.id as id_user, 
+        IF( LENGTH(C.TEXTO) > 25, CONCAT(SUBSTR(c.TEXTO, 1, 25), '...') , c.TEXTO ) as texto, 
+        FROM_UNIXTIME(c.fecha, '%d/%m/%Y %h:%i') as fecha, c.juego, j.titulo from comentarios c 
+        inner join cuentas p on p.id=c.USUARIO INNER JOIN JUEGO j on c.JUEGO=j.ID  order by c.fecha desc limit 10";
+        $selectComent=$this->miconexion->prepare($sql);
+        $selectComent->execute();
+        $datos = $selectComent->fetchAll(PDO::FETCH_ASSOC);
 
-        $selectCreditos = null;
+        foreach($datos as $key=>$value)
+        {
+            $this->commentHtml .= $value["fecha"]." - <a data-toggle='tooltip' title='".$value["titulo"]."' href='pages/juego.php?id=".$value["juego"]."'>".$value["texto"]."</a> 
+            por <a href='pages/perfil.php?id=".$value["id_user"]."'>".$value["nombre"]."</a><br>";
+        }
+        //data-toggle='tooltip' title='Hooray!'
+        $selectComent = null;
     }
 
     private function getNumeroJuegos()

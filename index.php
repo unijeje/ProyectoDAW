@@ -28,6 +28,9 @@ include("controller/index.php");
     </div>
     <div id="comentarios" class="col-4">
         <p>Ultimos Comentarios</p>
+        <?php
+        echo $datos->commentHtml;
+        ?>
     </div>
     <div id="juegos" class="col-4">
         <p>Random Juegos</p>
@@ -35,6 +38,7 @@ include("controller/index.php");
 </div>
 <div class="row mb-5">
 </div>
+<script type="text/javascript" src="js/index.js"></script>
 <?php
 pie();
 ?>
