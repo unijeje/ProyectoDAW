@@ -28,16 +28,24 @@ p, li:not(.nav-item)
     font-size:1.2em;
 }
 
-#registrado, #registroError, #registrarOtro
+#registrado, #registroError, #registrarOtro, #registroErrorA, #registradoA
 {
     display: none;
 }
 
-#registroError
+#registroError, #registroErrorA
 {
     height:100px;
     background-color: rgb(252, 137, 137);
     border: 1px solid rgb(152, 7, 7);
+    padding: 1rem;
+}
+
+#registrado, #registradoA
+{
+    height:100px;
+    background-color: rgb(126, 255, 109);
+    border: 1px solid rgb(211, 198, 20);
     padding: 1rem;
 }
 

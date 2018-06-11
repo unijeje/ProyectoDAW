@@ -1,9 +1,14 @@
 <?php
-//$time = date("Y-m-d H:i:s");
-//$time=UNIX_TIMESTAMP($time);  
-echo $unixTimestamp=time();
-echo "<br>";
-echo date("Y-m-d H:i:s", $unixTimestamp);
+error_reporting(0);
+include("bbdd2.php");
+$antigua="juan111";
+$sql = "SELECT 1 from cuentas where password=?";
+$antiguaEnc=crypt($antigua);
+$stmt=DB::run($sql, [$antiguaEnc]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+echo "<pre>";
+print_r($usuario["1"]);
+echo "</pre>";
 ?>
 <!--
 <div class="row">

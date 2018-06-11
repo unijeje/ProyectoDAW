@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 include_once("../bbdd.php");
 
 $oDatos=json_decode($_POST['datos']);

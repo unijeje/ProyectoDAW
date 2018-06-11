@@ -2,7 +2,7 @@
 
 include_once("../bbdd2.php");
 $id=$_POST["datos"];
-$sql="DELETE FROM cuentas WHERE ID = ? ";
+$sql="UPDATE cuentas set ACTIVO=0 WHERE ID = ? ";
 $stmt = DB::run($sql, [$id]);
 $n=$stmt->rowCount();
 if($n>0)

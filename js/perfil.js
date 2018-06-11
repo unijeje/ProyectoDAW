@@ -1,16 +1,52 @@
 $("#guardar").click(editarPerfil);
 $("#eliminar").click(eliminarPerfil);
+$("#btnGuardarAdmin").click(editarAdminPerfil);
+$("#registradoA").hide();
+$("#registroErrorA").hide();
 
 var sEnviarPerfil= "datos="+user_id;
 $.get("../servidor/gestionCuenta/buscarComentarios.php", sEnviarPerfil, procesarComentarios, "json");
 
 var sNombreUsuario=$("#usuario").val();
+
+
+function editarAdminPerfil()
+{
+    $("#registroErrorA").hide();
+    $("#registradoA").hide();
+
+    var tipoC = $("#tipoCuenta").val();
+    var activoC = $("#activoCuenta").val();
+
+    var oOpciones = {tipo: tipoC, activo: activoC, id: user_id};
+
+    var sDatos= "datos="+JSON.stringify(oOpciones);
+
+    $.post("../servidor/gestionCuenta/editarAdmin.php",sDatos,function(respuesta, sStatus, oAjax){
+        if(respuesta[0]==true)
+        {
+            $("#registradoA").show();
+           // window.location.reload();
+        }
+        else
+        {
+            $("#registroErrorA p:first").append(respuesta[1]);
+            $("#registroErrorA").show();
+        }
+    },"json");
+}
+
+
+
+
 function editarPerfil()
 {
+    $("#registroError").hide();
+    $("#registrado").hide();
+
     if($("#passAntigua").val().trim()=="") //sin contraseña
     {
-        $("#registroError").hide();
-        $("#registrado").hide();
+        
         if(validarEdicionUsuario())
         {
             var sEmail=$("#email").val().trim();
@@ -40,13 +76,15 @@ function editarPerfil()
         {
             var sEmail=$("#email").val().trim();
             var sPass=$("#passNueva").val().trim();
+            var sPassAntigua = $("#passAntigua").val().trim();
             var oCuenta={nombre: sNombreUsuario,
                         id: user_id,
                         pass: sPass,
-                        correo: sEmail};
+                        correo: sEmail,
+                        passAnt : sPassAntigua};
             var sDatos= "datos="+JSON.stringify(oCuenta);
-            $.post("../servidor/gestionCuenta/editarPerfilConPass.php",sDatos,function(bExito, sStatus, oAjax){
-                if(bExito==true)
+            $.post("../servidor/gestionCuenta/editarPerfilConPass.php",sDatos,function(respuesta, sStatus, oAjax){
+                if(respuesta[0]==true)
                 {
                     $("#formEditarPerfil").hide();
                     $("#registrado").show();
@@ -54,6 +92,7 @@ function editarPerfil()
                 }
                 else
                 {
+                    $("#registroError p:first").append(respuesta[1]);
                     $("#registroError").show();
                 }
             },"json");
@@ -67,7 +106,25 @@ function validarEdicionUsuario()
 {
     var res=true;
 
-    //la contraseña se puede dejar en blanco o que cumpla parámetros
+    res=validacionCampo($("#usuario"), "Tiene que tener entre 3 y 20 carácteres", oExpRegNombre);
+
+    if(!validacionCampo($("#email"), "El correo no es válido", oExpRegEmail))
+        res=false;
+
+    if($("#passAntigua").val().trim()!="") 
+    {
+        if(!validacionCampo($("#passNueva"), "Tiene que tener un número, caracter y longitud 4", oExpRegPass))
+            res=false;
+
+        if($("#passNuevaRepetida").val().trim()!=$("#passNueva").val().trim() || $("#passNuevaRepetida").val().trim()=="")
+        {
+            invalidarCampo($("#passNuevaRepetida"), "Las contraseñas no coinciden", true);
+            res=false;
+        }
+        else
+            invalidarCampo($("#passNuevaRepetida"), "", false);
+
+    }
 
     return res;
 }

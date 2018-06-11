@@ -1,61 +1,24 @@
 ﻿<?php
-include("../utilities/utilities.php");
-include_once("../servidor/bbdd.php");
-iniciarSesion();
-cabecera("VideoJuegos BBDD");
+
+include("../controller/perfil.php");
 
 
-$miconexion=connectDB();
 
-if(isset($_GET["id"]))
-{
-    $id=$_GET["id"];
-    $sql="SELECT nombre, email, registro from cuentas where id=? ";
-    $select=$miconexion->prepare($sql);
-    $select->execute(array($id));
-    $fila=$select->fetch();
-    $usuario=$fila["nombre"];
-
-}
-else if (isset($_SESSION["id"]))
-{
-    $usuario=$_SESSION["nombre"];
-    $id= $_SESSION["id"];
-
-    $sql="SELECT email, registro from cuentas where NOMBRE=?";
-    $select=$miconexion->prepare($sql);
-    $select->execute(array($usuario));
-    $fila=$select->fetch();
-    
-}
-else
-{
-    header('Location: login.php');
-}
-$fila['registro']=fechaFormato($fila['registro']);
-
-
-$sql="select count(nota) as total from votos where cuenta=?";
-$select=$miconexion->prepare($sql);
-$select->execute(array($id));
-$filaNumVotos=$select->fetch();
-
-navBar();
 ?>
 <div class="row">
 
  <ul class="nav nav-pills flex-column col-2 mt-4" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="mostrarPerfil" data-toggle="pill" href="#perfil"><?php echo $usuario;?></a>
+      <a class="nav-link active" id="mostrarPerfil" data-toggle="pill" href="#perfil"><?php echo $perfil->usuario;?></a>
     </li>
     <?php
     if(!isset($_GET["id"]))
     {
-    ?>   
-    <li class="nav-item">
-      <a class="nav-link" id="editarPerfil" data-toggle="pill" href="#editar">Configuración</a>
-    </li>
-    <?php
+        ?>   
+        <li class="nav-item">
+        <a class="nav-link" id="editarPerfil" data-toggle="pill" href="#editar">Configuración</a>
+        </li>
+        <?php
     }
     ?> 
     <li class="nav-item">
@@ -83,6 +46,14 @@ navBar();
      }
     ?>
     </li>
+    <?php
+        if($administrador)
+        {
+            echo "<li class='nav-item'>";
+            echo '<a class="nav-link" data-toggle="pill" href="#admin">Administrador</a>';
+            echo "</li>";
+        }
+    ?>
 
   </ul>
 
@@ -94,23 +65,23 @@ navBar();
             <td class="w-25">ID usuario</td> <td><?php echo $id;?> </td>
         </tr>
         <tr>
-            <td class="w-25">Usuario</td> <td><?php echo $usuario;?> </td>
+            <td class="w-25">Usuario</td> <td><?php echo $perfil->usuario;?> </td>
         </tr>
         <tr>
-            <td>Registro</td> <td id="tablaCorreo"><?php echo $fila['registro'];?></td>
+            <td>Registro</td> <td id="tablaCorreo"><?php echo $perfil->fecha;?></td>
         </tr>
         <?php
         if(!isset($_GET["id"]))
         {
         ?> 
         <tr>
-            <td>Correo</td> <td><?php echo $fila['email'];?></td>
+            <td>Correo</td> <td><?php echo $perfil->email;?></td>
         </tr>
         <?php
         }
         ?> 
         <tr>
-            <td>Juegos</td> <td><?php echo $filaNumVotos["total"]; ?></td>
+            <td>Juegos</td> <td><?php echo $perfil->numTotal; ?></td>
         </tr>
         <tr>
             <td>Comentarios</td> <td>nº de comentarios</td>
@@ -126,21 +97,22 @@ navBar();
         <h2>Datos editados correctamente</h2>
     </div>
 
-    <div id="registroError">
-        <h2 class="text-danger">Ha habido un error al editar </h2>
+    <div id="registroError" class="mb-3">
+        <h2 class="mb-1">Ha habido un error al editar </h2>
+        <p></p>
     </div>
 
       <form name="formEditarPerfil" id="formEditarPerfil">
         <div class="form-group row">
             <label class="col-2 col-form-label" for="usuario">Usuario:</label>
             <div class="col-6">
-                <input disabled type="text" class="form-control" id="usuario" placeholder="Introduce nombre de usuario" name="usuario" value="<?php echo $usuario;?>">
+                <input disabled type="text" class="form-control" id="usuario" placeholder="Introduce nombre de usuario" name="usuario" value="<?php echo $perfil->usuario;?>">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-2 col-form-label" for="email">Email:</label>
             <div class="col-6">
-                <input type="text" class="form-control" id="email" placeholder="Introduce email" name="email" value="<?php echo $fila['email'];?>">
+                <input type="text" class="form-control" id="email" placeholder="Introduce email" name="email" value="<?php echo $perfil->email;?>">
             </div>
         </div>
         <br>
@@ -202,7 +174,59 @@ navBar();
 
       </table>
     </div>
+    <div id="admin" class="container tab-pane fade"><br>
+        <form id="adminOption" name="adminOption">
+            <div id="registradoA" class="col-9 mb-2">
+            <h2>Datos editados correctamente</h2>
+        </div>
 
+        <div id="registroErrorA" class="mb-3 col-9">
+            <h2 class="mb-1">Ha habido un error al editar </h2>
+            <p></p>
+        </div>
+        <div class="form-group row">
+            <label class="col-4" for="tipoCuenta">Asignar nivel de permisos: </label>
+            <div class="col-5">
+                <select class="form-control" id="tipoCuenta">
+                    <?php
+                        if($perfil->tipo == 1)
+                        {
+                            echo '<option selected="selected" value="1">Administrador</option>';
+                            echo '<option value="2">Usuario</option>';
+                        }
+                        else
+                        {
+                            echo '<option value="1">Administrador</option>';
+                            echo '<option selected="selected" value="2">Usuario</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-4" for="activoCuenta">Estado de la cuenta: </label>
+            <div class="col-5">
+                <select class=" form-control" id="activoCuenta">
+                    <?php
+                        if($perfil->activo == 1)
+                        {
+                            echo '<option selected="selected" value="1">Activado</option>';
+                            echo '<option value="0">Desactivado</option>';
+                        }
+                        else
+                        {
+                            echo '<option value="1">Activado</option>';
+                            echo '<option selected="selected" value="0">Desactivado</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+        </div>
+
+         <input type="button" id="btnGuardarAdmin" class="btn btn-primary mt-3 col-9" value="Guardar" />
+        </form>
+    </div>
 
   </div>    
 </div>

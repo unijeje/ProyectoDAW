@@ -4,7 +4,7 @@ class ListaUsuario
 {
     private $miconexion;
     private $numTotal;
-    public $numResultados = 3;
+    public $numResultados = 9;
     public $pages;
 
     function __construct()
@@ -19,7 +19,7 @@ class ListaUsuario
     public function getListadoUsuarios()
     {
         $this->miconexion=connectDB();
-        $sql="SELECT id, nombre, registro from cuentas order by nombre ".$this->pages->get_limit();
+        $sql="SELECT id, nombre, registro from cuentas where ACTIVO=1 order by nombre ".$this->pages->get_limit();
         $select=$this->miconexion->prepare($sql);
         $select->execute();
         $this->miconexion=null;

@@ -8,7 +8,7 @@ $pass=$oDatos->pass;
 
 $miconexion=connectDB();
 
-$sql="SELECT id, nombre, password, tipo, clave from cuentas where NOMBRE=? ";
+$sql="SELECT id, nombre, password, tipo, clave from cuentas where NOMBRE=? and ACTIVO=1";
 $select=$miconexion->prepare($sql);
 $select->execute(array($usuario));
 $fila=$select->fetch(PDO::FETCH_ASSOC);
