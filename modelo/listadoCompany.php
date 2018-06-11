@@ -23,7 +23,7 @@ class ListaCompany
     public function getListadoCompany()
     {
         $this->miconexion=connectDB();
-        $sql="SELECT id, nombre from company where ACTIVO=1 order by nombre ".$this->pages->get_limit();
+        $sql="SELECT id, nombre, fecha, pais from company where ACTIVO=1 order by nombre ".$this->pages->get_limit();
         $select=$this->miconexion->prepare($sql);
         $select->execute();
         $this->miconexion=null;

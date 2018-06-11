@@ -18,26 +18,14 @@ include("../controller/listadoUsuarios.php");
 
 <div id="listado" class="col-12 mt-5">
     <?php
-        $i=0;
-        echo '<div class="list-inline text-center col-12">';
-        foreach($filaCuentas as $fila)
-        {
-            if($i==$resPorTabla)
-            {
-                echo '</div>';
-                echo '<div class="list-inline text-center col-12">';
-                echo "<br>";
-                $i=0;
-            }
-            $idActual=$fila["id"];
-            echo '<li class="list-inline-item elementoListado"><a href="perfil.php?id='.$idActual.'" class="list-group-item list-group-item-action">'.$fila["nombre"].'</a></li>';
-            $i++;
-            
-        }
-
-        echo '</div>';
-
-    
+       echo '<div class="list-group ">';
+       foreach($filaCuentas as $fila)
+       {
+           $idActual=$fila["id"];
+           echo '<a href="perfil.php?id='.$idActual.'" class="list-group-item list-group-item-action elementoListado">'.$fila["nombre"].' &emsp; '.$fila["registro"].'</a>';
+          
+       }
+       echo '</div>';    
     
     ?>
 </div>

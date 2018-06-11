@@ -19,7 +19,7 @@ class ListaPlataforma
     public function getListadoPlataforma()
     {
         $this->miconexion=connectDB();
-        $sql="SELECT id, nombre from plataforma where ACTIVO=1 order by nombre ".$this->pages->get_limit();
+        $sql="SELECT p.id, p.nombre, c.nombre as company, c.id as company_id, p.fecha  from plataforma p INNER JOIN company c on p.company=c.id where p.ACTIVO=1 order by p.nombre ".$this->pages->get_limit();
         $select=$this->miconexion->prepare($sql);
         $select->execute();
         $this->miconexion=null;

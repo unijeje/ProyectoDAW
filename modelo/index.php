@@ -20,6 +20,7 @@ class Datos
     public $imagenHtml="";
     public $revHtml="";
     public $commentHtml="";
+    public $juegosHtml="";
 
     function __construct()
     {
@@ -27,6 +28,7 @@ class Datos
         $this->random_screenshot();
         $this->getUltimasRevisiones();
         $this->getUltimosComentarios();
+        $this->getJuegosRandom();
         $this->miconexion=null;
 
     }
@@ -143,6 +145,31 @@ class Datos
 
         $selectNumber = null;
     }
+
+
+    public function getJuegosRandom()
+    {
+        // $sql = "select MAX(id) as max, MIN(id) as min from juego";
+        // $range = $this->miconexion->prepare($sql);
+        // $range->execute();
+        // $filaRange = $range->fetch(PDO::FETCH_ASSOC)[0];
+
+        // $minId = $filaRange["min"];
+        // $maxId = $filaRange["max"];
+
+        $sql = "SELECT id, titulo FROM juego ORDER BY RAND() LIMIT 0,10";
+        $select = $this->miconexion->prepare($sql);
+        $select->execute();
+        $datos = $select->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($datos as $key=>$value)
+        {
+            $this->juegosHtml .= "<a href='pages/juego.php?id=".$value["id"]."'>".$value["titulo"]."</a><br>";
+        }
+
+        $datos = null;
+    }
+
     
 	public function getId(){
 		return $this->id;

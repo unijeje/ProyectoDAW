@@ -11,6 +11,6 @@ $listado = new ListaCompany();
 
 $filaCompany = $listado->getListadoCompany();
 
-$resPorTabla = $listado->numResultados/3;
+// $resPorTabla = $listado->numResultados/3;
 
 ?>

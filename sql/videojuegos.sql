@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2018 a las 16:11:08
+-- Tiempo de generación: 12-06-2018 a las 00:17:45
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -281,7 +281,7 @@ INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, 
 
 CREATE TABLE `personas` (
   `ID` int(6) NOT NULL,
-  `NOMBRE` varchar(100) NOT NULL,
+  `NOMBRE` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `NACIONALIDAD` varchar(40) CHARACTER SET latin1 DEFAULT NULL,
   `GENERO` varchar(10) DEFAULT NULL,
   `DESCRIPCION` text,
@@ -334,7 +334,7 @@ INSERT INTO `personas_roles_juegos` (`PERSONA`, `JUEGO`, `ROL`, `COMENTARIO`) VA
 
 CREATE TABLE `plataforma` (
   `ID` int(3) NOT NULL,
-  `NOMBRE` varchar(40) CHARACTER SET latin1 NOT NULL,
+  `NOMBRE` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `COMPANY` int(6) DEFAULT NULL,
   `FECHA` varchar(4) DEFAULT NULL,
   `DESCRIPCION` text CHARACTER SET latin1,
@@ -350,7 +350,7 @@ INSERT INTO `plataforma` (`ID`, `NOMBRE`, `COMPANY`, `FECHA`, `DESCRIPCION`, `ES
 (22, 'Playstation', 17, '1994', 'es una videoconsola de sobremesa de 32 bits lanzada por Sony Computer Entertainment el 3 de diciembre de 1994 en Japón. Se considera la videoconsola más exitosa de la quinta generación tanto en ventas como en popularidad. Además de la original se lanzó la PSone. Tuvo gran éxito al implantar el CD-ROM dentro de su hardware a pesar de que otras compañías como SEGA (Sega CD), Panasonic (3DO), Phillips (CD-i), SNK (Neo Geo CD), NEC (Super CD ROM) y Atari (Atari Jaguar) ya lo habían empleado. Dichas compañías tuvieron poco éxito al utilizar el CD-ROM como soporte para almacenar juegos. Se estima que Sony logró vender 105 500 000 unidades de su videoconsola en 10 años. La consola dejó de fabricarse en 2006.', 'CPU: R3000A, de 32 bits RISC con una frecuencia de reloj a 33,8688 MHz. ...\n    GPU: separada de la CPU, se encarga de procesar toda la información de gráficos en 2D. ...\n    Unidad de procesamiento de sonido (SPU): este chip es el encargado de procesar el sonido. ...\n    Memoria: ...\n    Unidad de lectura de CD-ROM:', 1),
 (23, 'Playstation 2', 17, '2000', 'Es la segunda videoconsola de sobremesa producida por Sony Computer Entertainment y la sucesora de PlayStation. Fue lanzada por primera vez el 4 de marzo del año 2000 en Japón, y unos meses después en el resto del mundo. Esta consola es también la que más títulos posee, aproximadamente 10 900 títulos seguida por su predecesora la PlayStation con unos 8000 títulos. Esta cantidad de títulos dada la extraordinaria acogida por parte del público en general hacia la misma, lo que incluso la consolidó como la consola con más tiempo en el mercado y a su vez la consola con más duración en el mismo, hasta ser descontinuada el 11 de enero de 2013 tras sus últimos títulos FIFA 14 y PES 2014.', '', 1),
 (24, 'Playstation 3', 17, '2006', 'Es la tercera videoconsola del modelo PlayStation de Sony Computer Entertainment. Forma parte de las videoconsolas de séptima generación y sus competidores son la Xbox 360 de Microsoft y la Wii de Nintendo.', '', 1),
-(25, 'Playstation 4', 17, '2013', 'ejándose de la compleja arquitectura utilizada en el procesador Cell de la videoconsola PlayStation 3, la PlayStation 4 cuenta con un procesador AMD de 8 núcleos bajo la arquitectura x86-64. Estas instrucciones x86-64 están diseñados para hacer más fácil el desarrollo de videojuegos en la consola de nueva generación, que atrae a un mayor número de desarrolladores. Estos cambios ponen de manifiesto el esfuerzo de Sony para mejorar las lecciones aprendidas durante el desarrollo, la producción y el lanzamiento de la PS3. Otras características de hardware notables de la PS4 es que incluyen 8 GB de memoria unificada GDDR5, una unidad de disco Blu-ray Disc más rápido, y los chips personalizados dedicados a tareas de procesamiento de audio, vídeo y de fondo.', '', 1),
+(25, 'Playstation 4', 17, '2013', 'ejándose de la compleja arquitectura utilizada en el procesador Cell de la videoconsola PlayStation 3, la PlayStation 4 cuenta con un procesador AMD de 8 núcleos bajo la arquitectura x86-64. Estas instrucciones x86-64 están diseñados para hacer más fácil el desarrollo de videojuegos en la consola de nueva generación, que atrae a un mayor número de desarrolladores. Estos cambios ponen de manifiesto el esfuerzo de Sony para mejorar las lecciones aprendidas durante el desarrollo, la producción y el lanzamiento de la PS3. Otras características de hardware notables de la PS4 es que incluyen 8 GB de memoria unificada GDDR5, una unidad de disco Blu-ray Disc más rápido, y los chips personalizados dedicados a tareas de procesamiento de audio, vídeo y de fondo.', '', 0),
 (26, 'Nintendo Switch', 16, '2017', 'Es la séptima consola de videojuegos principal desarrollada por Nintendo. Conocida en el desarrollo por su nombre código «NX», se dio a conocer en octubre de 2016 y fue lanzada mundialmente el 3 de marzo de 2017.', '', 1),
 (27, 'Nintendo 64', 16, '1996', 'Es la cuarta videoconsola de sobremesa producida por Nintendo, desarrollada para suceder a la Super Nintendo y para competir con el Saturn de Sega y la PlayStation de Sony.', '', 1),
 (28, 'Xbox', 22, '2001', 'Xbox fue la primera videoconsola de sobremesa producida por Microsoft, en colaboración con Intel. Su principal característica es su procesador central basado en el procesador Intel Pentium III. El sistema también incorpora un lector de DVD, un disco duro interno, puerto ethernet y por último el sistema dispone de cuatro conectores para los mandos. Las unidades vendidas de este equipo fueron 24 000 000 consolas, según las cifras oficiales.', '', 1);
@@ -374,7 +374,6 @@ INSERT INTO `plataforma_juego` (`ID_JUEGO`, `ID_PLATAFORMA`) VALUES
 (47, 23),
 (47, 24),
 (47, 28),
-(49, 25),
 (49, 26),
 (51, 23),
 (51, 28),
@@ -459,7 +458,8 @@ INSERT INTO `revisiones` (`ID`, `ID_MODELO`, `TIPO`, `NUMERO`, `FECHA`, `DESCRIP
 (102, 48, 'J', 5, '2018-06-03 01:13:43', 'Añadir screenshots al juego.', 23, '0', '0'),
 (103, 48, 'J', 6, '2018-06-03 01:14:26', 'Añadir screenshots al juego.', 23, '0', '0'),
 (104, 50, 'J', 3, '2018-06-03 01:18:55', 'Añadir screenshots al juego.', 23, '0', '0'),
-(105, 27, 'P', 2, '2018-06-03 19:35:44', 'Editar información de plataforma.', 23, '{\"id\":27,\"nombre\":\"Nintendo 64\",\"company\":\"Nintendo\",\"desc\":\"\",\"fecha\":\"1996\",\"esp\":\"\"}', '{\"id\":27,\"nombre\":\"Nintendo 64\",\"company\":\"Nintendo\",\"desc\":\"Es la cuarta videoconsola de sobremesa producida por Nintendo, desarrollada para suceder a la Super Nintendo y para competir con el Saturn de Sega y la PlayStation de Sony.\",\"fecha\":\"1996\",\"esp\":\"\"}');
+(105, 27, 'P', 2, '2018-06-03 19:35:44', 'Editar información de plataforma.', 23, '{\"id\":27,\"nombre\":\"Nintendo 64\",\"company\":\"Nintendo\",\"desc\":\"\",\"fecha\":\"1996\",\"esp\":\"\"}', '{\"id\":27,\"nombre\":\"Nintendo 64\",\"company\":\"Nintendo\",\"desc\":\"Es la cuarta videoconsola de sobremesa producida por Nintendo, desarrollada para suceder a la Super Nintendo y para competir con el Saturn de Sega y la PlayStation de Sony.\",\"fecha\":\"1996\",\"esp\":\"\"}'),
+(106, 49, 'J', 5, '2018-06-12 00:16:56', 'Editar plataformas del juego.', 23, '{\"plat\":[\"26\"],\"id\":49}', '{\"plat\":[\"26\"],\"id\":49}');
 
 -- --------------------------------------------------------
 
@@ -703,7 +703,7 @@ ALTER TABLE `plataforma`
 -- AUTO_INCREMENT de la tabla `revisiones`
 --
 ALTER TABLE `revisiones`
-  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
