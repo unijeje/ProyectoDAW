@@ -18,21 +18,52 @@ navBar();
     <div class="form-group row">
         <input type="button" id="btnFiltro" class="btn btn-primary col-2 offset-5 text-center my-3" value="Filtros" />
     </div>
+    
+    <div id="capaFiltro" class="col-8 offset-2">
+        <form name="formEditarJuego" id="formEditarJuego" class="my-3">
+            <label class="col-4 offset-1" for="generos">Seleccione los generos:</label>
+            <label class="col-4 offset-2" for="fecha">Fecha:</label>
+            <div class="form-group row col-12">
+                <div class="col-4 offset-1">   
+                    <select multiple class="form-control mb-3" size="4" id="generos" name="generos">
+                        <option value="t">Todos</option>
+                    </select>
+                </div>
+                <div class="offset-1 col-6">
+                    <div class="row h-50">
+                        <div class="form-group row">
+                            <label class="col-4" for="fechaMin">Posterior a: </label>
+                            <input type="text" class="form-control col-7 mb-3 fecha" id="fechaMin" placeholder="Lanzamiento despues de..." name="fechaMin"/>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-4" for="fechaMax">Anterior a: </label>
+                            <input type="text" class="form-control col-7 mb-3 fecha" id="fechaMax" placeholder="Lanzamiento antes de..." name="fechaMax"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <label class="col-4 offset-1" for="generos">Seleccione la duración:</label>
+            <label class="col-4 offset-1" for="plataformas">Seleccione las plataformas:</label>
+            <div class="form-group row col-12">
+                <select size="4" multiple class="form-control col-4 offset-1"  id="duracion" name="duracion"><option value="t">Todos</option></select>
+                <select size="4" multiple class="form-control col-6 offset-1"  id="plataformas" name="plataformas"><option value="t">Todos</option></select>
+            </div>
+            <input type="button" id="btnFiltroAvanz" class="btn btn-primary col-4 offset-4 text-center my-3" value="Buscar" />
+        </form>
+    </div>
+
 </div>
+
 <div style="max-width: 100%;">
 <table id="tablaListadoJuego" class="table table-bordered table-dark" style="width:100%;">
-<thead>
-<tr><th class="w-75">Título</th><th>Lanzamiento</th><th>Rating</th></tr>
-</thead>
+    <thead>
+    <tr><th class="w-75">Título</th><th>Lanzamiento</th><th>Rating</th></tr>
+    </thead>
 
 </table>
 </div>
 
 <script type="text/javascript" src="../utilities/datatables2.min.js"></script>
-<!--
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/cr-1.4.1/datatables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
--->
 <script type="text/javascript" src="../js/ListadoJuego.js"></script>
 <?php
 pie();

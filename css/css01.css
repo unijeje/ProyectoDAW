@@ -30,9 +30,20 @@ p, li:not(.nav-item)
     font-size:1.2em;
 }
 
-#registrado, #registroError, #registrarOtro, #registroErrorA, #registradoA
+#registrado, #registroError, #registrarOtro, #registroErrorA, #registradoA, #formEditarJuego
 {
     display: none;
+}
+
+#formEditarJuego
+{
+    background-color: rgb(42, 46, 42);
+    border-left: 2px solid rgb(49, 107, 255);
+    border-right: 2px solid rgb(49, 107, 255);
+    border-top: 4px solid rgb(49, 107, 255);
+    border-bottom: 4px solid rgb(49, 107, 255); 
+    padding: 1rem;
+    color: rgb(171, 175, 179);
 }
 
 #registroError, #registroErrorA
