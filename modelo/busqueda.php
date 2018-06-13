@@ -42,9 +42,29 @@ class Busqueda
             case "a":
                 $this->buscarTodo();
                 break;
+            case "u":
+                $this->buscarUser();
+                break;
             
         }
         
+    }
+
+
+    private function buscarUser()
+    {
+        $sql = "SELECT ID, NOMBRE, REGISTRO FROM cuentas where nombre like CONCAT(:busq,'%') and ACTIVO=1 ";
+
+        $this->countTotal($sql);
+
+        $sql = $sql." ".$this->pages->get_limit();
+
+        $select=$this->miconexion->prepare($sql);
+        $select->execute(array(':busq' => $this->busq));
+        $data = $select->fetchAll(PDO::FETCH_ASSOC);
+        $select = null;
+
+        $this->datos = $data;
     }
 
     private function buscarJuego()

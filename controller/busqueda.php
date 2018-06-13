@@ -29,11 +29,17 @@ else if(isset($_GET["p"]))
     $busqueda = $_GET["p"];
     $tipo = "p";
 }
+else if(isset($_GET["u"]))
+{
+    $busqueda = $_GET["u"];
+    $tipo = "u";
+}
 else if(isset($_GET["a"]))
 {
     $busqueda = $_GET["a"];
     $tipo = "a";
 }
+
 
 $listado = new Busqueda($tipo, $busqueda);
 

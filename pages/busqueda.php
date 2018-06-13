@@ -66,6 +66,19 @@ switch($tipo)
         
     }
     break;
+
+    case "u":
+    echo '<table class="table borderless table-striped">';
+    echo '<tr>';
+    echo '    <th class="w-75">Usuario</th><th>Registro</th>';
+    echo '</tr>';
+    foreach($listado->datos as $value)
+    {
+        echo "<tr>";
+            echo "<td><a href='plataforma.php?id=".$value['ID']."'>".$value["NOMBRE"]."</a></td><td>".$value["REGISTRO"]."</td>";
+        echo "</tr>";
+        
+    }
     
 }
 echo '</table>';
