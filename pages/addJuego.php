@@ -9,7 +9,7 @@ navBar();
     <h2>Añadido correctamente</h2>
     <br>
 </div>
-<div id="registrarOtro" class="col-6">
+<div id="registrarOtro" class="col-6 mt-3">
     <input type="button" id="btnAgain" class="btn btn-primary col-3" value="Registrar otro" />
     <br>
 </div>

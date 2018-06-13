@@ -110,9 +110,18 @@ if(isset($_SESSION["tipo"]))
         <?php
         if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador
         {
-            echo "<form id='borrarPlat' name='borrarPlat'>";
-            echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Plataforma" />';
-            echo "</form>";
+            if($plataforma->getActivo()==1)
+            {
+                echo "<form id='borrarPlat' name='borrarPlat'>";
+                echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Plataforma" />';
+                echo "</form>";
+            }
+            else
+            {
+                echo "<form id='activarPlat' name='activarPlat'>";
+                echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Plataforma" />';
+                echo "</form>";
+            }
         }
 
             ?>

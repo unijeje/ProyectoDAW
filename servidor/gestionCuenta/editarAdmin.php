@@ -20,6 +20,25 @@ try
     {
         $res[0]=true;
         $res[1] = "Datos actualizados correctamente.";
+
+        if($activo == 0)
+        {
+            try
+            {
+                $sql = "DELETE from votos where CUENTA = ?";
+                $stmt = DB::run($sql, [$id]);
+                $n=$stmt->rowCount();
+                $res[0]=true;
+
+            }
+            catch(PDOException $e)
+            {
+                $res[0] = false;
+                $res[1] = "No se ha podido eliminar los votos de este usuario.";
+            }
+
+        }
+
     }
     else
     {

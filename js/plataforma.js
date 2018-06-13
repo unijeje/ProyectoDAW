@@ -23,6 +23,8 @@ $( document ).ready(function() {
             fecha: sFecha,
             esp: sEsp};
 
+    $("#activar").click(activarPlat);
+
 });
 
 
@@ -101,6 +103,30 @@ function eliminarPlat()
     },"json");
 
 }
+
+function activarPlat()
+{
+    
+    var sDatos= "datos="+plat_id;
+    $.post("../servidor/gestionPlataforma/activarPlat.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito==true)
+        {
+            $("#formEditarPlat").hide();
+            $("#borrarPlat").hide();
+            $("#activarPlat").hide();
+            $("#guidelines").hide();
+            $("#registrado").show();
+            window.location.reload();
+        }
+        else
+        {
+            $("#registroError").show();
+        }
+        
+    },"json");
+
+}
+
 function cargarRevisionesStaff(oRespuesta, sStatus, oAjax)
 {
     if(oAjax.status==200)

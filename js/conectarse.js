@@ -8,6 +8,8 @@ $("#pass").keyup(function(event)
     }
 });
 
+$("#usuario")[0].focus();
+
 function conectarse()
 {
     

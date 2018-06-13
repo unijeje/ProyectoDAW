@@ -75,7 +75,7 @@ switch($tipo)
     foreach($listado->datos as $value)
     {
         echo "<tr>";
-            echo "<td><a href='plataforma.php?id=".$value['ID']."'>".$value["NOMBRE"]."</a></td><td>".$value["REGISTRO"]."</td>";
+            echo "<td><a href='perfil.php?id=".$value['ID']."'>".$value["NOMBRE"]."</a></td><td>".$value["REGISTRO"]."</td>";
         echo "</tr>";
         
     }

@@ -6,7 +6,7 @@ include_once("../servidor/bbdd.php");
 $id_juego=$_GET["id"];
 
 $miconexion=connectDB();
-$sql="select titulo, sinopsis, fecha, enlace, cover, duracion, media from juego where id=?";
+$sql="select titulo, sinopsis, fecha, enlace, cover, duracion, media, activo from juego where id=?";
 
 $rsJuego=$miconexion->prepare($sql);
 $rsJuego->execute(array($id_juego));
@@ -482,10 +482,20 @@ if(isset($_SESSION["tipo"]))
         <?php
             if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador
             {
-                echo '<div class="tab-pane container" id="del">';
+                
+                echo '<div class="tab-pane container  mt-3" id="del">';
+                if($filaJuego["activo"] == 1)
+                {
                     echo "<form id='borrarJuego' name='borrarJuego'>";
-                    echo '<input type="button" id="eliminar" class="btn btn-danger col-8 mt-3" value="Eliminar Juego" />';
+                    echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Juego" />';
                     echo "</form>";
+                }
+                else
+                {
+                    echo "<form id='activarJuego' name='activarJuego'>";
+                    echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Juego" />';
+                    echo "</form>";
+                } 
                 echo '</div>';
             }
         ?>

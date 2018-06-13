@@ -4,17 +4,20 @@ $( document ).ready(function() {
     var sDatosRevisiones = "datos="+JSON.stringify({id:staff_id, tipo: staffRev})
     $.get("../servidor/gestionRevisiones/getRevisiones.php", sDatosRevisiones, cargarRevisionesStaff, "json");
     var sNombre=$("#nombre").val().trim();
-        var sNacionalidad=$("#nacionalidad").val().trim();
-        var sDesc=$("#desc").val().trim();
-        var sGenero=$('input[name=radioGenero]:checked').val();
-        var sEnlace=$("#enlace").val().trim();
+    var sNacionalidad=$("#nacionalidad").val().trim();
+    var sDesc=$("#desc").val().trim();
+    var sGenero=$('input[name=radioGenero]:checked').val();
+    var sEnlace=$("#enlace").val().trim();
 
-        oStaffAntiguo={  id: staff_id,
-                        nombre: sNombre,
-                        nacionalidad: sNacionalidad,
-                        desc: sDesc,
-                        genero: sGenero,
+    oStaffAntiguo={  id: staff_id,
+                    nombre: sNombre,
+                    nacionalidad: sNacionalidad,
+                    desc: sDesc,
+                    genero: sGenero,
                         enlace: sEnlace};
+
+
+    $("#activar").click(activarStaff);
 });
 
 
@@ -73,9 +76,8 @@ function editarPersona()
 
     }
        
-
-    
 }
+
 function eliminarPersona()
 {
     
@@ -97,6 +99,30 @@ function eliminarPersona()
     },"json");
 
 }
+
+function activarStaff()
+{
+    
+    var sDatos= "datos="+staff_id;
+    $.post("../servidor/gestionPersona/activarPersona.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito==true)
+        {
+            $("#formEditarStaff").hide();
+            $("#activarStaff").hide();
+            $("#guidelines").hide();
+            $("#registrado").show();
+            window.location.reload();
+        }
+        else
+        {
+            $("#registroError").show();
+        }
+        
+    },"json");
+
+}
+
+
 function cargarRevisionesStaff(oRespuesta, sStatus, oAjax)
 {
     if(oAjax.status==200)

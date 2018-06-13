@@ -143,9 +143,18 @@ if(isset($_SESSION["tipo"]))
         <?php
         if(isset($_SESSION["tipo"]) && $_SESSION["tipo"]=="1") //si es administrador
         {
-            echo "<form id='borrarCompany' name='borrarCompany'>";
-            echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Compañía" />';
-            echo "</form>";
+            if($company->getActivo()==1)
+            {
+                echo "<form id='borrarCompany' name='borrarCompany'>";
+                echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Compañía" />';
+                echo "</form>";
+            }
+            else
+            {
+                echo "<form id='activarCompany' name='activarCompany'>";
+                echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Compañía" />';
+                echo "</form>";
+            }
         }
 
             ?>

@@ -18,6 +18,8 @@ $( document ).ready(function() {
         desc: sDesc,
         fecha: sFecha,
         enlace: sEnlace};
+
+    $("#activar").click(activarCompany);
     
 });
 
@@ -75,6 +77,7 @@ function editarCompany()
     }
 
 }
+
 function eliminarCompany()
 {
     
@@ -96,6 +99,29 @@ function eliminarCompany()
     },"json");
 
 }
+
+function activarCompany()
+{
+    
+    var sDatos= "datos="+company_id;
+    $.post("../servidor/gestionCompany/activarCompany.php",sDatos,function(bExito, sStatus, oAjax){
+        if(bExito==true)
+        {
+            $("#formEditarCompany").hide();
+            $("#activarCompany").hide();
+            $("#guidelines").hide();
+            $("#registrado").show();
+            window.location.reload();
+        }
+        else
+        {
+            $("#registroError").show();
+        }
+        
+    },"json");
+
+}
+
 function cargarRevisionesStaff(oRespuesta, sStatus, oAjax)
 {
 

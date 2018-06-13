@@ -4,3 +4,12 @@
 2018-06-13 00:16:13 INFO Edición Entrada Juego Con ID: 50
 2018-06-13 00:16:21 INFO Edición Entrada Juego Con ID: 50
 2018-06-13 00:16:54 INFO Edición Entrada Juego Con ID: 50
+2018-06-13 19:38:13 INFO Creacion Entrada Staff Con ID: 26
+2018-06-13 19:39:47 INFO Creacion Entrada Compañía Con ID: 25
+2018-06-13 19:40:07 INFO Creacion Entrada Juego Con ID: 59
+2018-06-13 19:40:42 INFO Edición Entrada Juego Con ID: 59
+2018-06-13 20:11:31 ERROR Error requesting page ../servidor/gestionCompany/eliminarCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-13 20:11:47 ERROR Error requesting page ../servidor/gestionCompany/eliminarCompany.php Detalles: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+2018-06-13 20:18:26 INFO Edición Entrada Juego Con ID: 59
+2018-06-13 21:15:57 INFO Edición Entrada Juego Con ID: 59
+2018-06-13 21:16:31 INFO Edición Entrada Juego Con ID: 59

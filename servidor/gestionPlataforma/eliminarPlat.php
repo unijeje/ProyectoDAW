@@ -1,17 +1,29 @@
 <?php
 
-include_once("../bbdd.php");
+include_once("../bbdd2.php");
 
 $id=$_POST['datos'];
 
 
-$sql="update plataforma set ACTIVO=0 where id='$id'";
+$sql="update plataforma set ACTIVO=0 where id=?";
+$stmt = DB::run($sql, [$id]);
+$n=$stmt->rowCount();
 
-
-$n=ejecutaConsultaAccion($sql);
 
 if($n > 0)
-    $exito = true;
+{
+    try
+    {
+        $sql = "DELETE FROM plataforma_juego WHERE ID_PLATAFORMA = ? ";
+        $stmt = DB::run($sql, [$id]);
+
+        $exito = true;
+    }
+    catch(PDOException $e)
+    {
+        $exito = false;
+    }
+}
 else
     $exito = false;
 

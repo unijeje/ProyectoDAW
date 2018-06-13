@@ -96,6 +96,8 @@ $( document ).ready(function() {
 	$('[data-fancybox="gallery"]').fancybox({
         // Options will go here
     });
+
+    $("#activar").click(reactivarJuego);
 });
 
 function procesarRevisiones(oRespuesta, sStatus, oAjax)
@@ -589,8 +591,31 @@ function darJuegoBaja()
         $("#borrarJuego").hide();
         $("#guidelines").hide();
         $("#registrado").show();
-        editarRevision(0, 0, user_id, juegoRev, juego_id, "Dar juego de baja.");
-        setTimeout(function(){window.location.reload();}, 1000);
+        // editarRevision(0, 0, user_id, juegoRev, juego_id, "Dar juego de baja.");
+        // setTimeout(function(){window.location.reload();}, 1000);
+        window.location.reload();
+    }
+    else
+    {
+        $("#registroError").show();
+    }
+        
+    },"json");
+}
+
+function reactivarJuego()
+{
+    $("#registroError").hide();
+    var sDatos= "datos="+juego_id;
+    $.post("../servidor/gestionJuego/activarJuego.php",sDatos,function(bExito, sStatus, oAjax){
+    if(bExito==true)
+    {
+        $("#activarJuego").hide();
+        $("#guidelines").hide();
+        $("#registrado").show();
+        //editarRevision(0, 0, user_id, juegoRev, juego_id, "Dar juego de Alta.");
+        // setTimeout(function(){window.location.reload();}, 1000);
+        window.location.reload();
     }
     else
     {
