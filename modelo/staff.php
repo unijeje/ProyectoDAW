@@ -48,7 +48,7 @@ class Staff
     {
         $sql="SELECT j.id, j.titulo, j.fecha, r.rol, p.comentario, j.media 
         from juego j, personas_roles_juegos p, roles r 
-        where p.rol=r.id and p.juego=j.id and p.persona=? 
+        where p.rol=r.id and p.juego=j.id and p.persona=? and j.activo=1
         order by j.fecha ".$this->pages->get_limit();
 
         $selectCreditos=$this->miconexion->prepare($sql);
