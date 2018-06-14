@@ -1,9 +1,19 @@
-#buscador, #revisiones, #comentarios, #juegos
+#buscador, #revisiones,  #juegos
 {
     /* border: 1px solid black; */
     background-color: rgb(42, 46, 42);
-    border-left: 2px solid rgb(49, 107, 255);
-    border-right: 2px solid rgb(49, 107, 255);
+    border-left: 4px solid rgb(49, 107, 255);
+    border-right: 4px solid rgb(49, 107, 255);
+    border-top: 4px solid rgb(49, 107, 255);
+    border-bottom: 4px solid rgb(49, 107, 255); 
+    padding: 1rem;
+}
+
+#comentarios
+{
+    background-color: rgb(42, 46, 42);
+    border-left: 0px solid rgb(49, 107, 255);
+    border-right: 0px solid rgb(49, 107, 255);
     border-top: 4px solid rgb(49, 107, 255);
     border-bottom: 4px solid rgb(49, 107, 255); 
     padding: 1rem;

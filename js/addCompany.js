@@ -74,5 +74,18 @@ function validarCompany()
     else
         invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
 
+    var reEnlace = new RegExp("^(http|https)://", "i");
+
+    if($("#formAddCompany #enlace").val().trim()!="" && !reEnlace.test($("#formAddCompany #enlace").val().trim()))
+    {
+        
+        invalidarCampo($("#formAddCompany #enlace"), "Este campo no es un enlace", true);
+        res=false;
+    }
+    else
+    {
+        invalidarCampo($("#formAddCompany #enlace"),  false);
+    }
+
     return res;
 }

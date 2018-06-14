@@ -162,7 +162,19 @@ function validarEdicionStaff()
     else
         invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
 
-       
+    var reEnlace = new RegExp("^(http|https)://", "i");
+
+    if($("#formEditarStaff #enlace").val().trim()!="" && !reEnlace.test($("#formEditarStaff #enlace").val().trim()))
+    {
+        
+        invalidarCampo($("#formEditarStaff #enlace"), "Este campo no es un enlace", true);
+        res=false;
+    }
+    else
+    {
+        invalidarCampo($("#formEditarStaff #enlace"),  false);
+    }
+
     return res;
 }
 

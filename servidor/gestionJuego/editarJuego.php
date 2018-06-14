@@ -11,6 +11,10 @@ $fecha=$oDatos->fecha;
 $duracion=$oDatos->duracion;
 $oGeneros=$oDatos->generos;
 
+if($duracion == -1)
+{
+    $duracion = NULL;
+}
 
 $miconexion=connectDB();
 $miconexion->beginTransaction(); 

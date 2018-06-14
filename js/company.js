@@ -162,6 +162,21 @@ function validarEdicionCompany()
     else
         invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
 
+
+    var reEnlace = new RegExp("^(http|https)://", "i");
+
+    if($("#formEditarCompany #enlace").val().trim()!="" && !reEnlace.test($("#formEditarCompany #enlace").val().trim()))
+    {
+        
+        invalidarCampo($("#formEditarCompany #enlace"), "Este campo no es un enlace", true);
+        res=false;
+    }
+    else
+    {
+        invalidarCampo($("#formEditarCompany #enlace"),  false);
+    }
+
+
        
     return res;
 }

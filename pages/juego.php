@@ -334,10 +334,10 @@ if(isset($_SESSION["tipo"]))
             }
         ?>
     </ul>
-    <div id="registrado">
+    <div id="registrado" class="col-8 my-2">
         <h2>Editado correctamente</h2>
     </div>
-    <div id="registroError" class="col-8">
+    <div id="registroError" class="col-8 my-2">
         <h2>Error al editar</h2>
         <p></p>  
     </div>
@@ -376,7 +376,7 @@ if(isset($_SESSION["tipo"]))
                 <div class="form-group">
                     <label for="duracion">Horas para pasarse el juego:</label>
                     <select class="form-control col-8"  id="duracion" name="duracion">
-                    
+                    <option selected value="-1">No asignado</option>
                     </select>
                 </div>
                 
@@ -388,6 +388,7 @@ if(isset($_SESSION["tipo"]))
 
         <div class="tab-pane container" id="comp">
             <form name="formEditCompany" id="formEditCompany" method="get" action"#" class="mt-4">
+            <p>Utilize las sugerencias con nombres ya introducidos en la base de datos</p>
             <div class="text-center col-8">
                 <input type="button" id="btnCompany" class="btn btn-primary col-8" value="Añadir Otra Compañía" />  
             </div>
@@ -404,6 +405,7 @@ if(isset($_SESSION["tipo"]))
         </div>
         <div class="tab-pane container" id="staff"> <!--Staff-->
             <form name="formStaff" id="formStaff" method="get" action="#" class="mt-4">
+                <p>Utilize las sugerencias con nombres ya introducidos en la base de datos</p>
                 <?php
                 if($filaStaff!=null)
                 {

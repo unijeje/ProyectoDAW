@@ -88,7 +88,7 @@ function validacionCampo(oCampo, sMensaje, oExpReg)
     return res;
 }
 
-function invalidarCampo(oCampo, sMensaje, bool)
+function invalidarCampo(oCampo, sMensaje = "", bool)
 {
     if(typeof(oCampo)=="object")
         oCampo=oCampo[0];

@@ -67,5 +67,18 @@ function validarStaff()
     else
         invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
 
+    var reEnlace = new RegExp("^(http|https)://", "i");
+
+    if($("#formAddStaff #enlace").val().trim()!="" && !reEnlace.test($("#formAddStaff #enlace").val().trim()))
+    {
+        
+        invalidarCampo($("#formAddStaff #enlace"), "Este campo no es un enlace", true);
+        res=false;
+    }
+    else
+    {
+        invalidarCampo($("#formAddStaff #enlace"),  false);
+    }
+
     return res;
 }

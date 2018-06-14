@@ -154,6 +154,19 @@ function validarJuego()
     else
         invalidarCampo($("#nombre"), "No puede dejar este campo vacio", false);
 
+    var reEnlace = new RegExp("^(http|https)://", "i");
+
+    if($("#formAddJuego #enlace").val().trim()!="" && !reEnlace.test($("#formAddJuego #enlace").val().trim()))
+    {
+        
+        invalidarCampo($("#formAddJuego #enlace"), "Este campo no es un enlace", true);
+        res=false;
+    }
+    else
+    {
+        invalidarCampo($("#formAddJuego #enlace"), "No puede dejar este campo vacio", false);
+    }
+
 
     var camposCompanies=$(".companies");
     for(var i=0;i<camposCompanies.length;i++)
