@@ -16,10 +16,10 @@ navBar();
         <input type="text" class="form-control col-12" id="txtBusqueda" placeholder="Crash Bandicoot" name="txtBusqueda">
     </div>
     <div class="form-group row">
-        <input type="button" id="btnFiltro" class="btn btn-primary col-2 offset-5 text-center my-3" value="Filtros" />
+        <input type="button" id="btnFiltro" class="btn btn-primary col-lg-3 col-12 offset-lg-5 offset-0 text-center my-3" value="Filtros" />
     </div>
     
-    <div id="capaFiltro" class="col-8 offset-2">
+    <div id="capaFiltro" class="col-lg-8 col-12 offset-lg-2 offset-0">
         <form name="formEditarJuego" id="formEditarJuego" class="my-3">
             <label class="col-4 offset-1" for="generos">Seleccione los generos:</label>
             <label class="col-4 offset-2" for="fecha">Fecha:</label>
@@ -54,7 +54,7 @@ navBar();
 
 </div>
 
-<div style="max-width: 100%;">
+<div class="mb-3" style="max-width: 100%;">
 <table id="tablaListadoJuego" class="table table-bordered table-dark" style="width:100%;">
     <thead>
     <tr><th class="w-75">Título</th><th>Lanzamiento</th><th>Rating</th></tr>

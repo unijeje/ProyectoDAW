@@ -432,12 +432,12 @@ function guardarStaff()
 function addStaffInput()
 {
     var sHtml='<div style="display:none;" class="form-group row divStaff">';
-    sHtml+=' <input type="text" class="form-control col-3 txtStaffNombre ml-2" placeholder="Jason Rubin" name="" />';
-    sHtml+='<select class="selectStaff form-control col-3 ml-2">';
+    sHtml+=' <input type="text" class="form-control col-lg-3 col-6 txtStaffNombre ml-2" placeholder="Jason Rubin" name="" />';
+    sHtml+='<select class="selectStaff form-control col-lg-3 col-5 ml-2">';
     sHtml+=sOptionsStaff;
     sHtml+='</select>';
-    sHtml+=' <input type="text" class="form-control col-3 txtStaffComentario ml-2" placeholder="comentario" name="" />';
-    sHtml+='<input type="button" class="btn btn-danger col-1 ml-1 btnEliminarStaff" value="X" />';
+    sHtml+=' <input type="text" class="form-control  col-lg-3 col-6 txtStaffComentario ml-2" placeholder="comentario" name="" />';
+    sHtml+='<input type="button" class="btn btn-danger col-lg-1 col-2 ml-2 btnEliminarStaff" value="X" />';
     sHtml+="</div>";
 
     //console.log(sHtml);
@@ -795,7 +795,7 @@ function rellenarPlataformas(oPlat, sStatus, oAjax)
     {
         for(var i=0;i<oPlat.length;i++)
         {
-            var sHtml='<div class="form-check form-check-inline"><label class="form-check-label">';
+            var sHtml='<div class="form-check form-check-inline col-lg-3 col-5"><label class="form-check-label">';
             sHtml+='<input class="form-check-input" type="checkbox" id="checkboxPlat" name="checkboxPlat" value="'+oPlat[i].id+'"> '+oPlat[i].nombre+' </label></div>';
             $("#checkboxPlataformas").prepend(sHtml);
         }
@@ -865,8 +865,8 @@ function rellenarCompanies(oRespuesta, sStatus, oAjax)
         {
             var sHtml='<div class="form-group divCompany"><label for="company">Compañía: *</label>';
             sHtml+='<div class="form-inline">';
-            sHtml+='<input type="text" class="form-control col-7 companies" placeholder="Nombre completo" name="company" value="'+oRespuesta[i].nombre+'"/> ';
-            sHtml+='<input type="button" class="btn btn-danger col-1 ml-1 btnEliminar" value="X" />';
+            sHtml+='<input type="text" class="form-control col-lg-7 col-9 companies" placeholder="Nombre completo" name="company" value="'+oRespuesta[i].nombre+'"/> ';
+            sHtml+='<input type="button" class="btn btn-danger col-lg-1 col-2 ml-1 btnEliminar" value="X" />';
             sHtml+='</div>';
             sHtml+='</div>';
 

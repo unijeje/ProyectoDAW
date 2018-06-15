@@ -131,7 +131,7 @@ if($filaJuego!=null)
     </ul>
 <div id="mainJuego">
     <div class="row">
-        <div id="coverJuego" class="offset-1 col-2">
+        <div id="coverJuego" class="offset-lg-1 col-lg-2 col-3 offset-4 ">
             <?php
             if($filaJuego["cover"]!=null)
             {
@@ -139,7 +139,7 @@ if($filaJuego!=null)
             }
             ?>
         </div>
-        <div id="informacionJuego" class="row col-8 offset-1">
+        <div id="informacionJuego" class="row col-lg-8 offset-lg-1 col-11 offset-1 mobile-margin-top">
             <table class ="table table-responsive borderless">
             <tr><td>Lanzamiento</td><td><?php echo $filaJuego["fecha"];?></td></tr>
 
@@ -214,7 +214,7 @@ if($filaJuego!=null)
                 echo "<tr>";
                 echo "<td>Su Voto</td>";
                 echo "<td>";
-                echo '<select class="form-control col-12" size="1" id="nota" name="nota">';
+                echo '<select class="form-control col-lg-12 col-12" size="1" id="nota" name="nota">';
                     if($filaVoto["nota"]==null)
                         echo "<option value='nada'>No ha votado</option>";
                     else
@@ -267,7 +267,7 @@ if($filaJuego!=null)
         </div>
     </div>
 
-    <h2 class="mt-5">Listado de Staff</h2>
+    <h2 class="mt-5 text-center">Listado de Staff</h2>
     <div id="creditosJuego" class="my-2 row">
             <?php
             if(isset($difRoles))
@@ -278,10 +278,10 @@ if($filaJuego!=null)
 
                 foreach($difRoles as $value)
                 {   
-                    if($num_cols==0 || $num_cols%4==0) 
-                        echo "<div class='col-2 mt-2'>";
+                    if($num_cols==0 || $num_cols%3==0) 
+                        echo "<div class='col-lg-3 mt-2 col-4'>";
                     else
-                        echo "<div class='col-2 mt-2 offset-1'>";
+                        echo "<div class='col-lg-3 mt-2 offset-lg-1 offset-0 col-4'>";
                     echo "<h4>".$value."</h4>";
                     echo "<ul class='list-group'>";                    
 
@@ -334,15 +334,15 @@ if(isset($_SESSION["tipo"]))
             }
         ?>
     </ul>
-    <div id="registrado" class="col-8 my-2">
+    <div id="registrado" class="col-lg-8 col-12 my-2">
         <h2>Editado correctamente</h2>
     </div>
-    <div id="registroError" class="col-8 my-2">
+    <div id="registroError" class="col-lg-8 col-12 my-2">
         <h2>Error al editar</h2>
         <p></p>  
     </div>
     <br>
-    <div id="guidelines" class="col-8">
+    <div id="guidelines" class="col-lg-8 col-12">
         <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
         <p> Antes de añadir consulte si ya existe en la base de datos </p>
     </div>
@@ -352,36 +352,36 @@ if(isset($_SESSION["tipo"]))
             <form name="formEditInfo" id="formEditInfo" method="get" action"#"> 
                 <div class="form-group mt-3">
                     <label for="nombre">Título: *</label>
-                    <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $filaJuego['titulo'];?>" />          
+                    <input type="text" class="form-control col-lg-8 col-12" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $filaJuego['titulo'];?>" />          
                 </div>
                 <div class="form-group">
                     <label for="sinopsis">Sinopsis:</label>
-                    <textarea class="form-control col-8" id="sinopsis" rows="5" placeholder="" name="sinopsis"> <?php echo $filaJuego['sinopsis'];?></textarea>
+                    <textarea class="form-control col-lg-8 col-12" id="sinopsis" rows="5" placeholder="" name="sinopsis"> <?php echo $filaJuego['sinopsis'];?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="enlace">Enlace de interés(Página oficial, wikipedia, etc):</label>
-                    <input type="text" class="form-control col-8" id="enlace" placeholder="https://www.crashbandicoot.com/es" name="enlace" value="<?php echo $filaJuego['enlace'];?>" />
+                    <input type="text" class="form-control col-lg-8 col-12" id="enlace" placeholder="https://www.crashbandicoot.com/es" name="enlace" value="<?php echo $filaJuego['enlace'];?>" />
                 </div>
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
-                    <input type="text" class="form-control col-8" id="fecha" placeholder="yy-mm-dd" name="fecha" value="<?php echo $filaJuego['fecha'];?>" />
+                    <input type="text" class="form-control col-lg-8 col-12" id="fecha" placeholder="yy-mm-dd" name="fecha" value="<?php echo $filaJuego['fecha'];?>" />
                 </div>
                 <div class="form-group">
                     <label for="generos">Seleccione los generos:</label>
-                    <select multiple class="form-control col-8" size="3" id="generos" name="generos">
+                    <select multiple class="form-control col-lg-8 col-12" size="3" id="generos" name="generos">
                     
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="duracion">Horas para pasarse el juego:</label>
-                    <select class="form-control col-8"  id="duracion" name="duracion">
+                    <select class="form-control col-lg-8 col-12"  id="duracion" name="duracion">
                     <option selected value="-1">No asignado</option>
                     </select>
                 </div>
                 
                 <br>
-                <input type="button" id="btnEditInfo" class="btn btn-primary col-8 mb-5" value="Guardar Cambios" />
+                <input type="button" id="btnEditInfo" class="btn btn-primary col-lg-8 col-12 mb-5" value="Guardar Cambios" />
         </form>
         </div>
 
@@ -389,18 +389,18 @@ if(isset($_SESSION["tipo"]))
         <div class="tab-pane container" id="comp">
             <form name="formEditCompany" id="formEditCompany" method="get" action"#" class="mt-4">
             <p>Utilize las sugerencias con nombres ya introducidos en la base de datos</p>
-            <div class="text-center col-8">
+            <div class="text-center col-lg-8 col-12">
                 <input type="button" id="btnCompany" class="btn btn-primary col-8" value="Añadir Otra Compañía" />  
             </div>
-            <input type="button" id="btnEditarCompany" class="btn btn-primary col-8 mt-5" value="Guardar Cambios" />  
+            <input type="button" id="btnEditarCompany" class="btn btn-primary col-lg-8 col-12 mt-5" value="Guardar Cambios" />  
             </form>
         </div>
         <div class="tab-pane container" id="plat">
         <form name="formEditPlat" id="formEditPlat" method="get" action"#" class="mt-4">
-            <div class="form-group" id="checkboxPlataformas">
+            <div class="form-group col-lg-8 col-12" id="checkboxPlataformas">
 
             </div>
-            <input type="button" id="btnEditarPlat" class="btn btn-primary col-8 mt-5" value="Guardar Cambios" />  
+            <input type="button" id="btnEditarPlat" class="btn btn-primary col-lg-8 col-12 mt-5" value="Guardar Cambios" />  
         </form>
         </div>
         <div class="tab-pane container" id="staff"> <!--Staff-->
@@ -412,22 +412,22 @@ if(isset($_SESSION["tipo"]))
                     foreach($filaStaff as $value)
                     {
                         $sHtml='<div class="form-group row divStaff">';
-                        $sHtml.=' <input type="text" class="form-control col-3 txtStaffNombre ml-2" placeholder="Jason Rubin" name="" value="'.$value["nombre"].'" />';
-                        $sHtml.='<select class="selectStaff form-control col-3 ml-2">';
+                        $sHtml.=' <input type="text" class="form-control col-lg-3 col-6 txtStaffNombre ml-2" placeholder="Jason Rubin" name="" value="'.$value["nombre"].'" />';
+                        $sHtml.='<select class="selectStaff form-control col-lg-3 col-5 ml-2">';
 
                         $sHtml.="</select>";
-                        $sHtml.=' <input type="text" class="form-control col-3 txtStaffComentario ml-2" placeholder="comentario" name="" value="'.$value["comentario"].'"/>';
-                        $sHtml.='<input type="button" class="btn btn-danger col-1 ml-1 btnEliminarStaff" value="X" />';
+                        $sHtml.=' <input type="text" class="form-control col-lg-3 col-6 txtStaffComentario ml-2 mobile-margin-top" placeholder="comentario" name="" value="'.$value["comentario"].'"/>';
+                        $sHtml.='<input type="button" class="btn btn-danger col-lg-1 col-2 ml-2 btnEliminarStaff mobile-margin-top" value="X" />';
                         $sHtml.="</div>";
                         echo $sHtml;
                     }
                 }
                 ?>
                 <div class="form-group">
-                <input type="button" id="btnAddStaff" class="form-control btn btn-primary col-2  mt-2" value="Añadir Staff" />
+                <input type="button" id="btnAddStaff" class="form-control btn btn-primary col-lg-2 col-4  mt-2" value="Añadir Staff" />
                 </div>
                 <br>
-                <input type="button" id="btnGuardarStaff" class="form-control btn btn-primary col-8 mt-3" value="Guardar Cambios" /> 
+                <input type="button" id="btnGuardarStaff" class="form-control btn btn-primary col-lg-8 col-12 mt-3" value="Guardar Cambios" /> 
             </form>  
         </div>
         <div class="tab-pane container" id="images">

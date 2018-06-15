@@ -5,6 +5,12 @@ body {
     background-color: #CBD1D4;
     color: #212930;
 }
+
+
+@media screen and (max-width: 992px) {
+    .mobile-margin-top {margin-top:10px;}
+    }
+
 table
 {
     caption-side: top;
@@ -171,6 +177,11 @@ a:visited {
 #tablaListadoJuego a
 {
     color: #7bd;
+}
+
+#listado
+{
+    margin-left: -10px;
 }
 
 #mostrarHoraComentariosPerfil
