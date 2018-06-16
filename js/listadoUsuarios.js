@@ -20,7 +20,7 @@ function buscarUsuario()
     {
         invalidarCampo($("#txtBusqueda"), "Introduzca algún caracter", false);
 
-        window.location.replace("busqueda.php?u="+sNombre);
+        window.location.href = "busqueda.php?u="+sNombre;
         // var sDatos= "datos="+sNombre;
         // //console.log(oPersona);
         // $.get("../servidor/gestionCuenta/buscarUsuario.php",sDatos,function(res, sStatus, oAjax){

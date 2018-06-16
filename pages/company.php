@@ -46,7 +46,7 @@ include("../controller/company.php");
             </div>
             <div id="collapseJuego" class="collapse show" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table borderless table-striped">
+                    <table class="table borderless table-striped table-responsive">
                     <tr>
                     <th class="w-75">Título</th><th>Lanzamiento</th><th>Nota</th>
                     </tr>
@@ -75,7 +75,7 @@ include("../controller/company.php");
             </div>
             <div id="collapsePlat" class="collapse show" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table borderless table-striped">
+                    <table class="table borderless table-striped table-responsive">
                     <tr>
                     <th class="w-75">Título</th><th>Lanzamiento</th>
                     </tr>
@@ -178,7 +178,7 @@ if(isset($_SESSION["tipo"]))
 ?>
 <div id="revisionesCompany">
     <h3 class="text-center">Revisiones</h3>
-    <table class="table table-bordered" id="revisionesListado">
+    <table class="table table-bordered table-responsive" id="revisionesListado">
     <tr><th>ID REVISION</th><th>USUARIO</th><th>Descripción</th><th>Fecha</th></tr>
     </table>
 </div>

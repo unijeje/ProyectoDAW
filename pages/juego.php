@@ -131,7 +131,7 @@ if($filaJuego!=null)
     </ul>
 <div id="mainJuego">
     <div class="row">
-        <div id="coverJuego" class="offset-lg-1 col-lg-2 col-3 offset-4 ">
+        <div id="coverJuego" class="offset-lg-1 col-lg-2 col-sm-3 offset-sm-4 offset-1">
             <?php
             if($filaJuego["cover"]!=null)
             {
@@ -139,7 +139,7 @@ if($filaJuego!=null)
             }
             ?>
         </div>
-        <div id="informacionJuego" class="row col-lg-8 offset-lg-1 col-10 offset-2 mobile-margin-top">
+        <div id="informacionJuego" class="row col-lg-8 offset-lg-1 col-sm-10 offset-sm-2 col-12 mobile-margin-top">
             <table class ="table table-responsive borderless">
             <tr><td>Lanzamiento</td><td><?php echo $filaJuego["fecha"];?></td></tr>
 
@@ -534,7 +534,7 @@ if(isset($_SESSION["tipo"]))
 
 <div id="revisionesJuego">
     <h3 class="text-center">Revisiones</h3>
-    <table class="table table-bordered" id="revisionesListado">
+    <table class="table table-bordered table-responsive" id="revisionesListado">
     <tr><th>ID REVISION</th><th>USUARIO</th><th>Descripción</th><th>Fecha</th></tr>
     </table>
 </div>

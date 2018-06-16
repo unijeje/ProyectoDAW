@@ -22,8 +22,8 @@ function addCompany()
 {
     var sHtml='<div style="display:none;" class="form-group divCompany"><label for="company">Compañía: *</label>';
     sHtml+='<div class="form-inline">';
-    sHtml+='<input type="text" class="form-control col-6 companies" placeholder="Nombre completo" name="company">';
-    sHtml+='<input type="button" class="btn btn-danger col-1 ml-1 btnEliminar" value="X" />';
+    sHtml+='<input type="text" class="form-control col-lg-8 col-10 companies" placeholder="Nombre completo" name="company">';
+    sHtml+='<input type="button" class="btn btn-danger col-1 ml-2 btnEliminar" value="X" />';
     sHtml+='</div>';
     sHtml+='</div>';
     $("#btnCompany").parent().before(sHtml);

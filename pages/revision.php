@@ -88,7 +88,7 @@ if($revision!=null)
 
             if(isset($antes) && !is_int($antes) && property_exists($antes, "nombre"))
             {                
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
 
                 if($antesArray["nombre"] == $despuesArray["nombre"])
@@ -260,7 +260,7 @@ if($revision!=null)
             {
                 unset($antesArray["id"]);
                 unset($despuesArray["id"]);
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th></th><th>Nombres</th><th>Roles</th><th>Comentario</th></tr>";
                 $count = max(count($antesArray["nombres"]), count($despuesArray["nombres"]));
                 for ($i=0;$i<$count;$i++)
@@ -344,7 +344,7 @@ if($revision!=null)
                     {
                         if(in_array($value["id"], $despuesArray["plat"]))
                         {
-                            echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                            echo "<li class='list-group-item mt-2'>".$value["nombre"]."</li>";
                         }
                     }
                     echo "</ul>";
@@ -362,7 +362,7 @@ if($revision!=null)
                     {
                         if(in_array($value["id"], $antesArray["plat"]))
                         {
-                            echo "<li class='list-group-item list-group-item-danger'>".$value["nombre"]."</li>";
+                            echo "<li class='list-group-item list-group-item-danger mt-2'>".$value["nombre"]."</li>";
                         }
                     }
                     echo "</ul>";
@@ -383,7 +383,7 @@ if($revision!=null)
                         if(in_array($value["id"], $antesArray["plat"]))
                         {
                             
-                            echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                            echo "<li class='list-group-item mt-2'>".$value["nombre"]."</li>";
                             
                         }
                     }
@@ -396,7 +396,7 @@ if($revision!=null)
                         if(in_array($value["id"], $despuesArray["plat"]))
                         {
                             
-                            echo "<li class='list-group-item'>".$value["nombre"]."</li>";
+                            echo "<li class='list-group-item mt-2'>".$value["nombre"]."</li>";
                             
                         }
                     }
@@ -406,7 +406,7 @@ if($revision!=null)
             }
             else
             {
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
                 foreach($despuesArray as $key=>$value)
                 {
@@ -435,7 +435,7 @@ if($revision!=null)
         case "C":
             if(!isset($antesArray["id"]))
             {
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
                 foreach($despuesArray as $key=>$value)
                 {
@@ -451,7 +451,7 @@ if($revision!=null)
                 unset($antesArray["id"]);
                 unset($despuesArray["id"]);
 
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
                 foreach($antesArray as $key=>$value)
                 {
@@ -478,7 +478,7 @@ if($revision!=null)
         case "S":
             if(!isset($antesArray["id"]))
             {
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
                 foreach($despuesArray as $key=>$value)
                 {
@@ -494,7 +494,7 @@ if($revision!=null)
                 unset($antesArray["id"]);
                 unset($despuesArray["id"]);
 
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
                 foreach($antesArray as $key=>$value)
                 {
@@ -519,7 +519,7 @@ if($revision!=null)
         case "P":
             if(!isset($antesArray["id"]))
             {
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Despues</th></tr>";
                 foreach($despuesArray as $key=>$value)
                 {
@@ -535,7 +535,7 @@ if($revision!=null)
                 unset($antesArray["id"]);
                 unset($despuesArray["id"]);
 
-                echo "<table class='table table-bordered'>";
+                echo "<table class='table table-bordered table-responsive'>";
                 echo "<tr><th>Propiedad</th><th>Antes</th><th>Despues</th></tr>";
                 foreach($antesArray as $key=>$value)
                 {

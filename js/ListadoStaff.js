@@ -20,7 +20,7 @@ function buscarPersona()
     {
         invalidarCampo($("#txtBusqueda"), "Introduzca algún caracter", false);
 
-        window.location.replace("busqueda.php?s="+sNombre);
+        window.location.href = "busqueda.php?s="+sNombre;
 
     // var sDatos= "datos="+sNombre;
     // //console.log(oPersona);

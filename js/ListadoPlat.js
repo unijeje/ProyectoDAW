@@ -20,7 +20,7 @@ function buscarPlat()
     {
         invalidarCampo($("#txtBusqueda"), "Introduzca algún caracter", false);
 
-        window.location.replace("busqueda.php?p="+sNombre);
+        window.location.href = "busqueda.php?p="+sNombre;
 
     // var sDatos= "datos="+sNombre;
     // //console.log(oPersona);

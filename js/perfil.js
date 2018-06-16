@@ -183,14 +183,15 @@ $(document).ready(function() {
         {
             var juegos=$('#tablaPerfilJuego').DataTable( {
             data: oRespuesta,
-            'sDom': "<'row'<'col-7'l><'col-5'f>>" +
+            'sDom': "<'row'<'col-lg-7 col-md-6 col-12'l><'col-lg-5 col-md-6 col-12'f>>" +
                     "<'row'<'col-12't>>" +
-                    "<'row'<'col-7'i><'col-5'p>>",
+                    "<'row'<'col-lg-7 d-none d-lg-block'i><'col-lg-5 col-md-10 offset-md-2 offset-2 offset-lg-0'p>>",
             "language": {
                 "url": "../utilities/datatable_ESP.lang"
             },
             columns: [
                     { data: 'cover',
+                      "width" : "17%",
                         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                         if(sData!=null)
                             $(nTd).html("<img class='imgCoverMin' src='../img/covers/"+oData.id+".png'>" );
@@ -200,11 +201,13 @@ $(document).ready(function() {
                         
                 },
                     { data: 'titulo',
+                    "width" : "50%",
                     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                    $(nTd).html("<a href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
+                    $(nTd).html("<a class='w-75' href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
                     }
                 },
                     { data: 'nota', 
+                    "width" : "17%",
                     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                         var sSelect='<select data-nota="'+oData.id+'" class="nota" name="nota">';
                         sSelect+="<option value='revoke'>Eliminar Nota</option>";
@@ -220,7 +223,8 @@ $(document).ready(function() {
                         
                     }
                 },
-                    { data: 'fecha'}
+                    { data: 'fecha',
+                    "width" : "17%"}
                     ]
         } );
 
@@ -238,14 +242,15 @@ $(document).ready(function() {
     {
         var juegos=$('#tablaPerfilJuegoOtro').DataTable( {
             data: oRespuesta,
-            'sDom': "<'row'<'col-7'l><'col-5'f>>" +
+            'sDom': "<'row'<'col-lg-7 col-md-6 col-12'l><'col-lg-5 col-md-6 col-12'f>>" +
                     "<'row'<'col-12't>>" +
-                    "<'row'<'col-7'i><'col-5'p>>",
+                    "<'row'<'col-lg-7 d-none d-lg-block'i><'col-lg-5 col-md-10 offset-md-2 offset-2 offset-lg-0'p>>",
             "language": {
                 "url": "../utilities/datatable_ESP.lang"
             },
             columns: [
                     { data: 'cover',
+                    "width" : "17%",
                         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                         if(sData!=null)
                             $(nTd).html("<img class='imgCoverMin' src='../img/covers/"+oData.id+".png'>" );
@@ -255,17 +260,19 @@ $(document).ready(function() {
                         
                 },
                     { data: 'titulo',
+                    "width" : "50%",
                     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                     $(nTd).html("<a href='juego.php?id="+oData.id+"'>"+oData.titulo+"</a>");
                     }
                 },
-                    { data: 'nota', 
+                    { data: 'nota',
+                    "width" : "17%", 
                     fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                         $(nTd).html("<div class='text-center'>"+ oData.nota+"</div>");
                         
                     }
                 },
-                    { data: 'fecha'}
+                    { data: 'fecha', "width" : "17%"}
                     ]
         } );
         

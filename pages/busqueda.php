@@ -13,7 +13,7 @@ if($tipo!="a")
 switch($tipo)
 {
     case "j":
-    echo '<table class="table borderless table-striped">';
+    echo '<table class="table borderless table-striped table-responsive">';
     echo '<tr>';
     echo '    <th class="w-75">Título</th><th>Fecha</th><th>Nota</th>';
     echo '</tr>';
@@ -26,7 +26,7 @@ switch($tipo)
     }
     break;
     case "s":
-    echo '<table class="table borderless table-striped">';
+    echo '<table class="table borderless table-striped table-responsive">';
     echo '<tr>';
     echo '    <th class="w-50">Nombre</th><th>Nacionalidad</th><th>Género</th>';
     echo '</tr>';
@@ -40,7 +40,7 @@ switch($tipo)
     break;
     
     case "c":
-    echo '<table class="table borderless table-striped">';
+    echo '<table class="table borderless table-striped table-responsive">';
     echo '<tr>';
     echo '    <th class="w-50">Nombre</th><th>País</th><th>FECHA</th>';
     echo '</tr>';
@@ -54,7 +54,7 @@ switch($tipo)
     break;
 
     case "p":
-    echo '<table class="table borderless table-striped">';
+    echo '<table class="table borderless table-striped table-responsive">';
     echo '<tr>';
     echo '    <th class="w-50">Nombre</th><th>COMPANY</th><th>FECHA</th>';
     echo '</tr>';
@@ -68,7 +68,7 @@ switch($tipo)
     break;
 
     case "u":
-    echo '<table class="table borderless table-striped">';
+    echo '<table class="table borderless table-striped table-responsive">';
     echo '<tr>';
     echo '    <th class="w-75">Usuario</th><th>Registro</th>';
     echo '</tr>';

@@ -21,7 +21,7 @@ function buscarCompany()
     {
         invalidarCampo($("#txtBusqueda"), "Introduzca algún caracter", false);
     
-        window.location.replace("busqueda.php?c="+sNombre);
+        window.location.href = "busqueda.php?c="+sNombre;
     // var sDatos= "datos="+sNombre;
     // //console.log(oPersona);
     // $.get("../servidor/gestionCompany/buscarCompany.php",sDatos,function(res, sStatus, oAjax){

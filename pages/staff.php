@@ -50,7 +50,7 @@ include("../controller/staff.php");
             </div>
             <div id="collapseJuego" class="collapse show" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table borderless table-striped">
+                    <table class="table borderless table-striped table-responsive">
                     <tr>
                     <th class="w-75">Título</th><th>Lanzamiento</th><th>Rol</th><th>Comentario</th><th>Nota</th>
                     </tr>
@@ -163,7 +163,7 @@ if(isset($_SESSION["tipo"]))
 ?>
 <div id="revisionesStaff">
     <h3 class="text-center">Revisiones</h3>
-    <table class="table table-bordered" id="revisionesListado">
+    <table class="table table-bordered table-responsive" id="revisionesListado">
     <tr><th>ID REVISION</th><th>USUARIO</th><th>Descripción</th><th>Fecha</th></tr>
     </table>
 </div>

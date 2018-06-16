@@ -23,23 +23,23 @@ function iniciarBusqueda()
     switch(radio)
     {
         case "juego":
-            window.location.replace("pages/busqueda.php?j="+sText);
+            window.location.href = "pages/busqueda.php?j="+sText;
         break;
 
         case "comp":
-            window.location.replace("pages/busqueda.php?c="+sText);
+            window.location.href = "pages/busqueda.php?c="+sText;
         break;
 
         case "staff":
-            window.location.replace("pages/busqueda.php?s="+sText);
+            window.location.href = "pages/busqueda.php?s="+sText;
         break;
 
         case "plat":
-            window.location.replace("pages/busqueda.php?p="+sText);
+            window.location.href = "pages/busqueda.php?p="+sText;
         break;
         
         case "todos": 
-            window.location.replace("pages/busqueda.php?a="+sText);
+            window.location.href = "pages/busqueda.php?a="+sText;
         break;
     }
 }

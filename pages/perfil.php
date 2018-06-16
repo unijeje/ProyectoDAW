@@ -2,12 +2,10 @@
 
 include("../controller/perfil.php");
 
-
-
 ?>
 <div class="row">
 
- <ul class="nav nav-pills flex-column col-2 mt-4" role="tablist">
+ <ul class="nav nav-pills flex-column col-lg-2 col-md-3 col-sm-12 mt-4" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="mostrarPerfil" data-toggle="pill" href="#perfil"><?php echo $perfil->usuario;?></a>
     </li>
@@ -58,9 +56,9 @@ include("../controller/perfil.php");
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content col-9 ml-2">
+  <div class="tab-content col-lg-9 col-md-8 col-12 ml-2">
     <div id="perfil" class="container tab-pane active"><br>
-      <table class="table table-striped ">
+      <table class="table table-striped table-responsive">
         <tr>
             <td class="w-25">ID usuario</td> <td><?php echo $id;?> </td>
         </tr>
@@ -104,14 +102,14 @@ include("../controller/perfil.php");
 
       <form name="formEditarPerfil" id="formEditarPerfil">
         <div class="form-group row">
-            <label class="col-2 col-form-label" for="usuario">Usuario:</label>
-            <div class="col-6">
+            <label class="col-lg-2 col-3 col-form-label" for="usuario">Usuario:</label>
+            <div class="col-lg-6 col-8">
                 <input disabled type="text" class="form-control" id="usuario" placeholder="Introduce nombre de usuario" name="usuario" value="<?php echo $perfil->usuario;?>">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-2 col-form-label" for="email">Email:</label>
-            <div class="col-6">
+            <label class="col-lg-2 col-3 col-form-label" for="email">Email:</label>
+            <div class="col-lg-6 col-8">
                 <input type="text" class="form-control" id="email" placeholder="Introduce email" name="email" value="<?php echo $perfil->email;?>">
             </div>
         </div>
@@ -119,34 +117,34 @@ include("../controller/perfil.php");
         <p class="">Dejar en blanco para mantener la contraseña actual </p>
         <br>
         <div class="form-group row">
-            <label class="col-2 col-form-label labelDoble" for="passAntigua">Contraseña Actual:</label>
-            <div class="col-6">
+            <label class="col-lg-2 col-3 col-form-label labelDoble" for="passAntigua">Contraseña Actual:</label>
+            <div class="col-lg-6 col-8">
                 <input type="password" class="form-control" id="passAntigua" placeholder="Introduce contraseña" name="pass">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-2 col-form-label labelDoble" for="passNueva">Contraseña Nueva:</label>
-            <div class="col-6">
+            <label class="col-lg-2 col-3 col-form-label labelDoble" for="passNueva">Contraseña Nueva:</label>
+            <div class="col-lg-6 col-8">
                 <input type="password" class="form-control" id="passNueva" placeholder="Introduce contraseña" name="pass">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-2 col-form-label labelDoble" for="passNuevaRepetida">Confirmar Contraseña:</label>
-            <div class="col-6">
+            <label class="col-lg-2 col-3 col-form-label labelDoble" for="passNuevaRepetida">Confirmar Contraseña:</label>
+            <div class="col-lg-6 col-8">
                 <input type="password" class="form-control" id="passNuevaRepetida" placeholder="Introduce contraseña" name="pass">
             </div>
         </div>
         
-        <input type="button" id="guardar" class="btn btn-primary col-8" value="Guardar" />
+        <input type="button" id="guardar" class="btn btn-primary col-lg-8 col-11 " value="Guardar" />
       </form>
       <br/>
       <br/>
       <form name="formEliminarPerfil" id="formEliminarPerfil">
-        <input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar cuenta" />
+        <input type="button" id="eliminar" class="btn btn-danger col-lg-8 col-11 " value="Eliminar cuenta" />
       </form>
     </div>
 
-    <div id="votos" class="container tab-pane fade"><br>
+    <div id="votos" class="container tab-pane fade col-12"><br>
         <h3>Todos sus Juegos</h3>
         <div class="mt-4" style="max-width: 100%;">
         <?php
@@ -160,14 +158,14 @@ include("../controller/perfil.php");
         }
         ?>
             <thead>
-            <tr><th>Cover</th><th class="w-50">Título</th><th>Voto</th><th>Registro</th></tr>
+            <tr><th>Cover</th><th class="tablaMinWidth">Título</th><th>Voto</th><th>Registro</th></tr>
             </thead>
         </table>
         </div>
     </div>
     <div id="comentarios" class="container tab-pane fade"><br>
     
-      <table id="tablaComentarios" class="table table-hover">
+      <table id="tablaComentarios" class="table table-hover table-responsive">
         <tr>
             <th id="mostrarHoraComentariosPerfil">Fecha</th><th id="mostrarHoraComentariosPerfil">Juego</th><th id="mostrarHoraComentariosPerfil">Comentario</th>
         </tr>

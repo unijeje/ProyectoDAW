@@ -214,7 +214,7 @@ function eliminarImagenes()
             $("#registrado").show();
             $("#formEditarImg").hide();
             $("#guidelines").hide();
-            editarRevision(0, 0, user_id, juegoRev, juego_id, "Eliminar screenshots del juego.");
+            //editarRevision(0, 0, user_id, juegoRev, juego_id, "Eliminar screenshots del juego.");
             setTimeout(function(){window.location.reload();}, 1000);
         }
         else
@@ -261,7 +261,7 @@ function guardarImagenes()
                 $("#registrado").show();
                 $("#formEditarImg").hide();
                 $("#guidelines").hide();
-                editarRevision(0, 0, user_id, juegoRev, juego_id, "Añadir screenshots al juego.");
+                //editarRevision(0, 0, user_id, juegoRev, juego_id, "Añadir screenshots al juego.");
                 setTimeout(function(){window.location.reload();}, 1000);
             }
             else
@@ -517,7 +517,7 @@ function eliminarCover()
             $("#registrado").show();
             $("#formEditarImg").hide();
             $("#guidelines").hide();
-            editarRevision(0, 0, user_id, juegoRev, juego_id, "Eliminar del juego.");
+            //editarRevision(0, 0, user_id, juegoRev, juego_id, "Eliminar del juego.");
             setTimeout(function(){window.location.reload();}, 1000);
         }
         else
@@ -548,7 +548,7 @@ function guardarCoverImg()
                 $("#registrado").show();
                 $("#formEditarImg").hide();
                 $("#guidelines").hide();
-                editarRevision(0, 0, user_id, juegoRev, juego_id, "Agregar cover del juego.");
+                //editarRevision(0, 0, user_id, juegoRev, juego_id, "Agregar cover del juego.");
                 setTimeout(function(){window.location.reload();}, 1000);
             }
             else

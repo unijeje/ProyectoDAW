@@ -8,7 +8,7 @@ if(isset($_GET["id"]))
 {
     $id=$_GET["id"];
     
-    if($_SESSION["tipo"] == 1)
+    if(isset($_SESSION["tipo"]) && $_SESSION["tipo"] == 1)
     {
         $administrador=true;
     }
