@@ -19,17 +19,29 @@ include("../controller/staff.php");
         <li><a href="#revisionesStaff">Revisiones</a></li>
     </ul>
 <div id="mainStaff">
-    <div id="datosPersona" class="col-10 offset-1">
-        <h2 class="text-center"><?php echo $staff->getNombre();?></h2>
-        <p class="text-center">Nacionalidad: <?php echo $staff->getNacionalidad();?></p>
-        <p class="text-center">Género: <?php echo $staff->getGenero();?></p>
-        <?php if ($staff->getEnlace()!=null)
-        echo '<p class="text-center">Enlace: '.$staff->getEnlace().'</p>';
-        ?>
-        <p> <?php echo $staff->getDescripcion();?> </p>
-    </div>
-    <h2 class="mt-5">Créditos</h2>
     <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseInfo">
+                Información <?php echo $staff->getNombre();?>
+                </a>
+            </div>
+            <div id="collapseInfo" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="datosPersona" class="col-lg-10 col-12 offset-lg-1">
+                        <h2 class="text-center"><?php echo $staff->getNombre();?></h2>
+                        <p class="text-center">Nacionalidad: <?php echo $staff->getNacionalidad();?></p>
+                        <p class="text-center">Género: <?php echo $staff->getGenero();?></p>
+                        <?php if ($staff->getEnlace()!=null)
+                        echo '<p class="text-center">Enlace: '.$staff->getEnlace().'</p>';
+                        ?>
+                        <p> <?php echo $staff->getDescripcion();?> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mt-5">Créditos</h2>
         <div class="card">
             <div class="card-header">
                 <a class="card-link" data-toggle="collapse" href="#collapseJuego">
@@ -63,36 +75,37 @@ if(isset($_SESSION["tipo"]))
 {
 ?>
 <div id="editingStaff">
-    <div id="registrado" class="col-8">
+    <div id="registrado" class="col-lg-8 col-12">
         <h2>Editado correctamente</h2>
         <br>
     </div>
-    <div id="registroError" class="col-8">
+    <div id="registroError" class="col-lg-8 col-12">
         <h2 class="text-danger">Error al editar</h2>
+        <p></p>
         <br>
     </div>
 
     <h1>Editar <?php echo $staff->getNombre();?> </h1>
     <br>
-    <div id="guidelines" class="col-8">
+    <div id="guidelines" class="col-lg-8 col-12">
     <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
     <p> Antes de añadir consulte si ya existe en la base de datos </p>
     </div>
     <br>
     <div id="registrar" class="row">
-        <div class="col-12 ">
+        <div class="col-12">
             <form name="formEditarStaff" id="formEditarStaff" method="get" action"#"> 
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $staff->getNombre();?>">
+                <input type="text" class="form-control col-lg-8 col-12" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $staff->getNombre();?>">
             </div>
             <div class="form-group">
                 <label for="nacionalidad">Nacionalidad:</label>
-                <input type="text" class="form-control col-8" id="nacionalidad" placeholder="nacionalidad" name="nacionalidad" value="<?php echo $staff->getNacionalidad();?>">
+                <input type="text" class="form-control col-lg-8 col-12" id="nacionalidad" placeholder="nacionalidad" name="nacionalidad" value="<?php echo $staff->getNacionalidad();?>">
             </div>
             <div class="form-group">
                 <label for="desc">Descripción:</label>
-                <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc" > <?php echo $staff->getDescripcion();?></textarea>
+                <textarea class="form-control col-lg-8 col-12" id="desc" rows="5" placeholder="" name="desc" > <?php echo $staff->getDescripcion();?></textarea>
             </div>
             <div class="form-check form-check-inline">
                 <label class="radio-inline">
@@ -116,11 +129,11 @@ if(isset($_SESSION["tipo"]))
             </div>
             <div class="form-group">
                 <label for="enlace">Enlace de interés(wikipedia, twitter, etc):</label>
-                <input type="text" class="form-control col-8" id="enlace" placeholder="https://en.wikipedia.org/wiki/Jason_Rubin" name="enlace" value="<?php echo $staff->getEnlace();?>">
+                <input type="text" class="form-control col-lg-8 col-12" id="enlace" placeholder="https://en.wikipedia.org/wiki/Jason_Rubin" name="enlace" value="<?php echo $staff->getEnlace();?>">
             </div>
 
             <br>
-            <input type="button" id="btnEditar" class="btn btn-primary col-8" value="Guardar" />
+            <input type="button" id="btnEditar" class="btn btn-primary col-lg-8 col-12" value="Guardar" />
             </form>
             <br><br>
             <?php
@@ -129,13 +142,13 @@ if(isset($_SESSION["tipo"]))
                 if($staff->getActivo()==1)
                 {
                     echo "<form id='borrarStaff' name='borrarStaff'>";
-                    echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Persona" />';
+                    echo '<input type="button" id="eliminar" class="btn btn-danger col-lg-8 col-12" value="Eliminar Persona" />';
                     echo "</form>";
                 }
                 else
                 {
                     echo "<form id='activarStaff' name='activarStaff'>";
-                    echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Persona" />';
+                    echo '<input type="button" id="activar" class="btn btn-success col-lg-8 col-12" value="Reactivar Persona" />';
                     echo "</form>";                
                 }
                 

@@ -18,16 +18,29 @@ include("../controller/plataforma.php");
         <li><a href="#revisionesPlataforma">Revisiones</a></li>
     </ul>
 <div id="mainPlat">
-    <div id="datosCompany" class="col-10 offset-1">
-        <h2 class="text-center"><?php echo $plataforma->getNombre();?></h2>
-        <p class="text-center">Compañía: <?php echo $plataforma->getCompany();?></p>
-        <p class="text-center">Lanzamiento: <?php echo $plataforma->getFecha();?></p>
-        <p> <?php echo $plataforma->getDescripcion();?> </p>
-        <h3>Especificaciones</h3>
-        <p> <?php echo $plataforma->getEspecificaciones();?> </p>
-    </div>
-    <h2 class="mt-5">Lista de juegos</h2>
     <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseInfo">
+                Información de <?php echo $plataforma->getNombre();?>
+                </a>
+            </div>
+            <div id="collapseInfo" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="datosCompany" class="col-lg-10 offset-lg-1 col-12">
+                        <h2 class="text-center"><?php echo $plataforma->getNombre();?></h2>
+                        <p class="text-center">Compañía: <?php echo $plataforma->getCompany();?></p>
+                        <p class="text-center">Lanzamiento: <?php echo $plataforma->getFecha();?></p>
+                        <p> <?php echo $plataforma->getDescripcion();?> </p>
+                        <h3>Especificaciones</h3>
+                        <p> <?php echo $plataforma->getEspecificaciones();?> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <h2 class="mt-5">Lista de juegos</h2>
+    
         <div class="card">
             <div class="card-header">
                 <a class="card-link" data-toggle="collapse" href="#collapseJuego">
@@ -60,18 +73,19 @@ if(isset($_SESSION["tipo"]))
 {
 ?>
 <div id="editingPlat">
-    <div id="registrado" class="col-8">
+    <div id="registrado" class="col-lg-8 col-12">
         <h2>Editado correctamente</h2>
         <br>
     </div>
-    <div id="registroError" class="col-8">
+    <div id="registroError" class="col-lg-8 col-12">
         <h2 class="text-danger">Error al editar</h2>
+        <p></p>
         <br>
     </div>
 
     <h1>Editar <?php echo $plataforma->getNombre();?> </h1>
     <br>
-    <div id="guidelines" class="col-8">
+    <div id="guidelines" class="col-lg-8 col-12">
     <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
     <p> Antes de añadir consulte si ya existe en la base de datos </p>
     </div>
@@ -81,30 +95,30 @@ if(isset($_SESSION["tipo"]))
             <form name="formEditarPlat" id="formEditarPlat" method="get" action"#"> 
         <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $plataforma->getNombre();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $plataforma->getNombre();?>"/>
         </div>
         <div class="form-group">
             <label for="company">Compañía:</label>
-            <input type="text" class="form-control col-8" id="company" placeholder="Sony" name="company" value="<?php echo $plataforma->getCompany();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="company" placeholder="Sony" name="company" value="<?php echo $plataforma->getCompany();?>"/>
             <input type="hidden" id="company-name">
         </div>
         <div class="form-group">
             <label for="desc">Descripción:</label>
-            <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc"><?php echo $plataforma->getDescripcion();?></textarea>
+            <textarea class="form-control col-lg-8 col-12" id="desc" rows="5" placeholder="" name="desc"><?php echo $plataforma->getDescripcion();?></textarea>
         </div>
 
         <div class="form-group">
             <label for="esp">Especificaciones:</label>
-            <textarea class="form-control col-8" id="esp" rows="5" placeholder="" name="esp"><?php echo $plataforma->getEspecificaciones();?></textarea>
+            <textarea class="form-control col-lg-8 col-12" id="esp" rows="5" placeholder="" name="esp"><?php echo $plataforma->getEspecificaciones();?></textarea>
         </div>
         <div class="form-group">
             <label for="fecha">Año:</label>
-            <input type="text" class="form-control col-8" id="fecha" placeholder="1984" name="fecha" value="<?php echo $plataforma->getFecha();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="fecha" placeholder="1984" name="fecha" value="<?php echo $plataforma->getFecha();?>"/>
         </div>
         <br>
 
         <br>
-        <input type="button" id="btnEditar" class="btn btn-primary col-8" value="Guardar" />
+        <input type="button" id="btnEditar" class="btn btn-primary col-lg-8 col-12" value="Guardar" />
         </form>
         <br><br>
         <?php
@@ -113,13 +127,13 @@ if(isset($_SESSION["tipo"]))
             if($plataforma->getActivo()==1)
             {
                 echo "<form id='borrarPlat' name='borrarPlat'>";
-                echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Plataforma" />';
+                echo '<input type="button" id="eliminar" class="btn btn-danger col-lg-8 col-12" value="Eliminar Plataforma" />';
                 echo "</form>";
             }
             else
             {
                 echo "<form id='activarPlat' name='activarPlat'>";
-                echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Plataforma" />';
+                echo '<input type="button" id="activar" class="btn btn-success col-lg-8 col-12" value="Reactivar Plataforma" />';
                 echo "</form>";
             }
         }

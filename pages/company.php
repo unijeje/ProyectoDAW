@@ -16,17 +16,28 @@ include("../controller/company.php");
         <li><a href="#revisionesCompany">Revisiones</a></li>
     </ul>
 <div id="mainCompany">
-    <div id="datosCompany" class="col-10 offset-1">
-        <h2 class="text-center"><?php echo $company->getNombre();?></h2>
-        <p class="text-center">Nacionalidad: <?php echo $company->getPais();?></p>
-        <p class="text-center">Fecha: <?php echo $company->getFecha();?></p>
-        <?php if ($company->getEnlace()!=null)
-        echo '<p class="text-center">Enlace: '.$company->getEnlace().'</p>';
-        ?>
-        <p> <?php echo $company->getDescripcion();?> </p>
-    </div>
-    <h2 class="mt-5">Creditos</h2>
     <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseInfo">
+                Información <?php echo $company->getNombre();?>
+                </a>
+            </div>
+            <div id="collapseInfo" class="collapse show" data-parent="#accordion">
+                <div class="card-body">
+                    <div id="datosCompany" class="col-lg-10 col-12 offset-lg-1">
+                        <h2 class="text-center"><?php echo $company->getNombre();?></h2>
+                        <p class="text-center">Nacionalidad: <?php echo $company->getPais();?></p>
+                        <p class="text-center">Fecha: <?php echo $company->getFecha();?></p>
+                        <?php if ($company->getEnlace()!=null)
+                        echo '<p class="text-center">Enlace: '.$company->getEnlace().'</p>';
+                        ?>
+                        <p> <?php echo $company->getDescripcion();?> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="mt-5">Creditos</h2>
         <div class="card">
             <div class="card-header">
                 <a class="card-link" data-toggle="collapse" href="#collapseJuego">
@@ -56,7 +67,7 @@ include("../controller/company.php");
         if($company->getPlataformas()!=null)
         {
         ?>
-        <div class="card">
+        <div class="card mt-3">
             <div class="card-header">
                 <a class="card-link my-2" data-toggle="collapse" href="#collapsePlat">
                 Plataformas
@@ -94,18 +105,19 @@ if(isset($_SESSION["tipo"]))
 {
 ?>
 <div id="editingCompany">
-    <div id="registrado" class="col-8">
+    <div id="registrado" class="col-lg-8 col-12">
         <h2>Editado correctamente</h2>
         <br>
     </div>
-    <div id="registroError" class="col-8">
+    <div id="registroError" class="col-lg-8 col-12">
         <h2 class="text-danger">Error al editar</h2>
+        <p></p>
         <br>
     </div>
 
     <h1>Editar <?php echo $company->getNombre();?> </h1>
     <br>
-    <div id="guidelines" class="col-8">
+    <div id="guidelines" class="col-lg-8 col-12">
     <p> Si tiene alguna duda consulte la <a href="faq.php">FAQ</a></p>
     <p> Antes de añadir consulte si ya existe en la base de datos </p>
     </div>
@@ -115,29 +127,29 @@ if(isset($_SESSION["tipo"]))
             <form name="formEditarCompany" id="formEditarCompany" method="get" action"#"> 
             <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" class="form-control col-8" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $company->getNombre();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="nombre" placeholder="Nombre completo" name="nombre" value="<?php echo $company->getNombre();?>"/>
         </div>
         <div class="form-group">
             <label for="pais">Pais:</label>
-            <input type="text" class="form-control col-8" id="pais" placeholder="Estados Unidos" name="pais"  value="<?php echo $company->getPais();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="pais" placeholder="Estados Unidos" name="pais"  value="<?php echo $company->getPais();?>"/>
         </div>
         <div class="form-group">
             <label for="desc">Descripción:</label>
-            <textarea class="form-control col-8" id="desc" rows="5" placeholder="" name="desc"> <?php echo $company->getDescripcion();?></textarea>
+            <textarea class="form-control col-lg-8 col-12" id="desc" rows="5" placeholder="" name="desc"> <?php echo $company->getDescripcion();?></textarea>
         </div>
 
         <div class="form-group">
             <label for="enlace">Página web:</label>
-            <input type="text" class="form-control col-8" id="enlace" placeholder="https://www.naughtydog.com/" name="enlace"  value="<?php echo $company->getDescripcion();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="enlace" placeholder="https://www.naughtydog.com/" name="enlace"  value="<?php echo $company->getDescripcion();?>"/>
         </div>
         <div class="form-group">
             <label for="fecha">Año:</label>
-            <input type="text" class="form-control col-8" id="fecha" placeholder="1984" name="fecha"  value="<?php echo $company->getFecha();?>"/>
+            <input type="text" class="form-control col-lg-8 col-12" id="fecha" placeholder="1984" name="fecha"  value="<?php echo $company->getFecha();?>"/>
         </div>
         <br>
 
         <br>
-        <input type="button" id="btnEditar" class="btn btn-primary col-8" value="Guardar" />
+        <input type="button" id="btnEditar" class="btn btn-primary col-lg-8 col-12" value="Guardar" />
         </form>
         <br><br>
         <?php
@@ -146,13 +158,13 @@ if(isset($_SESSION["tipo"]))
             if($company->getActivo()==1)
             {
                 echo "<form id='borrarCompany' name='borrarCompany'>";
-                echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Compañía" />';
+                echo '<input type="button" id="eliminar" class="btn btn-danger col-lg-8 col-12" value="Eliminar Compañía" />';
                 echo "</form>";
             }
             else
             {
                 echo "<form id='activarCompany' name='activarCompany'>";
-                echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Compañía" />';
+                echo '<input type="button" id="activar" class="btn btn-success col-lg-8 col-12" value="Reactivar Compañía" />';
                 echo "</form>";
             }
         }

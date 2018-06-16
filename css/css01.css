@@ -122,7 +122,19 @@ a:visited {
     border: 1px solid green;
 }
 
+
 #datosPersona, #datosCompany
+{
+    background-color: rgb(42, 46, 42);
+    border-left: 4px solid rgb(49, 107, 255);
+    border-right: 4px solid rgb(49, 107, 255);
+    border-top: 4px solid rgb(49, 107, 255);
+    border-bottom: 4px solid rgb(49, 107, 255); 
+    padding: 1rem;
+    color: rgb(171, 175, 179);
+}
+
+/* #datosPersona, #datosCompany
 {
     background-color: rgb(88, 185, 250);
     border: 1px solid rgb(0, 86, 118);
@@ -134,7 +146,7 @@ a:visited {
     background-color: rgb(88, 185, 250);
     border: 1px solid rgb(0, 86, 118);
     padding: 1rem;    
-}
+} */
 #creditosPersona a, #creditosCompany a
 {
     color: rgb(2, 10, 232);;

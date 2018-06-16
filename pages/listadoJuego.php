@@ -42,8 +42,8 @@ navBar();
                     </div>
                 </div>
             </div>
-            <label class="col-4 offset-1" for="generos">Seleccione la duración:</label>
-            <label class="col-4 offset-1" for="plataformas">Seleccione las plataformas:</label>
+            <label class="col-lg-4 col-4 offset-1" for="generos">Seleccione la duración:</label>
+            <label class="col-lg-4 col-5 offset-1" for="plataformas">Seleccione las plataformas:</label>
             <div class="form-group row col-12">
                 <select size="4" multiple class="form-control col-4 offset-1"  id="duracion" name="duracion"><option value="t">Todos</option></select>
                 <select size="4" multiple class="form-control col-6 offset-1"  id="plataformas" name="plataformas"><option value="t">Todos</option></select>

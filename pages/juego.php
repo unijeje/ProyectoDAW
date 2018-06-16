@@ -139,7 +139,7 @@ if($filaJuego!=null)
             }
             ?>
         </div>
-        <div id="informacionJuego" class="row col-lg-8 offset-lg-1 col-11 offset-1 mobile-margin-top">
+        <div id="informacionJuego" class="row col-lg-8 offset-lg-1 col-10 offset-2 mobile-margin-top">
             <table class ="table table-responsive borderless">
             <tr><td>Lanzamiento</td><td><?php echo $filaJuego["fecha"];?></td></tr>
 
@@ -214,7 +214,7 @@ if($filaJuego!=null)
                 echo "<tr>";
                 echo "<td>Su Voto</td>";
                 echo "<td>";
-                echo '<select class="form-control col-lg-12 col-12" size="1" id="nota" name="nota">';
+                echo '<select class="form-control col-lg-4 col-6" size="1" id="nota" name="nota">';
                     if($filaVoto["nota"]==null)
                         echo "<option value='nada'>No ha votado</option>";
                     else
@@ -248,7 +248,7 @@ if($filaJuego!=null)
         </div>
         <p class="col-10 offset-1 mt-3"><?php echo $filaJuego["sinopsis"];?></p>
 
-        <div class="col-10 offset-1 mt-3 text-center">
+        <div class="col-log-10 offset-log-1 col-12 mt-3 text-center">
         <?php
         
         if($numImagenes == 0)
@@ -434,24 +434,24 @@ if(isset($_SESSION["tipo"]))
             <?php
             if($filaJuego["cover"]!=null)
             {
-                echo "<img id='imgCover' class='mt-2 offset-3' src='../img/covers/".$id_juego.".png'>";
+                echo "<img id='imgCover' class='mt-2 offset-lg-3 offset-4' src='../img/covers/".$id_juego.".png'>";
             }
             ?>
             <form name="formEditarImg" id="formEditarImg">
             <div class="form-group mt-3">
                 <label for="imgJuegoCover">Imagen Cover:</label>
                 <div class="custom-file" id="customFile" lang="es">
-                    <input type="file" class="custom-file-input col-8" id="imgJuegoCover" aria-describedby="fileHelp">
-                    <label class="custom-file-label col-8" for="imgJuegoCover">
+                    <input type="file" class="custom-file-input col-lg-8 col-12" id="imgJuegoCover" aria-describedby="fileHelp">
+                    <label class="custom-file-label col-lg-8 col-12" for="imgJuegoCover">
                     Select file...
                     </label>
                 </div>
-                <input type="button" id="btnEditarCover" class="btn btn-primary col-8 mt-2" value="Guardar Nueva Cover" />
+                <input type="button" id="btnEditarCover" class="btn btn-primary col-lg-8 col-12 my-2" value="Guardar Nueva Cover" />
                 <?php
                 if($filaJuego["cover"]!=null)
-                echo '<input type="button" id="btnEliminarCover" class="btn btn-danger col-8 mt-2" value="Eliminar Cover" /> ';
+                echo '<input type="button" id="btnEliminarCover" class="btn btn-danger col-lg-8 col-12 " value="Eliminar Cover" /> ';
                 else
-                echo '<input type="button" disabled id="btnEliminarCover" class="btn btn-danger col-8 mt-2" value="Eliminar Cover" /> ';
+                echo '<input type="button" disabled id="btnEliminarCover" class="btn btn-danger col-lg-8 col-12 mt-2" value="Eliminar Cover" /> ';
                 ?>
                    
             </div>
@@ -464,14 +464,14 @@ if(isset($_SESSION["tipo"]))
             <div class="form-group mt-3">
                 <label for="imgJuegoScreenshot">Imágenes:</label>
                 <div class="custom-file" id="customFile" lang="es">
-                    <input multiple type="file" class="custom-file-input col-8" id="imgJuegoScreenshot" aria-describedby="fileHelp">
-                    <label class="custom-file-label col-8" for="imgJuegoScreenshot">
+                    <input multiple type="file" class="custom-file-input col-lg-8 col-12" id="imgJuegoScreenshot" aria-describedby="fileHelp">
+                    <label class="custom-file-label col-lg-8 col-12" for="imgJuegoScreenshot">
                     Seleccione Imagen...
                     </label>
                 </div>
-                <input type="button" id="btnEditarScreenshot" class="btn btn-primary col-8 mt-2" value="Guardar Imágenes" />
+                <input type="button" id="btnEditarScreenshot" class="btn btn-primary col-lg-8 col-12 mt-2" value="Guardar Imágenes" />
                 <?php
-                echo '<input type="button" id="btnEliminarScreenshots" class="btn btn-danger col-8 mt-2" value="Eliminar Imágenes" /> ';
+                echo '<input type="button" id="btnEliminarScreenshots" class="btn btn-danger col-lg-8 col-12 mt-2" value="Eliminar Imágenes" /> ';
                 ?>
                    
             </div>
@@ -489,13 +489,13 @@ if(isset($_SESSION["tipo"]))
                 if($filaJuego["activo"] == 1)
                 {
                     echo "<form id='borrarJuego' name='borrarJuego'>";
-                    echo '<input type="button" id="eliminar" class="btn btn-danger col-8" value="Eliminar Juego" />';
+                    echo '<input type="button" id="eliminar" class="btn btn-danger col-lg-8 col-12" value="Eliminar Juego" />';
                     echo "</form>";
                 }
                 else
                 {
                     echo "<form id='activarJuego' name='activarJuego'>";
-                    echo '<input type="button" id="activar" class="btn btn-success col-8" value="Reactivar Juego" />';
+                    echo '<input type="button" id="activar" class="btn btn-success col-lg-8 col-12" value="Reactivar Juego" />';
                     echo "</form>";
                 } 
                 echo '</div>';
@@ -517,7 +517,7 @@ if(isset($_SESSION["tipo"]))
     if(isset($_SESSION["tipo"]))
     {
     ?>
-    <div class="form-group shadow-textarea offset-2 col-8 mt-4" id="textAreaComment">
+    <div class="form-group shadow-textarea offset-lg-2 col-lg-8 col-12 mt-4" id="textAreaComment">
         <div class="form-group">
             <label for="txtComentario">Escriba un comentario:</label>
             <textarea class="form-control z-depth-1" id="txtComentario" rows="3" placeholder=""></textarea>
