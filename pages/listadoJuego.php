@@ -55,7 +55,7 @@ navBar();
 </div>
 
 <div class="mb-3" style="max-width: 100%;">
-<table id="tablaListadoJuego" class="table table-bordered table-dark table-responsive" style="width:100%;">
+<table id="tablaListadoJuego" class="table table-bordered table-dark" style="width:100%;">
     <thead>
     <tr><th class="w-75">Título</th><th>Lanzamiento</th><th>Rating</th></tr>
     </thead>
