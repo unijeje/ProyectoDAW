@@ -3,7 +3,14 @@ include("../utilities/utilities.php");
 iniciarSesion();
 
 include_once("../servidor/bbdd.php");
+
+if(!isset($_GET["id"]))
+{
+    header("Location: notfound.php");
+}
+
 $id_juego=$_GET["id"];
+
 
 $miconexion=connectDB();
 $sql="select titulo, sinopsis, fecha, enlace, cover, duracion, media, activo from juego where id=?";
@@ -137,13 +144,15 @@ if($filaJuego!=null)
             {
                 echo "<img id='imgCover' class='mt-4' src='../img/covers/".$id_juego.".png'>";
             }
+            else
+            {
+                
+            }
             ?>
         </div>
-        <div id="informacionJuego" class="row col-lg-8 offset-lg-1 col-sm-10 offset-sm-2 col-12 mobile-margin-top">
+        <div id="informacionJuego" class="col-lg-8 offset-lg-1 col-sm-10 offset-sm-2 col-12 offset-0 mobile-margin-top">
             <table class ="table table-responsive borderless">
             <tr><td>Lanzamiento</td><td><?php echo $filaJuego["fecha"];?></td></tr>
-
-            
             <?php
             if($filaJuego["duracion"])
             {
@@ -214,7 +223,7 @@ if($filaJuego!=null)
                 echo "<tr>";
                 echo "<td>Su Voto</td>";
                 echo "<td>";
-                echo '<select class="form-control col-lg-4 col-6" size="1" id="nota" name="nota">';
+                echo '<select class="form-control col-12" size="1" id="nota" name="nota">';
                     if($filaVoto["nota"]==null)
                         echo "<option value='nada'>No ha votado</option>";
                     else

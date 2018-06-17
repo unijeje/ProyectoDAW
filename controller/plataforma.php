@@ -10,6 +10,13 @@ include("../modelo/plataforma.php");
 
 $plataforma = new Plataforma($id_plat);
 
+
+if($plataforma->getNombre() == null || trim($plataforma->getNombre()) == "" )
+{
+    header("Location: notfound.php");
+}
+
+
 cabecera($plataforma->getNombre());
 navBar();
 ?>

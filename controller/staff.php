@@ -9,6 +9,12 @@ include("../modelo/staff.php");
 
 $staff = new Staff($id_staff);
 
+if($staff->getNombre() == null || trim($staff->getNombre()) == "" )
+{
+    header("Location: notfound.php");
+}
+
+
 cabecera($staff->getNombre());
 navBar();
 ?>

@@ -37,6 +37,12 @@ $perfil = new Perfil($id);
 // echo $perfil->email."<br>";
 // echo $perfil->numTotal."<br>";
 
+
+if(!isset($perfil->usuario) || trim($perfil->usuario) == "" )
+{
+    header("Location: notfound.php");
+}
+
 cabecera($perfil->usuario);
 navBar();
 

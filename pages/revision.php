@@ -3,6 +3,12 @@ include("../utilities/utilities.php");
 iniciarSesion();
 include_once("../servidor/bbdd.php");
 
+if(!isset($_GET["id"]))
+{
+    header("Location: notfound.php");
+}
+
+
 $id=$_GET["id"];
 
 $miconexion=connectDB();
@@ -12,6 +18,10 @@ $select= $miconexion->prepare($sql);
 $select->execute(array($id));
 $revision=$select->fetch(PDO::FETCH_ASSOC);
 
+if(!isset($revision["ID_MODELO"]) || trim($revision["ID_MODELO"])=="" )
+{
+    header("Location: notfound.php");
+}
 
 $sql="SELECT NOMBRE from cuentas where ID = ?";
 $select= $miconexion->prepare($sql);

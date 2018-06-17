@@ -10,6 +10,13 @@ include("../modelo/company.php");
 
 $company = new Company($id_company);
 
+
+if($company->getNombre() == null || trim($company->getNombre()) == "" )
+{
+    header("Location: notfound.php");
+}
+
+
 cabecera($company->getNombre());
 navBar();
 

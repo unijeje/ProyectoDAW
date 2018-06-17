@@ -43,6 +43,11 @@ else if(isset($_GET["a"]))
 
 $listado = new Busqueda($tipo, $busqueda);
 
+if(count($listado->datos) < 1)
+{
+    echo "<h2>No se han encontrado resultados.</h2>";
+}
+
 // echo "<pre>";
 // print_r($listado->datos);
 // echo "</pre>";
