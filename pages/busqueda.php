@@ -2,9 +2,13 @@
 
 include("../controller/busqueda.php");
 
-
-if($tipo!="a")
+if($resultados)
 {
+    if($tipo!="a")
+    {
+
+    
+
     
 ?>
 
@@ -244,6 +248,7 @@ else
 
      echo '</div>';
 
+    }
 }
 echo $listado->pages->page_links('?', '&'.$tipo.'='.$busqueda);
 ?>

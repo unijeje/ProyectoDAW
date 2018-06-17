@@ -98,6 +98,7 @@ function addJuego()
             $("#registrarOtro").show();
             altaRevision(oJuego, user_id, juegoRev, bExito[1]);
             $("#formAddJuego")[0].reset();
+            $("#registrarOtro span").html("<a href=juego.php?id="+bExito[1]+">Ir al nuevo juego.</a>");
         }
         else
         {

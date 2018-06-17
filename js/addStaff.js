@@ -41,6 +41,7 @@ function addStaff()
             $("#registrarOtro").show();
             altaRevision(oPersona, user_id, staffRev, bExito[1]);
             $("#formAddStaff")[0].reset();
+            $("#registrarOtro span").html("<a href=staff.php?id="+bExito[1]+">Ir a el nuevo staff.</a>");
         }
         else
         {

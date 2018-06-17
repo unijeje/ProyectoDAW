@@ -46,6 +46,11 @@ $listado = new Busqueda($tipo, $busqueda);
 if(count($listado->datos) < 1)
 {
     echo "<h2>No se han encontrado resultados.</h2>";
+    $resultados = false;
+}
+else
+{
+    $resultados = true;
 }
 
 // echo "<pre>";

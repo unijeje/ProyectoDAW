@@ -10,6 +10,7 @@ navBar();
     <br>
 </div>
 <div id="registrarOtro" class="col-lg-8 col-12 mt-3">
+    <span></span><br><br>
     <input type="button" id="btnAgain" class="btn btn-primary col-3" value="Registrar otro" />
     <br>
 </div>

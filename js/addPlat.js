@@ -48,6 +48,7 @@ function addPlat()
             $("#registrarOtro").show();
             altaRevision(oPlat, user_id, plataformaRev, bExito[1]);
             $("#formAddPlat")[0].reset();
+            $("#registrarOtro span").html("<a href=plataforma.php?id="+bExito[1]+">Ir a la nueva plataforma.</a>");
         }
         else
         {

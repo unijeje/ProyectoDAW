@@ -48,6 +48,7 @@ function addCompany()
             $("#registrarOtro").show();
             altaRevision(oCompany, user_id, companyRev, bExito[1]);
             $("#formAddCompany")[0].reset();
+            $("#registrarOtro span").html("<a href=company.php?id="+bExito[1]+">Ir a la nueva compañía.</a>");
         }
         else
         {
