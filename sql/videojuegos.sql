@@ -2,10 +2,10 @@
 -- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 16, 2018 at 09:00 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-06-2018 a las 20:24:40
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,12 +19,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `videojuegos`
+-- Base de datos: `videojuegos`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `calcularNotaMedia` (IN `Vid_juego` INT(9))  BEGIN
 	DECLARE Vtotal_votos INT;
@@ -42,7 +42,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comentarios`
+-- Estructura de tabla para la tabla `comentarios`
 --
 
 CREATE TABLE `comentarios` (
@@ -54,7 +54,7 @@ CREATE TABLE `comentarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `comentarios`
+-- Volcado de datos para la tabla `comentarios`
 --
 
 INSERT INTO `comentarios` (`ID`, `JUEGO`, `USUARIO`, `TEXTO`, `FECHA`) VALUES
@@ -66,7 +66,7 @@ INSERT INTO `comentarios` (`ID`, `JUEGO`, `USUARIO`, `TEXTO`, `FECHA`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `company`
+-- Estructura de tabla para la tabla `company`
 --
 
 CREATE TABLE `company` (
@@ -80,7 +80,7 @@ CREATE TABLE `company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `company`
+-- Volcado de datos para la tabla `company`
 --
 
 INSERT INTO `company` (`ID`, `NOMBRE`, `DESCRIPCION`, `FECHA`, `PAIS`, `ENLACE`, `ACTIVO`) VALUES
@@ -100,7 +100,7 @@ INSERT INTO `company` (`ID`, `NOMBRE`, `DESCRIPCION`, `FECHA`, `PAIS`, `ENLACE`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `company_juegos`
+-- Estructura de tabla para la tabla `company_juegos`
 --
 
 CREATE TABLE `company_juegos` (
@@ -109,7 +109,7 @@ CREATE TABLE `company_juegos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `company_juegos`
+-- Volcado de datos para la tabla `company_juegos`
 --
 
 INSERT INTO `company_juegos` (`ID_JUEGO`, `ID_COMPANY`) VALUES
@@ -132,7 +132,7 @@ INSERT INTO `company_juegos` (`ID_JUEGO`, `ID_COMPANY`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cuentas`
+-- Estructura de tabla para la tabla `cuentas`
 --
 
 CREATE TABLE `cuentas` (
@@ -147,7 +147,7 @@ CREATE TABLE `cuentas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `cuentas`
+-- Volcado de datos para la tabla `cuentas`
 --
 
 INSERT INTO `cuentas` (`ID`, `NOMBRE`, `PASSWORD`, `EMAIL`, `registro`, `tipo`, `clave`, `ACTIVO`) VALUES
@@ -161,7 +161,7 @@ INSERT INTO `cuentas` (`ID`, `NOMBRE`, `PASSWORD`, `EMAIL`, `registro`, `tipo`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cuentas_tipo`
+-- Estructura de tabla para la tabla `cuentas_tipo`
 --
 
 CREATE TABLE `cuentas_tipo` (
@@ -170,7 +170,7 @@ CREATE TABLE `cuentas_tipo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `cuentas_tipo`
+-- Volcado de datos para la tabla `cuentas_tipo`
 --
 
 INSERT INTO `cuentas_tipo` (`ID`, `TIPO`) VALUES
@@ -180,7 +180,7 @@ INSERT INTO `cuentas_tipo` (`ID`, `TIPO`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `duracion`
+-- Estructura de tabla para la tabla `duracion`
 --
 
 CREATE TABLE `duracion` (
@@ -189,7 +189,7 @@ CREATE TABLE `duracion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `duracion`
+-- Volcado de datos para la tabla `duracion`
 --
 
 INSERT INTO `duracion` (`ID`, `DURACION`) VALUES
@@ -205,7 +205,7 @@ INSERT INTO `duracion` (`ID`, `DURACION`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `generos`
+-- Estructura de tabla para la tabla `generos`
 --
 
 CREATE TABLE `generos` (
@@ -214,7 +214,7 @@ CREATE TABLE `generos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `generos`
+-- Volcado de datos para la tabla `generos`
 --
 
 INSERT INTO `generos` (`ID`, `GENERO`) VALUES
@@ -231,7 +231,7 @@ INSERT INTO `generos` (`ID`, `GENERO`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `generos_juego`
+-- Estructura de tabla para la tabla `generos_juego`
 --
 
 CREATE TABLE `generos_juego` (
@@ -240,7 +240,7 @@ CREATE TABLE `generos_juego` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `generos_juego`
+-- Volcado de datos para la tabla `generos_juego`
 --
 
 INSERT INTO `generos_juego` (`ID_JUEGO`, `ID_GENERO`) VALUES
@@ -254,7 +254,7 @@ INSERT INTO `generos_juego` (`ID_JUEGO`, `ID_GENERO`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `juego`
+-- Estructura de tabla para la tabla `juego`
 --
 
 CREATE TABLE `juego` (
@@ -270,12 +270,12 @@ CREATE TABLE `juego` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `juego`
+-- Volcado de datos para la tabla `juego`
 --
 
 INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, `COVER`, `MEDIA`, `ACTIVO`) VALUES
 (47, 'Prince of Persia: Las Arenas Del Tiempo', 'tuado en la antigua Persia en el año 550 a. C. el Príncipe acompaña a su padre, el rey Sharaman, en el saqueo de la ciudad de un poderoso maharajá de la India. Previamente al asalto de la ciudad el rey Sharaman hace un pacto con el visir enemigo, el cual asesina al guardián de la puerta para permitir la entrada del ejército persa a cambio de poder elegir cualquiera de los tesoros del maharajá.', '2003-10-30', 'https://es.wikipedia.org/wiki/Prince_of_Persia:_Las_Arenas_del_Tiempo', 2, 1, '0.00', 1),
-(48, 'Nier Replicant', 'El juego sigue a Nier en su intento de encontrar una cura para una rara enfermedad, conocida como \"Black Scrawl\", que su hija Yonah tiene. Acompañado de un libro parlante llamado Grimoire Weiss, viaja con otros 2 personajes Kainé y Emil, mientras él trata encontrar un remedio y comprender la naturaleza de unas criaturas conocidas como Shades que acechan el mundo. El juego incluye elementos de varios géneros de videojuegos, cambiando a ellas en la acción primaria del estilo de los videojuegos de rol.', '2010-04-22', 'https://es.wikipedia.org/wiki/Nier_(videojuego)', 3, 1, '8.00', 1),
+(48, 'Nier Replicant', 'El juego sigue a Nier en su intento de encontrar una cura para una rara enfermedad, conocida como \"Black Scrawl\", que su hija Yonah tiene. Acompañado de un libro parlante llamado Grimoire Weiss, viaja con otros 2 personajes Kainé y Emil, mientras él trata encontrar un remedio y comprender la naturaleza de unas criaturas conocidas como Shades que acechan el mundo. El juego incluye elementos de varios géneros de videojuegos, cambiando a ellas en la acción primaria del estilo de los videojuegos de rol.', '2010-04-22', 'https://es.wikipedia.org/wiki/Nier_(videojuego)', 3, 1, '6.00', 1),
 (49, 'Celeste', 'Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight, hand-crafted platformer from the creators of multiplayer classic TowerFall.', '2018-01-25', 'https://store.steampowered.com/app/504230/Celeste/', 3, NULL, '9.00', 1),
 (50, 'Jak and Daxter', '', '0000-00-00', '', 2, NULL, '0.00', 1),
 (51, 'Prince of Persia: El Alma del Guerrero', 'En el principio la pantalla enfoca al mar y se oyen los pasos de alguien corriendo, después se ve la ciudad de babilonia y luego se muestra a alguien escapando de una sombra o monstruo, que va arrasando con todo a su paso incluyendo un perro que asusta a esa persona, hasta que llega a un lugar sin salida (en concreto una puerta cerrada al final de un callejón) y se revela que es el príncipe, en ese momento de forma aparentemente endemoniada y resentida, voltea resignado a la pelea para mirar a su perseguidor, saca sus espadas y en el reflejo de sus ojos se ve una inmensa criatura que se lanza contra él. Entonces, de repente, muestran el barco del príncipe en medio de una tormenta, cuando aparece un barco con monstruos de arena y una chica vestida de negro , quien es la comandante del barco. El barco enemigo lo aborda y, mientras matan a todos, el príncipe va en busca de la chica de negro para matarla.', '2004-12-02', 'https://es.wikipedia.org/wiki/Prince_of_Persia:_El_Alma_del_Guerrero', NULL, NULL, '6.00', 1),
@@ -284,7 +284,7 @@ INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, 
 (54, 'Tom Clancy\'s Splinter Cell: Pandora Tomorrow', 'La trama principal de Pandora Tomorrow tiene lugar en Indonesia durante la primavera del año a principios del 2006, Estados Unidos estableció una presencia militar en Timor Oriental, un país recientemente independiente, para entrenar a los militares de Timor Oriental en su lucha contra las milicias guerrilleras indonesias antiseparativistas. La más importante entre estas milicias es Darah Dan Doa (en inglés: Blood and Prayer ), dirigida por la carismática Suhadi Sadono .', '2004-03-23', 'https://es.wikipedia.org/wiki/Tom_Clancy\'s_Splinter_Cell:_Pandora_Tomorrow', NULL, NULL, '0.00', 1),
 (55, 'Tom Clancy\'s Splinter Cell: Chaos Theory', 'El principal enfoque del juego toma lugar en el este Asiático, en 2007, con tensiones entre China, Corea del Norte y Japón, siguiendo a la formación de la Información de Autodefensas de Japón (I-SDF). Considerándose esto como una violación a la Constitución japonesa posterior a la Segunda Guerra Mundial, las fuerzas chinas y norcoreanas establece un bloqueo contra los navíos japoneses. Como Japón y sus Fuerzas de Autodefensas son aliados de Estados Unidos y del Third Echelon, éstos envían un destructor, el USS Clarence E. Walsh, al Mar de Japón. Los Estados Unidos esperaban que al mostrarles su fuerza naval, China y Corea del Norte retrocederían.', '2005-03-28', 'https://es.wikipedia.org/wiki/Tom_Clancy\'s_Splinter_Cell:_Chaos_Theory', NULL, NULL, '0.00', 1),
 (56, 'Jak 2', '', '0000-00-00', '', NULL, NULL, '0.00', 1),
-(57, 'Jak 3', '', '0000-00-00', '', 2, NULL, '0.00', 1),
+(57, 'Jak 3', '', '0000-00-00', '', 2, NULL, '6.00', 1),
 (58, 'Jak X', '', '0000-00-00', '', NULL, NULL, '0.00', 1),
 (59, 'Metal Gear Solid', '', '0000-00-00', '', NULL, NULL, '0.00', 1),
 (60, 'Pokemon', '', '0000-00-00', 'https://wikipedia.org/wiki/Pokémon', NULL, NULL, '0.00', 1);
@@ -292,7 +292,7 @@ INSERT INTO `juego` (`ID`, `TITULO`, `SINOPSIS`, `FECHA`, `ENLACE`, `DURACION`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personas`
+-- Estructura de tabla para la tabla `personas`
 --
 
 CREATE TABLE `personas` (
@@ -306,7 +306,7 @@ CREATE TABLE `personas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `personas`
+-- Volcado de datos para la tabla `personas`
 --
 
 INSERT INTO `personas` (`ID`, `NOMBRE`, `NACIONALIDAD`, `GENERO`, `DESCRIPCION`, `ENLACE`, `ACTIVO`) VALUES
@@ -319,7 +319,7 @@ INSERT INTO `personas` (`ID`, `NOMBRE`, `NACIONALIDAD`, `GENERO`, `DESCRIPCION`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personas_roles_juegos`
+-- Estructura de tabla para la tabla `personas_roles_juegos`
 --
 
 CREATE TABLE `personas_roles_juegos` (
@@ -330,7 +330,7 @@ CREATE TABLE `personas_roles_juegos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `personas_roles_juegos`
+-- Volcado de datos para la tabla `personas_roles_juegos`
 --
 
 INSERT INTO `personas_roles_juegos` (`PERSONA`, `JUEGO`, `ROL`, `COMENTARIO`) VALUES
@@ -341,6 +341,7 @@ INSERT INTO `personas_roles_juegos` (`PERSONA`, `JUEGO`, `ROL`, `COMENTARIO`) VA
 (22, 58, 9, 'Creador original'),
 (23, 48, 2, ''),
 (23, 48, 7, 'test'),
+(23, 57, 9, ''),
 (24, 48, 1, ''),
 (24, 48, 2, ''),
 (25, 48, 4, ''),
@@ -354,7 +355,7 @@ INSERT INTO `personas_roles_juegos` (`PERSONA`, `JUEGO`, `ROL`, `COMENTARIO`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plataforma`
+-- Estructura de tabla para la tabla `plataforma`
 --
 
 CREATE TABLE `plataforma` (
@@ -368,7 +369,7 @@ CREATE TABLE `plataforma` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `plataforma`
+-- Volcado de datos para la tabla `plataforma`
 --
 
 INSERT INTO `plataforma` (`ID`, `NOMBRE`, `COMPANY`, `FECHA`, `DESCRIPCION`, `ESPECIFICACIONES`, `ACTIVO`) VALUES
@@ -383,7 +384,7 @@ INSERT INTO `plataforma` (`ID`, `NOMBRE`, `COMPANY`, `FECHA`, `DESCRIPCION`, `ES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plataforma_juego`
+-- Estructura de tabla para la tabla `plataforma_juego`
 --
 
 CREATE TABLE `plataforma_juego` (
@@ -392,7 +393,7 @@ CREATE TABLE `plataforma_juego` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `plataforma_juego`
+-- Volcado de datos para la tabla `plataforma_juego`
 --
 
 INSERT INTO `plataforma_juego` (`ID_JUEGO`, `ID_PLATAFORMA`) VALUES
@@ -412,7 +413,7 @@ INSERT INTO `plataforma_juego` (`ID_JUEGO`, `ID_PLATAFORMA`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `revisiones`
+-- Estructura de tabla para la tabla `revisiones`
 --
 
 CREATE TABLE `revisiones` (
@@ -428,7 +429,7 @@ CREATE TABLE `revisiones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `revisiones`
+-- Volcado de datos para la tabla `revisiones`
 --
 
 INSERT INTO `revisiones` (`ID`, `ID_MODELO`, `TIPO`, `NUMERO`, `FECHA`, `DESCRIPCION`, `USUARIO`, `ANTES`, `DESPUES`) VALUES
@@ -511,12 +512,14 @@ INSERT INTO `revisiones` (`ID`, `ID_MODELO`, `TIPO`, `NUMERO`, `FECHA`, `DESCRIP
 (137, 26, 'S', 4, '2018-06-14 18:45:58', 'Editar información de staff.', 23, '{\"id\":26,\"nombre\":\"Hideo Kojima\",\"nacionalidad\":\"Japón\",\"desc\":\"\",\"genero\":\"Masculino\",\"enlace\":\"https://enlace.com\"}', '{\"id\":26,\"nombre\":\"Hideo Kojima\",\"nacionalidad\":\"Japón\",\"desc\":\"\",\"genero\":\"Masculino\",\"enlace\":\"\"}'),
 (138, 48, 'J', 8, '2018-06-15 19:21:05', 'Editar Staff del juego.', 23, '{\"id\":48,\"nombres\":[\"Yokoo Tarou\",\"Yokoo Tarou\"],\"roles\":[\"Director\",\"Escritor\"],\"coment\":[\"\",\"\"]}', '{\"id\":48,\"nombres\":[\"Yokoo Tarou\",\"Yokoo Tarou\",\"Andy Gavin\"],\"roles\":[\"1\",\"2\",\"7\"],\"coment\":[\"\",\"\",\"test\"],\"roles_nomb\":[\"Director\",\"Escritor\",\"Programador\"]}'),
 (139, 48, 'J', 9, '2018-06-15 19:26:27', 'Editar Staff del juego.', 23, '{\"id\":48,\"nombres\":[\"Yokoo Tarou\",\"Yokoo Tarou\",\"Andy Gavin\"],\"roles\":[\"Director\",\"Escritor\",\"Programador\"],\"coment\":[\"\",\"\",\"test\"]}', '{\"id\":48,\"nombres\":[\"Yokoo Tarou\",\"Yokoo Tarou\",\"Andy Gavin\",\"Andy Gavin\",\"Matt Thorson\",\"Hideo Kojima\",\"Jason Rubin\"],\"roles\":[\"1\",\"2\",\"7\",\"2\",\"5\",\"8\",\"1\"],\"coment\":[\"\",\"\",\"test\",\"\",\"\",\"\",\"\"],\"roles_nomb\":[\"Director\",\"Escritor\",\"Programador\",\"Escritor\",\"Compositor\",\"Productor\",\"Director\"]}'),
-(140, 48, 'J', 10, '2018-06-15 19:26:50', 'Editar Staff del juego.', 23, '{\"id\":48,\"nombres\":[\"Jason Rubin\",\"Yokoo Tarou\",\"Andy Gavin\",\"Yokoo Tarou\",\"Matt Thorson\",\"Andy Gavin\",\"Hideo Kojima\"],\"roles\":[\"Director\",\"Director\",\"Escritor\",\"Escritor\",\"Compositor\",\"Programador\",\"Productor\"],\"coment\":[\"\",\"\",\"\",\"\",\"\",\"test\",\"\"]}', '{\"id\":48,\"nombres\":[\"Jason Rubin\",\"Yokoo Tarou\",\"Andy Gavin\",\"Yokoo Tarou\",\"Matt Thorson\",\"Andy Gavin\",\"Hideo Kojima\",\"Hideo Kojima\",\"Matt Thorson\"],\"roles\":[\"1\",\"1\",\"2\",\"2\",\"5\",\"7\",\"8\",\"3\",\"4\"],\"coment\":[\"\",\"\",\"\",\"\",\"\",\"test\",\"\",\"\",\"\"],\"roles_nomb\":[\"Director\",\"Director\",\"Escritor\",\"Escritor\",\"Compositor\",\"Programador\",\"Productor\",\"Actor de voz\",\"Diseño de Juego\"]}');
+(140, 48, 'J', 10, '2018-06-15 19:26:50', 'Editar Staff del juego.', 23, '{\"id\":48,\"nombres\":[\"Jason Rubin\",\"Yokoo Tarou\",\"Andy Gavin\",\"Yokoo Tarou\",\"Matt Thorson\",\"Andy Gavin\",\"Hideo Kojima\"],\"roles\":[\"Director\",\"Director\",\"Escritor\",\"Escritor\",\"Compositor\",\"Programador\",\"Productor\"],\"coment\":[\"\",\"\",\"\",\"\",\"\",\"test\",\"\"]}', '{\"id\":48,\"nombres\":[\"Jason Rubin\",\"Yokoo Tarou\",\"Andy Gavin\",\"Yokoo Tarou\",\"Matt Thorson\",\"Andy Gavin\",\"Hideo Kojima\",\"Hideo Kojima\",\"Matt Thorson\"],\"roles\":[\"1\",\"1\",\"2\",\"2\",\"5\",\"7\",\"8\",\"3\",\"4\"],\"coment\":[\"\",\"\",\"\",\"\",\"\",\"test\",\"\",\"\",\"\"],\"roles_nomb\":[\"Director\",\"Director\",\"Escritor\",\"Escritor\",\"Compositor\",\"Programador\",\"Productor\",\"Actor de voz\",\"Diseño de Juego\"]}'),
+(141, 49, 'J', 8, '2018-06-17 19:36:10', 'Editar información principal del juego.', 23, '{\"id\":49,\"nombre\":\"Celeste\",\"sinopsis\":\"Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight, hand-crafted platformer from the creators of multiplayer classic TowerFall.\",\"enlace\":\"https://store.steampowered.com/app/504230/Celeste/\",\"fecha\":\"2018-01-25\",\"duracion\":\"3\",\"generos\":[\"1\",\"2\"]}', '{\"id\":49,\"nombre\":\"Celeste\",\"sinopsis\":\"Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight, hand-crafted platformer from the creators of multiplayer classic TowerFall.\",\"enlace\":\"https://store.steampowered.com/app/504230/Celeste/\",\"fecha\":\"2018-01-25\",\"duracion\":\"3\",\"generos\":[\"1\",\"2\"]}'),
+(142, 57, 'J', 7, '2018-06-17 19:37:11', 'Editar Staff del juego.', 23, '{\"id\":57,\"nombres\":[\"Jason Rubin\"],\"roles\":[\"Staff\"],\"coment\":[\"\"]}', '{\"id\":57,\"nombres\":[\"Jason Rubin\",\"Andy Gavin\"],\"roles\":[\"9\",\"9\"],\"coment\":[\"\",\"\"],\"roles_nomb\":[\"Staff\",\"Staff\"]}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Estructura de tabla para la tabla `roles`
 --
 
 CREATE TABLE `roles` (
@@ -525,7 +528,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `roles`
+-- Volcado de datos para la tabla `roles`
 --
 
 INSERT INTO `roles` (`ID`, `ROL`) VALUES
@@ -542,7 +545,7 @@ INSERT INTO `roles` (`ID`, `ROL`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `votos`
+-- Estructura de tabla para la tabla `votos`
 --
 
 CREATE TABLE `votos` (
@@ -553,16 +556,17 @@ CREATE TABLE `votos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `votos`
+-- Volcado de datos para la tabla `votos`
 --
 
 INSERT INTO `votos` (`JUEGO`, `CUENTA`, `NOTA`, `FECHA`) VALUES
-(48, 23, 8, '2018-06-03'),
+(48, 23, 6, '2018-06-17'),
 (49, 23, 9, '2018-06-03'),
-(51, 23, 6, '2018-06-02');
+(51, 23, 6, '2018-06-02'),
+(57, 23, 6, '2018-06-17');
 
 --
--- Triggers `votos`
+-- Disparadores `votos`
 --
 DELIMITER $$
 CREATE TRIGGER `DELETE_NuevaNotaMedia` AFTER DELETE ON `votos` FOR EACH ROW BEGIN
@@ -584,11 +588,11 @@ $$
 DELIMITER ;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `comentarios`
+-- Indices de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
   ADD PRIMARY KEY (`ID`,`JUEGO`),
@@ -596,21 +600,21 @@ ALTER TABLE `comentarios`
   ADD KEY `USUARIO` (`USUARIO`);
 
 --
--- Indexes for table `company`
+-- Indices de la tabla `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `NOMBRE` (`NOMBRE`);
 
 --
--- Indexes for table `company_juegos`
+-- Indices de la tabla `company_juegos`
 --
 ALTER TABLE `company_juegos`
   ADD PRIMARY KEY (`ID_JUEGO`,`ID_COMPANY`),
   ADD KEY `ID_COMPANY` (`ID_COMPANY`);
 
 --
--- Indexes for table `cuentas`
+-- Indices de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
   ADD PRIMARY KEY (`ID`),
@@ -618,32 +622,32 @@ ALTER TABLE `cuentas`
   ADD KEY `tipo` (`tipo`);
 
 --
--- Indexes for table `cuentas_tipo`
+-- Indices de la tabla `cuentas_tipo`
 --
 ALTER TABLE `cuentas_tipo`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `duracion`
+-- Indices de la tabla `duracion`
 --
 ALTER TABLE `duracion`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `generos`
+-- Indices de la tabla `generos`
 --
 ALTER TABLE `generos`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `generos_juego`
+-- Indices de la tabla `generos_juego`
 --
 ALTER TABLE `generos_juego`
   ADD PRIMARY KEY (`ID_JUEGO`,`ID_GENERO`),
   ADD KEY `ID_GENERO` (`ID_GENERO`);
 
 --
--- Indexes for table `juego`
+-- Indices de la tabla `juego`
 --
 ALTER TABLE `juego`
   ADD PRIMARY KEY (`ID`),
@@ -651,13 +655,13 @@ ALTER TABLE `juego`
   ADD KEY `DURACION` (`DURACION`);
 
 --
--- Indexes for table `personas`
+-- Indices de la tabla `personas`
 --
 ALTER TABLE `personas`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `personas_roles_juegos`
+-- Indices de la tabla `personas_roles_juegos`
 --
 ALTER TABLE `personas_roles_juegos`
   ADD PRIMARY KEY (`PERSONA`,`JUEGO`,`ROL`),
@@ -665,7 +669,7 @@ ALTER TABLE `personas_roles_juegos`
   ADD KEY `ROL` (`ROL`);
 
 --
--- Indexes for table `plataforma`
+-- Indices de la tabla `plataforma`
 --
 ALTER TABLE `plataforma`
   ADD PRIMARY KEY (`ID`),
@@ -673,134 +677,134 @@ ALTER TABLE `plataforma`
   ADD KEY `COMPANY` (`COMPANY`);
 
 --
--- Indexes for table `plataforma_juego`
+-- Indices de la tabla `plataforma_juego`
 --
 ALTER TABLE `plataforma_juego`
   ADD PRIMARY KEY (`ID_JUEGO`,`ID_PLATAFORMA`),
   ADD KEY `ID_PLATAFORMA` (`ID_PLATAFORMA`);
 
 --
--- Indexes for table `revisiones`
+-- Indices de la tabla `revisiones`
 --
 ALTER TABLE `revisiones`
   ADD PRIMARY KEY (`ID`,`TIPO`,`NUMERO`);
 
 --
--- Indexes for table `roles`
+-- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `votos`
+-- Indices de la tabla `votos`
 --
 ALTER TABLE `votos`
   ADD PRIMARY KEY (`JUEGO`,`CUENTA`),
   ADD KEY `CUENTA` (`CUENTA`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `company`
+-- AUTO_INCREMENT de la tabla `company`
 --
 ALTER TABLE `company`
   MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `cuentas`
+-- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
   MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `cuentas_tipo`
+-- AUTO_INCREMENT de la tabla `cuentas_tipo`
 --
 ALTER TABLE `cuentas_tipo`
   MODIFY `ID` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `duracion`
+-- AUTO_INCREMENT de la tabla `duracion`
 --
 ALTER TABLE `duracion`
   MODIFY `ID` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `generos`
+-- AUTO_INCREMENT de la tabla `generos`
 --
 ALTER TABLE `generos`
   MODIFY `ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `juego`
+-- AUTO_INCREMENT de la tabla `juego`
 --
 ALTER TABLE `juego`
   MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT for table `personas`
+-- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
   MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `plataforma`
+-- AUTO_INCREMENT de la tabla `plataforma`
 --
 ALTER TABLE `plataforma`
   MODIFY `ID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `revisiones`
+-- AUTO_INCREMENT de la tabla `revisiones`
 --
 ALTER TABLE `revisiones`
-  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
   MODIFY `ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `comentarios`
+-- Filtros para la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`USUARIO`) REFERENCES `cuentas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `company_juegos`
+-- Filtros para la tabla `company_juegos`
 --
 ALTER TABLE `company_juegos`
   ADD CONSTRAINT `company_juegos_ibfk_1` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `company_juegos_ibfk_2` FOREIGN KEY (`ID_COMPANY`) REFERENCES `company` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `cuentas`
+-- Filtros para la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
   ADD CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`tipo`) REFERENCES `cuentas_tipo` (`ID`);
 
 --
--- Constraints for table `generos_juego`
+-- Filtros para la tabla `generos_juego`
 --
 ALTER TABLE `generos_juego`
   ADD CONSTRAINT `generos_juego_ibfk_2` FOREIGN KEY (`ID_GENERO`) REFERENCES `generos` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `generos_juego_ibfk_3` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `juego`
+-- Filtros para la tabla `juego`
 --
 ALTER TABLE `juego`
   ADD CONSTRAINT `juego_ibfk_6` FOREIGN KEY (`DURACION`) REFERENCES `duracion` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `personas_roles_juegos`
+-- Filtros para la tabla `personas_roles_juegos`
 --
 ALTER TABLE `personas_roles_juegos`
   ADD CONSTRAINT `personas_roles_juegos_ibfk_1` FOREIGN KEY (`PERSONA`) REFERENCES `personas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -808,20 +812,20 @@ ALTER TABLE `personas_roles_juegos`
   ADD CONSTRAINT `personas_roles_juegos_ibfk_3` FOREIGN KEY (`ROL`) REFERENCES `roles` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `plataforma`
+-- Filtros para la tabla `plataforma`
 --
 ALTER TABLE `plataforma`
   ADD CONSTRAINT `plataforma_ibfk_1` FOREIGN KEY (`COMPANY`) REFERENCES `company` (`ID`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
--- Constraints for table `plataforma_juego`
+-- Filtros para la tabla `plataforma_juego`
 --
 ALTER TABLE `plataforma_juego`
   ADD CONSTRAINT `plataforma_juego_ibfk_2` FOREIGN KEY (`ID_PLATAFORMA`) REFERENCES `plataforma` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `plataforma_juego_ibfk_3` FOREIGN KEY (`ID_JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `votos`
+-- Filtros para la tabla `votos`
 --
 ALTER TABLE `votos`
   ADD CONSTRAINT `votos_ibfk_1` FOREIGN KEY (`JUEGO`) REFERENCES `juego` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,

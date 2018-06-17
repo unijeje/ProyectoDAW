@@ -9,6 +9,4 @@ include("modelo/index.php");
 $datos = new Datos();
 
 
-
-
 ?>

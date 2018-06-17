@@ -21,6 +21,7 @@ class Datos
     public $revHtml="";
     public $commentHtml="";
     public $juegosHtml="";
+    public $totalJuegos;
 
     function __construct()
     {
@@ -29,6 +30,7 @@ class Datos
         $this->getUltimasRevisiones();
         $this->getUltimosComentarios();
         $this->getJuegosRandom();
+        $this->getTotalJuegos();
         $this->miconexion=null;
 
     }
@@ -118,9 +120,9 @@ class Datos
     public function getUltimosComentarios()
     {
         $sql="SELECT p.nombre, p.id as id_user, 
-        IF( LENGTH(C.TEXTO) > 25, CONCAT(SUBSTR(c.TEXTO, 1, 25), '...') , c.TEXTO ) as texto, 
+        IF( LENGTH(c.TEXTO) > 25, CONCAT(SUBSTR(c.TEXTO, 1, 25), '...') , c.TEXTO ) as texto, 
         FROM_UNIXTIME(c.fecha, '%d/%m/%Y %h:%i') as fecha, c.juego, j.titulo from comentarios c 
-        inner join cuentas p on p.id=c.USUARIO INNER JOIN JUEGO j on c.JUEGO=j.ID  order by c.fecha desc limit 10";
+        inner join cuentas p on p.id=c.USUARIO INNER JOIN juego j on c.JUEGO=j.ID  order by c.fecha desc limit 10";
         $selectComent=$this->miconexion->prepare($sql);
         $selectComent->execute();
         $datos = $selectComent->fetchAll(PDO::FETCH_ASSOC);
@@ -168,6 +170,15 @@ class Datos
         }
 
         $datos = null;
+    }
+
+    public function getTotalJuegos()
+    {
+        $sql="SELECT COUNT(*) as total from juego j where j.activo=1 ";
+        $selectNumber = $this->miconexion->prepare($sql);
+        $selectNumber->execute();
+        $this->totalJuegos = $selectNumber->fetch()[0];
+      
     }
 
     

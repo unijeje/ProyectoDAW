@@ -6,12 +6,13 @@ include("controller/index.php");
 <div id="intro" class="offset-lg-1 col-lg-10 mb-3 text-monospace">
     <h2 class="text-center">Bienvenido a VJDB</h2>
     <p id="intro">Proyecto final 2º DAW Juan Mallén. El objetivo de este proyecto es recopilar información relacionada con videojuegos y permitir a los usuarios tener un seguimiento de los videojuegos que ha jugado. </p>
+    <p> Actualmente hay <?php echo $datos->totalJuegos;?> juegos registrados </p>
 </div>
-<div id="imagenes" class="col-lg-12 mb-5 text-center d-none d-lg-block">
-    <?php
-    echo $datos->imagenHtml;
-    ?>
-</div>
+    <div id="imagenes" class="col-lg-12 mb-5 text-center d-none d-lg-block">
+        <?php
+        echo $datos->imagenHtml;
+        ?>
+    </div>
 </div>
 
 <div class="row">

@@ -138,6 +138,7 @@ function cabecera($titulo)
 <link rel="stylesheet" href="../css/css01.css">
 <link rel="stylesheet" href="../css/css02.css">
 <link rel="stylesheet" href="../css/pagination.css">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> 
 <script type="text/javascript" src="../js/utilities.js"></script>
 <title>'.$titulo.'</title>
 </head>';
@@ -237,6 +238,7 @@ function cabeceraIndex($titulo)
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="js/utilities.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> 
 <title>'.$titulo.'</title>
 </head>';
     echo $cabecera;
