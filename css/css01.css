@@ -12,6 +12,35 @@ body {
     .mobile-margin-top {margin-top:10px;}
     }
 
+
+
+/* .Acordeon-Color
+{
+    background-color: rgb(42, 46, 42);
+    border-left: 4px solid rgb(49, 107, 255);
+    border-right: 4px solid rgb(49, 107, 255);
+    border-top: 4px solid rgb(49, 107, 255);
+    border-bottom: 4px solid rgb(49, 107, 255); 
+    padding: 1rem;
+    color: rgb(171, 175, 179);
+}
+
+.card-header-color
+{
+    background-color: rgb(42, 46, 42);
+    border-left: 4px solid rgb(49, 107, 255);
+    border-right: 4px solid rgb(49, 107, 255);
+    border-top: 4px solid rgb(49, 107, 255);
+
+    padding: 1rem;
+    
+} 
+
+.card-header-color a
+{
+    color: #7bd;
+}
+*/
 table
 {
     caption-side: top;
@@ -126,13 +155,13 @@ a:visited {
 
 #datosPersona, #datosCompany
 {
-    background-color: rgb(42, 46, 42);
+    /* background-color: rgb(42, 46, 42);
     border-left: 4px solid rgb(49, 107, 255);
     border-right: 4px solid rgb(49, 107, 255);
     border-top: 4px solid rgb(49, 107, 255);
     border-bottom: 4px solid rgb(49, 107, 255); 
     padding: 1rem;
-    color: rgb(171, 175, 179);
+    color: rgb(171, 175, 179); */
 }
 
 /* #datosPersona, #datosCompany
@@ -150,7 +179,7 @@ a:visited {
 } */
 #creditosPersona a, #creditosCompany a
 {
-    color: rgb(2, 10, 232);;
+    color: rgb(2, 10, 232) !important;
 }
 
 /* .elementoListado
@@ -187,9 +216,15 @@ a:visited {
 {
     text-decoration: underline dotted gray;    
 }
+
+.linkazul
+{
+    color: #297bd3 !important;
+}
+
 #tablaListadoJuego a
 {
-    color: #7bd;
+    color: #7bd !important;
 }
 
 #listado

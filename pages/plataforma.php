@@ -20,20 +20,26 @@ include("../controller/plataforma.php");
 <div id="mainPlat">
     <div id="accordion">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header card-header-color">
                 <a class="card-link" data-toggle="collapse" href="#collapseInfo">
                 Información de <?php echo $plataforma->getNombre();?>
                 </a>
             </div>
             <div id="collapseInfo" class="collapse show" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body Acordeon-Color">
                     <div id="datosCompany" class="col-lg-10 offset-lg-1 col-12">
                         <h2 class="text-center"><?php echo $plataforma->getNombre();?></h2>
                         <p class="text-center">Compañía: <?php echo $plataforma->getCompany();?></p>
                         <p class="text-center">Lanzamiento: <?php echo $plataforma->getFecha();?></p>
                         <p> <?php echo $plataforma->getDescripcion();?> </p>
-                        <h3>Especificaciones</h3>
-                        <p> <?php echo $plataforma->getEspecificaciones();?> </p>
+                        <?php if($plataforma->getEspecificaciones()!="")
+                        {
+                            ?>
+                            <h3>Especificaciones</h3>
+                            <p> <?php echo $plataforma->getEspecificaciones();?> </p>
+                            <?php
+                        }?>
+                        
                     </div>
                 </div>
             </div>
@@ -49,7 +55,7 @@ include("../controller/plataforma.php");
             </div>
             <div id="collapseJuego" class="collapse show" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table borderless table-striped table-responsive">
+                    <table class="table borderless table-striped">
                     <tr>
                     <th class="w-75">Título</th><th>Lanzamiento</th><th>Nota</th>
                     </tr>
@@ -57,7 +63,7 @@ include("../controller/plataforma.php");
                     foreach($plataforma->getJuegos() as $value)
                     {
                         echo "<tr>";
-                            echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["media"]."</td>";
+                            echo "<td><a class='linkazul' href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["media"]."</td>";
                         echo "</tr>";
                     }
                     echo '</table>';

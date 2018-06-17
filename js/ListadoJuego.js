@@ -38,7 +38,7 @@ $(document).ready(function()
     //$("#btnBusqueda").click(buscarJuego);
     $("#btnFiltro").click(function()
     {
-        $("#formEditarJuego").toggle(); //TOOD: por hacer
+        $("#formEditarJuego").toggle(); 
     });
 
     //datepicker

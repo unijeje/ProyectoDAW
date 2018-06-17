@@ -9,12 +9,12 @@ else
   include_once("servidor/bbdd.php");
 }
 
-function iniciarSesion()
+function iniciarSesion() /*Inicia sesión y comprueba las cookies, si existe cookie de "nombre" apunta la sesion y el tipo de cuenta en variables de sesion*/
 {
-  /*Inicia sesión y comprueba las cookies, si existe cookie de "nombre" apunta la sesion y el tipo de cuenta en variables de sesion*/
   session_cache_limiter();
   session_name('login');
   session_start();
+  
   if(isset($_COOKIE["clave"]))
   {
     

@@ -46,7 +46,7 @@ include("../controller/company.php");
             </div>
             <div id="collapseJuego" class="collapse show" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table borderless table-striped table-responsive">
+                    <table class="table borderless table-striped">
                     <tr>
                     <th class="w-75">Título</th><th>Lanzamiento</th><th>Nota</th>
                     </tr>
@@ -54,7 +54,7 @@ include("../controller/company.php");
                     foreach($company->getJuegos() as $value)
                     {
                         echo "<tr>";
-                            echo "<td><a href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["media"];
+                            echo "<td><a class='linkazul' href='juego.php?id=".$value['id']."'>".$value["titulo"]."</a></td><td>".$value["fecha"]."</td><td>".$value["media"];
                         echo "</tr>";
                     }
                     echo '</table>';
@@ -75,7 +75,7 @@ include("../controller/company.php");
             </div>
             <div id="collapsePlat" class="collapse show" data-parent="#accordion">
                 <div class="card-body">
-                    <table class="table borderless table-striped table-responsive">
+                    <table class="table borderless table-striped">
                     <tr>
                     <th class="w-75">Título</th><th>Lanzamiento</th>
                     </tr>
@@ -83,7 +83,7 @@ include("../controller/company.php");
                     foreach($company->getPlataformas() as $value)
                     {
                         echo "<tr>";
-                            echo "<td><a href='plataforma.php?id=".$value['id']."'>".$value["nombre"]."</a></td><td>".$value["fecha"]."</td>";
+                            echo "<td><a class='linkazul' href='plataforma.php?id=".$value['id']."'>".$value["nombre"]."</a></td><td>".$value["fecha"]."</td>";
                         echo "</tr>";
                     }
                     ?>

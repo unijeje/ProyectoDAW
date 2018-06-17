@@ -1,7 +1,7 @@
 <?php
 include("utilities/utilities.php");
-cabeceraIndex("VideoJuegos BBDD");
 iniciarSesion();
+cabeceraIndex("VideoJuegos BBDD");
 navBarIndex();
 
 $miconexion=connectDB();

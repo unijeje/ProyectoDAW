@@ -1,8 +1,7 @@
 ﻿<?php
-
 include("../utilities/utilities.php");
-cabecera("Conectarse");
 iniciarSesion();
+cabecera("Conectarse");
 navBar();
 
 ?>
