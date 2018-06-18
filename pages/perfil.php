@@ -162,6 +162,17 @@ include("../controller/perfil.php");
             </thead>
         </table>
         </div>
+        <?php
+        if(!isset($_GET["id"]))
+        {    ?> 
+            <form class="my-3" method="post" action="../servidor/export.php">
+                <input type="hidden" name="id" value="<?php echo $id;?>" />
+                <input type="hidden" name="usuario" value="<?php echo $perfil->usuario;?>" />
+                <input type="submit" name="export" class="btn btn-success col-lg-4 offset-lg-4 col-10 offset-1" value="Exportar" />
+            </form>
+            <?php
+        }
+        ?>
     </div>
     <div id="comentarios" class="container tab-pane fade"><br>
     
