@@ -1,0 +1,37 @@
+
+            <table class="table" bordered="1">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Id Juego</th>
+                    <th>Titulo</th>
+                    <th>Nota</th>
+                </tr>        
+        
+                <tr>
+                    <td>2018-06-02</td>
+                    <td>51</td>
+                    <td>Prince of Persia: El Alma del Guerrero</td>
+                    <td>6</td>
+                </tr>
+            
+                <tr>
+                    <td>2018-06-03</td>
+                    <td>49</td>
+                    <td>Celeste</td>
+                    <td>9</td>
+                </tr>
+            
+                <tr>
+                    <td>2018-06-17</td>
+                    <td>48</td>
+                    <td>Nier Replicant</td>
+                    <td>6</td>
+                </tr>
+            
+                <tr>
+                    <td>2018-06-17</td>
+                    <td>57</td>
+                    <td>Jak 3</td>
+                    <td>6</td>
+                </tr>
+            </table>
