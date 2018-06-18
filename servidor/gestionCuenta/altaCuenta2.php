@@ -9,7 +9,7 @@ $correo=$oDatos->correo;
 $claveEncriptada=crypt($pass);
 $date = date('Y-m-d');
 
-$sql="insert into cuentas(NOMBRE, PASSWORD, EMAIL, REGISTRO, TIPO, clave) values(?, ?, ?, ?, 2, ?)";
+$sql="insert into cuentas(NOMBRE, PASSWORD, EMAIL, REGISTRO, TIPO, clave, activo) values(?, ?, ?, ?, 2, ?, 1)";
 
 $clave = hash("sha384", $usuario);
 
