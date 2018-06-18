@@ -168,7 +168,16 @@ include("../controller/perfil.php");
             <form class="my-3" method="post" action="../servidor/export.php">
                 <input type="hidden" name="id" value="<?php echo $id;?>" />
                 <input type="hidden" name="usuario" value="<?php echo $perfil->usuario;?>" />
-                <input type="submit" name="export" class="btn btn-success col-lg-4 offset-lg-4 col-10 offset-1" value="Exportar" />
+                <?php
+                if($perfil->numTotal < 1)
+                {
+                    echo '<input disabled type="submit" name="export" class="btn btn-success col-lg-6 offset-lg-3 col-10 offset-1" value="Necesita algún voto para Exportar" />';
+                }
+                else
+                {
+                    echo '<input type="submit" name="export" class="btn btn-success col-lg-4 offset-lg-4 col-10 offset-1" value="Exportar" />';
+                }
+                ?>
             </form>
             <?php
         }

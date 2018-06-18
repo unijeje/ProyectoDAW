@@ -43,6 +43,10 @@ if(isset($_POST["export"]))
         echo $salida;
 
     }
+    else
+    {
+        echo "<h2>Tiene que tener algún voto para poder exportar</h2>";
+    }
 
 
 }
